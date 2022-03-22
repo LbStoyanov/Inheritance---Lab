@@ -9,7 +9,6 @@ namespace Farm
             Dog dog = new Dog();
             dog.Bark();
             dog.Bark();
-
         }
     }
 }
