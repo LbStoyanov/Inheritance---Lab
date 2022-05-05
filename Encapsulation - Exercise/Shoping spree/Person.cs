@@ -45,6 +45,7 @@ namespace EncapsulationExercise
         }
         public bool AddProduct(Product product)
         {
+
             if (Money - product.Cost < 0)
             {
                 return false;
