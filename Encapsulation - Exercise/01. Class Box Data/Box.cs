@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace _01._Class_Box_Data
+namespace EncapsulationExercise
 {
     public class Box
     {

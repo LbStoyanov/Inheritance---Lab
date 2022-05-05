@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace _01._Class_Box_Data
+namespace EncapsulationExercise
 {
     public class StartUp
     {
