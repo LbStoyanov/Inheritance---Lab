@@ -7,14 +7,15 @@ namespace EncapsulationExercise
 {
     public class Player
     {
-        private readonly List<string> stats = new List<string>
+        private readonly List<string> statsDict = new List<string>
         {
-            "endurance",
-            "sprint",
-            "dribble",
-            "endurance",
-            "shooting",
+            "Endurance",
+            "Sprint",
+            "Dribble",
+            "Endurance",
+            "Shooting",
         };
+        private List<int> stats;
         private string name;
         public Player(string name,List<int> stats)
         {
@@ -25,19 +26,17 @@ namespace EncapsulationExercise
 
         public List<int> Stats
         {
-            get { return Stats; }
+            get { return stats; }
             private set
             {
-                
-
-                if (Stats.Any(x => x < 0 || x > 100))
+                if (value.Any(x => x < 0 || x > 100))
                 {
 
-                    int index = Stats.FindIndex(x => x < 0 || x > 100);
+                    int index = value.FindIndex(x => x < 0 || x > 100);
 
-                    throw new ArgumentException($"{stats[index]} should be between 0 and 100.");
+                    throw new ArgumentException($"{statsDict[index]} should be between 0 and 100.");
                 }
-                Stats = value;
+                stats = value;
             }
         }
         public string Name
@@ -52,6 +51,10 @@ namespace EncapsulationExercise
                 name = value;
             }
         }
+
+        private  int OverallSkillRating()
+            => Stats.Sum() / Stats.Count();
+        
 
     }
 }
