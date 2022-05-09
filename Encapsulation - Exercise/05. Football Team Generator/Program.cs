@@ -9,45 +9,75 @@ namespace EncapsulationExercise
         static void Main(string[] args)
         {
             string commands;
+            var teams = new Dictionary<string, Team>();
 
-            try
+            while ((commands = Console.ReadLine()) != "END")
             {
-
-                while ((commands = Console.ReadLine()) != "END")
+                try
                 {
                     string[] splittedCommands = commands.Split(";");
                     string action = splittedCommands[0];
                     string teamName = splittedCommands[1];
 
+
                     if (action == "Team")
                     {
-
+                        Team team = new Team(teamName);
+                        teams.Add(teamName, team);
                     }
                     if (action == "Add")
                     {
                         string playerName = splittedCommands[2];
-                        var stats = splittedCommands.Skip(3).ToList();
+                        int endurance = int.Parse(splittedCommands[3]);
+                        int sprint = int.Parse(splittedCommands[4]);
+                        int dribble = int.Parse(splittedCommands[5]);
+                        int passing = int.Parse(splittedCommands[6]);
+                        int shooting = int.Parse(splittedCommands[7]);
+
+                        if (!teams.ContainsKey(teamName))
+                        {
+                            Console.WriteLine($"Team {teamName} does not exist.");
+                            continue;
+                        }
+
+                        Player player = new Player(playerName, endurance, sprint, dribble, passing, shooting);
+                        teams[teamName].AddPlayer(player);
                     }
                     if (action == "Remove")
                     {
+                        if (!teams.ContainsKey(teamName))
+                        {
+                            Console.WriteLine($"Team {teamName} does not exist.");
+                            continue;
+                        }
+
                         string playerName = splittedCommands[2];
+
+                        bool isRemoved = teams[teamName].RemovePlayer(playerName);
+
+                        if (!isRemoved)
+                        {
+                            Console.WriteLine($"Player {playerName} is not in {teamName} team.");
+                        }
+
                     }
-                    if (action == "Raiting")
+                    if (action == "Rating")
                     {
-
+                        if (!teams.ContainsKey(teamName))
+                        {
+                            Console.WriteLine($"Team {teamName} does not exist.");
+                            continue;
+                        }
+                        Console.WriteLine($"{teamName} - {teams[teamName].Stats}");
                     }
-
-                    Console.WriteLine();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
                 }
             }
-            catch (Exception ex)
-            {
-
-                Console.WriteLine(ex.Message);
-            }
-            
-
-           
         }
+
+      
     }
 }
