@@ -63,6 +63,6 @@ namespace EncapsulationExercise
         }
 
         public double Calories
-            => 2 * 100 * this.Weight * doughModifiers[flourType.ToLower()] * doughModifiers[backingTechnique.ToLower()];
+            => 2 * this.Weight * doughModifiers[flourType.ToLower()] * doughModifiers[backingTechnique.ToLower()];
     }
 }
