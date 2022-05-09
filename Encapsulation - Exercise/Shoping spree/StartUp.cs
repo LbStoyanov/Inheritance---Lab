@@ -4,17 +4,17 @@ using System.Linq;
 
 namespace EncapsulationExercise
 {
-    public class Program
+    public class StartUp
     {
         static void Main(string[] args)
         {
             Dictionary<string,Person> personsDict = new Dictionary<string, Person>();
 
-            string[] personsInput = Console.ReadLine().Split(new string[] { "=", ";" },StringSplitOptions.RemoveEmptyEntries);
+            string[] personsInput = Console.ReadLine().Split(new char[] { '=', ';' },StringSplitOptions.RemoveEmptyEntries);
 
             Dictionary<string, Product> productsDict = new Dictionary<string, Product>();
 
-            string[] productsInput = Console.ReadLine().Split(new string[] { "=", ";" }, StringSplitOptions.RemoveEmptyEntries);
+            string[] productsInput = Console.ReadLine().Split(new char[] { '=', ';' }, StringSplitOptions.RemoveEmptyEntries);
 
             try
             {
