@@ -9,48 +9,45 @@ namespace PersonInfo
     {
         static void Main(string[] args)
         {
-            List<string> allBirthdates = new List<string>();
+            int numberOfPeople = int.Parse(Console.ReadLine());
 
-            string input;
+            List<string> citizenNames = new List<string>();
+            List<string> rebelNames = new List<string>();
 
-            while ((input = Console.ReadLine()) != "End")
+            for (int i = 0; i < numberOfPeople; i++)
             {
-                string[] splittedInput = input.Split(" ",StringSplitOptions.RemoveEmptyEntries);
+                string input = Console.ReadLine();
+                string[] splittedInput = input.Split(" ", StringSplitOptions.RemoveEmptyEntries);
+                string name = splittedInput[0];
 
-                if (splittedInput[0] == "Citizen")
+                if (splittedInput.Length == 4)
                 {
-                    string personName = splittedInput[1];
-                    string age = splittedInput[2];
-                    string personId = splittedInput[3];
-                    string birthdate = splittedInput[4];
-                    allBirthdates.Add(birthdate);
+                    citizenNames.Add(name);
                 }
-                if(splittedInput[0] == "Robot")
+                else
                 {
-                    string model = splittedInput[0];
-                    string robotId = splittedInput[1];
-                }
-                if(splittedInput[0] == "Pet")
-                {
-                    string petName = splittedInput[1];
-                    string petBirthdate = splittedInput[2];
-                    allBirthdates.Add(petBirthdate);
+                    rebelNames.Add(name);
                 }
             }
 
-            string specificYear = Console.ReadLine();
-            
+            string names;
+            int totalFood = 0;
 
-            foreach (var birthdate in allBirthdates)
+            while ((names = Console.ReadLine()) != "End")
             {
-                string yearToBeCompared = ExtractYearToCompare(birthdate);
 
-                if (yearToBeCompared == specificYear)
+                if (citizenNames.Contains(names))
                 {
-                    Console.WriteLine(birthdate);
+                    totalFood += 10;
                 }
+                if (rebelNames.Contains(names))
+                {
+                    totalFood += 5;
+                }
+                
             }
-           
+
+            Console.WriteLine(totalFood);
         }
 
         private static string ExtractYearToCompare(string birthdate)
