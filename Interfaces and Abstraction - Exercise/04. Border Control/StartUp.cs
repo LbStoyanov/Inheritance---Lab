@@ -9,7 +9,7 @@ namespace PersonInfo
     {
         static void Main(string[] args)
         {
-            List<string> allIds = new List<string>();
+            List<string> allBirthdates = new List<string>();
 
             string input;
 
@@ -17,57 +17,54 @@ namespace PersonInfo
             {
                 string[] splittedInput = input.Split(" ",StringSplitOptions.RemoveEmptyEntries);
 
-                if (splittedInput.Length == 3)
+                if (splittedInput[0] == "Citizen")
                 {
-                    string personName = splittedInput[0];
-                    string age = splittedInput[1];
-                    string personId = splittedInput[2];
-                    allIds.Add(personId);
+                    string personName = splittedInput[1];
+                    string age = splittedInput[2];
+                    string personId = splittedInput[3];
+                    string birthdate = splittedInput[4];
+                    allBirthdates.Add(birthdate);
                 }
-                else
+                if(splittedInput[0] == "Robot")
                 {
                     string model = splittedInput[0];
                     string robotId = splittedInput[1];
-                    allIds.Add(robotId);
                 }
-            }
-
-            string fakeIdLastDigits = Console.ReadLine();
-
-            foreach (var id in allIds)
-            {
-                var currentLastDigits = ExtractLastDigits(id,fakeIdLastDigits);
-
-                if (currentLastDigits == fakeIdLastDigits)
+                if(splittedInput[0] == "Pet")
                 {
-                    Console.WriteLine(id);
+                    string petName = splittedInput[1];
+                    string petBirthdate = splittedInput[2];
+                    allBirthdates.Add(petBirthdate);
                 }
             }
+
+            string specificYear = Console.ReadLine();
+            
+
+            foreach (var birthdate in allBirthdates)
+            {
+                string yearToBeCompared = ExtractYearToCompare(birthdate);
+
+                if (yearToBeCompared == specificYear)
+                {
+                    Console.WriteLine(birthdate);
+                }
+            }
+           
         }
 
-        private static string ExtractLastDigits(string id, string fakeIdLastDigits)
+        private static string ExtractYearToCompare(string birthdate)
         {
-            StringBuilder sb = new StringBuilder();
-            int counter = fakeIdLastDigits.Length;
-
-            for (int i = id.Length - 1; i >= 0; i--)
-            {
-                if (counter == 0)
-                {
-                    break;
-                }
-                sb.Append(id[i]);
-                counter--;
-
-            }
             StringBuilder result = new StringBuilder();
 
-            for (int i = sb.Length - 1; i >= 0; i--)
+            char[] birthdateArr = birthdate.ToCharArray();
+
+            for (int i = 6; i < birthdateArr.Length; i++)
             {
-                result.Append(sb[i]);
+                result.Append(birthdateArr[i]);
             }
+
             return result.ToString();
-            
         }
     }
 }
