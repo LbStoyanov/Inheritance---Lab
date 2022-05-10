@@ -5,7 +5,7 @@ VisualStudioVersion = 17.1.32414.318
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "01. Define an Interface IPerson", "01. Define an Interface IPerson\01. Define an Interface IPerson.csproj", "{2D34A35A-B605-4921-B127-15A3A87E38D2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "02. Multiple Implementation", "02. Multiple Implementation\02. Multiple Implementation.csproj", "{BC627D32-741B-470D-9DB0-DAEAA4A95F27}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "03. Telephony", "02. Multiple Implementation\03. Telephony.csproj", "{BC627D32-741B-470D-9DB0-DAEAA4A95F27}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
