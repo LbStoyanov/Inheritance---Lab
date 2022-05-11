@@ -38,7 +38,7 @@ namespace PersonInfo
 
                 if (citizenNames.Contains(names))
                 {
-                    totalFood += 10;
+                    totalFood += 10; 
                 }
                 if (rebelNames.Contains(names))
                 {
