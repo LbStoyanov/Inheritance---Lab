@@ -2,13 +2,33 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Vehicles
+namespace PolymorphismEx
 {
     public abstract class Vehicle
     {
+        
+        protected Vehicle(double fuelQuantity,double fuelConsumption)
+        {
+            this.FuelQuantity = fuelQuantity;
+            this.FuelConsumptionPerKm = fuelConsumption;
+        }
+        public  double FuelQuantity { get; set; }
 
-        public abstract void Drive(int distance);
-        public abstract void Refuel(double littersOfFuel);
+        public bool CanDrive(double kilometers)
+            => this.FuelQuantity - (kilometers * this.FuelConsumptionPerKm) >= 0;        
+
+        public virtual double FuelConsumptionPerKm { get; set; }
+        public  void Drive(double distance)
+        {
+            if (CanDrive(distance))
+            {
+                this.FuelQuantity -= distance * this.FuelConsumptionPerKm;
+            }
+        }
+        public virtual void Refuel(double littersOfFuel)
+        {
+            this.FuelQuantity += littersOfFuel;
+        }
 
 
     }

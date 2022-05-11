@@ -1,56 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Vehicles
+﻿
+namespace PolymorphismEx
 {
     public class Truck : Vehicle
     {
-        private double fuelQuantity;
-        private double fuelConsumption;
-        private int travelledDistance;
         public Truck(double fuelQuantity, double fuelConsumption) 
+            : base(fuelQuantity, fuelConsumption)
         {
-            this.FuelQuantity = fuelQuantity;
-            this.FuelConsumption = fuelConsumption;
-            this.travelledDistance = 0;
-
+            
         }
 
-        public double FuelQuantity
-        {
-            get { return fuelQuantity; }
-            private set
-            {
-                this.fuelQuantity = value;
-            }
-        }
-        public double FuelConsumption
-        {
-            get { return fuelConsumption; }
-            private set
-            {
-                fuelConsumption = value + 0.9;
-            }
-        }
+        public override double FuelConsumptionPerKm
+            => base.FuelConsumptionPerKm + 1.6;
 
-        public int TravelledDistance { get;private set; }
-
-        public override void Drive(int distance)
+        public override void Refuel(double littersOfFuel)
         {
-            double requiredFuel = distance * (this.fuelConsumption * 100);
-
-            if (this.fuelQuantity <= requiredFuel)
-            {
-                this.fuelQuantity -= requiredFuel;
-                this.travelledDistance += distance;
-            }
-        }
-
-        public override void Refuel(double litters)
-        {
-            double fuelThatCanBeRefueled = litters * 0.95;
-            this.fuelQuantity += fuelThatCanBeRefueled;
+            littersOfFuel *= 0.95;
+            base.Refuel(littersOfFuel);
         }
     }
 }

@@ -1,10 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace _01._Vehicles.Models
+﻿
+namespace PolymorphismEx
 {
-    internal class Car
+    public class Car : Vehicle
     {
+        public Car(double fuelQuantity, double fuelConsumption) 
+            : base(fuelQuantity, fuelConsumption)
+        {
+        }
+        public override double FuelConsumptionPerKm
+            => base.FuelConsumptionPerKm + 0.9;
     }
 }
