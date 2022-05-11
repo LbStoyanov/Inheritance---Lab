@@ -7,12 +7,14 @@ namespace PolymorphismEx
     public abstract class Vehicle
     {
         
-        protected Vehicle(double fuelQuantity,double fuelConsumption)
+        protected Vehicle(double fuelQuantity,double fuelConsumption,double tankCapacity)
         {
             this.FuelQuantity = fuelQuantity;
             this.FuelConsumptionPerKm = fuelConsumption;
+            this.TankCapacity = tankCapacity;
         }
         public  double FuelQuantity { get; set; }
+        public virtual double TankCapacity { get; set; }
 
         public bool CanDrive(double kilometers)
             => this.FuelQuantity - (kilometers * this.FuelConsumptionPerKm) >= 0;        

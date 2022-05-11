@@ -73,7 +73,7 @@ namespace PolymorphismEx
                     }
                 }
             }
-
+            
             Console.WriteLine($"Car: {car.FuelQuantity:f2}");
             Console.WriteLine($"Truck: {truck.FuelQuantity:f2}");
 
