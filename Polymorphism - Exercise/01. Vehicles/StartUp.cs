@@ -11,8 +11,10 @@ namespace PolymorphismEx
             string[] carInfo = carInput.Split(" ", StringSplitOptions.RemoveEmptyEntries);
             double carFuelQuantity = double.Parse(carInfo[1]);
             double carFuelConsumption = double.Parse(carInfo[2]);
+            int carTankCapacity = int.Parse(carInfo[3]);
 
-            Car car = new Car(carFuelQuantity, carFuelConsumption);
+
+            Car car = new Car(carFuelQuantity, carFuelConsumption,carTankCapacity);
             
 
             string truckInput = Console.ReadLine();
@@ -20,8 +22,18 @@ namespace PolymorphismEx
             string[] truckInfo = truckInput.Split(" ", StringSplitOptions.RemoveEmptyEntries);
             double truckFuelQuantity = double.Parse(truckInfo[1]);
             double truckFuelConsumption = double.Parse(truckInfo[2]);
+            int truckTankCapacity = int.Parse(carInfo[3]);
 
-            Truck truck = new Truck(truckFuelQuantity, truckFuelConsumption);
+            Truck truck = new Truck(truckFuelQuantity, truckFuelConsumption,truckTankCapacity);
+
+            string busInput = Console.ReadLine();
+            string[] busInfo = truckInput.Split(" ", StringSplitOptions.RemoveEmptyEntries);
+            double busFuelQuantity = double.Parse(busInfo[1]);
+            double busFuelConsumption = double.Parse(busInfo[2]);
+            int busTankCapacity = int.Parse(busInfo[3]);
+
+            Bus bus = new Bus(truckFuelQuantity, truckFuelConsumption, truckTankCapacity);
+
 
             int n = int.Parse(Console.ReadLine());
 
@@ -48,7 +60,7 @@ namespace PolymorphismEx
                             Console.WriteLine("Car needs refueling");
                         }
                     }
-                    else
+                    else if(truck.CanDrive(value))
                     {
                         if (truck.CanDrive(value))
                         {
@@ -60,16 +72,32 @@ namespace PolymorphismEx
                             Console.WriteLine("Truck needs refueling");
                         }
                     }
+                    else
+                    {
+                        if (bus.CanDrive(value))
+                        {
+                            bus.Drive(value);
+                            Console.WriteLine($"Bus travelled {value} km");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Bus needs refueling");
+                        }
+                    }
                 }
                 else
                 {
                     if (vehicle == "Car")
                     {
-                        car.Refuel(value);
+                        car.Refuel(value,carTankCapacity);
+                    }
+                    else if(vehicle == "Truck")
+                    {
+                        truck.Refuel(value,truckTankCapacity);
                     }
                     else
                     {
-                        truck.Refuel(value);
+                        bus.Refuel(value, busTankCapacity);
                     }
                 }
             }

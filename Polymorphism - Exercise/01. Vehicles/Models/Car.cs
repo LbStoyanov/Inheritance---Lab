@@ -3,7 +3,7 @@ namespace PolymorphismEx
 {
     public class Car : Vehicle
     {
-        public Car(double fuelQuantity, double fuelConsumption, double tankCapacity)
+        public Car(double fuelQuantity, double fuelConsumption, int tankCapacity)
             : base(fuelQuantity, fuelConsumption, tankCapacity)
         {
         }
