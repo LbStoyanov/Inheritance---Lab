@@ -11,108 +11,107 @@ namespace PolymorphismEx
             string[] carInfo = carInput.Split(" ", StringSplitOptions.RemoveEmptyEntries);
             double carFuelQuantity = double.Parse(carInfo[1]);
             double carFuelConsumption = double.Parse(carInfo[2]);
-            int carTankCapacity = int.Parse(carInfo[3]);
+            double carTankCapacity = double.Parse(carInfo[3]);
 
 
-            Car car = new Car(carFuelQuantity, carFuelConsumption,carTankCapacity);
-            
+            Car car = new Car(carTankCapacity, carFuelQuantity, carFuelConsumption);
+
 
             string truckInput = Console.ReadLine();
 
             string[] truckInfo = truckInput.Split(" ", StringSplitOptions.RemoveEmptyEntries);
             double truckFuelQuantity = double.Parse(truckInfo[1]);
             double truckFuelConsumption = double.Parse(truckInfo[2]);
-            int truckTankCapacity = int.Parse(truckInfo[3]);
+            double truckTankCapacity = double.Parse(truckInfo[3]);
 
-            Truck truck = new Truck(truckFuelQuantity, truckFuelConsumption,truckTankCapacity);
+            Truck truck = new Truck(truckTankCapacity, truckFuelQuantity, truckFuelConsumption);
 
             string busInput = Console.ReadLine();
-            string[] busInfo = truckInput.Split(" ", StringSplitOptions.RemoveEmptyEntries);
+            string[] busInfo = busInput.Split(" ", StringSplitOptions.RemoveEmptyEntries);
             double busFuelQuantity = double.Parse(busInfo[1]);
             double busFuelConsumption = double.Parse(busInfo[2]);
-            int busTankCapacity = int.Parse(busInfo[3]);
+            double busTankCapacity = double.Parse(busInfo[3]);
 
-            Bus bus = new Bus(busFuelQuantity, busFuelConsumption, busTankCapacity );
+            Bus bus = new Bus(busTankCapacity, busFuelQuantity, busFuelConsumption);
 
 
             int n = int.Parse(Console.ReadLine());
 
             for (int i = 0; i < n; i++)
             {
-                string[] command = Console.ReadLine().Split();
-
-                string action = command[0];
-                string vehicle = command[1];
-                double value = double.Parse(command[2]);
-
-
-                if (action == "Drive")
+                try
                 {
-                    if (vehicle == "Car")
+                    string[] command = Console.ReadLine().Split();
+
+                    string action = command[0];
+                    string vehicle = command[1];
+                    double value = double.Parse(command[2]);
+
+                    IVehicle currentVehicle = GetVehicleType(car, truck, bus, vehicle);
+
+                    if (action == "Drive")
                     {
-                        if (car.CanDrive(value))
+                        if (currentVehicle.CanDrive(value))
                         {
-                            car.Drive(value);
-                            Console.WriteLine($"Car travelled {value} km");
+                            currentVehicle.Drive(value);
+                            Console.WriteLine($"{vehicle} travelled {value} km");
                         }
                         else
                         {
-                            Console.WriteLine("Car needs refueling");
+                            Console.WriteLine($"{vehicle} needs refueling");
                         }
                     }
-                    else if(vehicle == "Truck")
+                    else if (action == "DriveEmpty")
                     {
-                        if (truck.CanDrive(value))
-                        {
-                            truck.Drive(value);
-                            Console.WriteLine($"Truck travelled {value} km");
-                        }
-                        else
-                        {
-                            Console.WriteLine("Truck needs refueling");
-                        }
-                    }
-                    else if(vehicle == "Bus")
-                    {
-                        if (bus.CanDrive(value))
+                        bus.IsEmpty = true;
+
+                        if (currentVehicle.CanDrive(value))
                         {
                             bus.Drive(value);
-                            Console.WriteLine($"Bus travelled {value} km");
+                            bus.IsEmpty = false;
+                            Console.WriteLine($"{vehicle} travelled {value} km");
                         }
                         else
                         {
-                            Console.WriteLine("Bus needs refueling");
+                            Console.WriteLine($"{vehicle} needs refueling");
                         }
-                    }
-                }
-                else if(action == "Refuel")
-                {
-                    if (vehicle == "Car")
-                    {
-                        car.Refuel(value,carTankCapacity);
-                    }
-                    else if(vehicle == "Truck")
-                    {
-                        truck.Refuel(value,truckTankCapacity);
                     }
                     else
                     {
-                        bus.Refuel(value, busTankCapacity);
+                        if (currentVehicle.CanRefuel(value))
+                        {
+                            currentVehicle.Refuel(value);
+                        }
+                        else
+                        {
+                            Console.WriteLine($"Cannot fit {value} fuel in the tank");
+                        }
                     }
                 }
-                else
+                catch (Exception ex)
                 {
-                    if (bus.CanDrive(value))
-                    {
-                        bus.Drive(value);
-                    }
+
+                    Console.WriteLine(ex.Message); 
                 }
             }
-            
+
             Console.WriteLine($"Car: {car.FuelQuantity:f2}");
             Console.WriteLine($"Truck: {truck.FuelQuantity:f2}");
             Console.WriteLine($"Bus: {bus.FuelQuantity:f2}");
+        }
 
+        private static IVehicle GetVehicleType(Car car, Truck truck, Bus bus, string vehicle)
+        {
+            
+            if (vehicle == "Car")
+            {
+                return car;
+            }
+            else if (vehicle == "Truck")
+            {
+                return truck;
+            }
+            return bus;
         }
     }
 }

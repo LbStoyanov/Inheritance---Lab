@@ -42,7 +42,7 @@ namespace PolymorphismEx
 
 
 
-        public virtual void Drive(double distance)
+        public  void Drive(double distance)
         {
             if (CanDrive(distance))
             {

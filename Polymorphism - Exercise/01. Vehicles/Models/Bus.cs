@@ -6,8 +6,8 @@ namespace PolymorphismEx
 {
     public class Bus : Vehicle
     {
-        public Bus(double fuelQuantity, double fuelConsumption, int tankCapacity)
-            : base(fuelQuantity, fuelConsumption, tankCapacity)
+        public Bus(double tankCapacity, double fuelQuantity, double fuelConsumption)
+            : base(tankCapacity, fuelQuantity, fuelConsumption)
         {
         }
 

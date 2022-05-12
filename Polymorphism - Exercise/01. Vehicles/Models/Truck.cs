@@ -3,8 +3,8 @@ namespace PolymorphismEx
 {
     public class Truck : Vehicle
     {
-        public Truck(double fuelQuantity, double fuelConsumption,int tankCapacity) 
-            : base(fuelQuantity, fuelConsumption,tankCapacity)
+        public Truck(double tankCapacity,double fuelQuantity, double fuelConsumption) 
+            : base(tankCapacity,fuelQuantity, fuelConsumption)
         {
             
         }
@@ -12,18 +12,11 @@ namespace PolymorphismEx
         public override double FuelConsumptionPerKm
             => base.FuelConsumptionPerKm + 1.6;
 
-        public override void Refuel(double littersOfFuel, int tankCapacity)
+        public override void Refuel(double littersOfFuel)
         {
-            if (!CanRefuel(littersOfFuel))
-            {
-                littersOfFuel *= 0.95;
-            }
+            littersOfFuel *= 0.95;
+            base.Refuel(littersOfFuel);
             
-            base.Refuel(littersOfFuel,tankCapacity);
-        }
-        private bool CanRefuel(double littersOfFuel)
-        {
-            return this.FuelQuantity + littersOfFuel > this.TankCapacity;
         }
     }
 }

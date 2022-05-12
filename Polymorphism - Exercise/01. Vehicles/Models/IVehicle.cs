@@ -13,5 +13,6 @@ namespace PolymorphismEx
         public bool CanDrive(double distance);
         public void  Drive(double distance);
         public void  Refuel(double littersOfFuel);
+        public bool  CanRefuel(double littersOfFuel);
     }
 }
