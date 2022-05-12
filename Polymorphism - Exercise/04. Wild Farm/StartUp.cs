@@ -9,9 +9,16 @@ namespace PolymorphismEx
             string name = "Peshko";
             double weight = 300;
             int foodEaten = 10;
+            double windgSize = 10;
 
-            Bird bird = new Bird(name,weight,foodEaten);
-            bird;
+            Owl owl = new Owl(name,weight,foodEaten,windgSize);
+            
+            //Console.WriteLine(owl.FoodEaten);
+
+            string foodType = "Cheese";
+
+            owl.Feed(foodType);
+
         }
     }
 }
