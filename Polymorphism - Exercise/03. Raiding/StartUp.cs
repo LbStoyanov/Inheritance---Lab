@@ -49,8 +49,6 @@ namespace  PolymorphismEx
             {
                 Console.WriteLine("Defeat...");
             }
-
-
         }
     }
 }
