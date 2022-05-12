@@ -9,5 +9,7 @@ namespace PolymorphismEx
         }
         public override double FuelConsumptionPerKm
             => base.FuelConsumptionPerKm + 0.9;
+
+
     }
 }

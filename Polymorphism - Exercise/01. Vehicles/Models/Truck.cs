@@ -14,8 +14,16 @@ namespace PolymorphismEx
 
         public override void Refuel(double littersOfFuel, int tankCapacity)
         {
-            littersOfFuel *= 0.95;
+            if (!CanRefuel(littersOfFuel))
+            {
+                littersOfFuel *= 0.95;
+            }
+            
             base.Refuel(littersOfFuel,tankCapacity);
+        }
+        private bool CanRefuel(double littersOfFuel)
+        {
+            return this.FuelQuantity + littersOfFuel > this.TankCapacity;
         }
     }
 }

@@ -11,13 +11,10 @@ namespace PolymorphismEx
         {
         }
 
-        public override void Drive(double distance,string busCondition)
-        {
-            if (busCondition == "DriveEmpty")
-            {
-                this.FuelConsumptionPerKm = base.FuelConsumptionPerKm + 1.4;
-            }
-        }
+        public override double FuelConsumptionPerKm
+            => this.IsEmpty
+            ? base.FuelConsumptionPerKm
+            : base.FuelConsumptionPerKm + 1.4;
 
     }
 }

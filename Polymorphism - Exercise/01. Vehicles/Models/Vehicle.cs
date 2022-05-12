@@ -4,27 +4,44 @@ using System.Text;
 
 namespace PolymorphismEx
 {
-    public abstract class Vehicle
+    public abstract class Vehicle : IVehicle
     {
-        protected Vehicle(double fuelQuantity,double fuelConsumption,int tankCapacity)
+        private double fuelQuantity;
+        protected Vehicle(double tankCapacity,double fuelQuantity, double fuelConsumption)
         {
-            this.FuelQuantity = fuelQuantity;
-
-            if (fuelQuantity > tankCapacity)
-            {
-                this.FuelQuantity = 0;
-            }
-            this.FuelConsumptionPerKm = fuelConsumption;
             this.TankCapacity = tankCapacity;
+            this.FuelQuantity = fuelQuantity;
+            this.FuelConsumptionPerKm = fuelConsumption;
+
         }
-        public  double FuelQuantity { get; set; }
-       
-        public virtual double TankCapacity { get; set; }
+        public double FuelQuantity
+        {
+            get { return this.fuelQuantity; }
+            private set
+            {
+                if (value > this.TankCapacity)
+                {
+                    fuelQuantity = 0;
+                }
+                else
+                {
+                    fuelQuantity = value;
+                }
+            }
+        }
+        public virtual double FuelConsumptionPerKm { get;protected set; }
+        
+        public double TankCapacity { get;}
+        public bool IsEmpty { get;  set; }
 
         public bool CanDrive(double kilometers)
-            => this.FuelQuantity - (kilometers * this.FuelConsumptionPerKm) >= 0;        
+            => this.FuelQuantity - (kilometers * this.FuelConsumptionPerKm) >= 0;
 
-        public virtual double FuelConsumptionPerKm { get; set; }
+        public bool CanRefuel(double littersOfFuel)
+             => this.FuelQuantity + littersOfFuel <= this.TankCapacity;
+
+
+
         public virtual void Drive(double distance)
         {
             if (CanDrive(distance))
@@ -32,20 +49,16 @@ namespace PolymorphismEx
                 this.FuelQuantity -= distance * this.FuelConsumptionPerKm;
             }
         }
-        public virtual void Refuel(double littersOfFuel,int tankCapacity)
+        public virtual void Refuel(double littersOfFuel)
         {
-            if (littersOfFuel <= 0)
+
+            if (littersOfFuel <=0)
             {
-                Console.WriteLine("Fuel must be a positive number");
-                return;
+                throw new ArgumentException("Fuel must be a positive number");
             }
-            if (tankCapacity - this.FuelQuantity >= littersOfFuel)
+            if (CanRefuel(littersOfFuel))
             {
                 this.FuelQuantity += littersOfFuel;
-            }
-            else
-            {
-                Console.WriteLine($"Cannot fit {littersOfFuel} fuel in the tank");
             }
         }
     }
