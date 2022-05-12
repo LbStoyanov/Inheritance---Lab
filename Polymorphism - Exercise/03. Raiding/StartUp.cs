@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace  PolymorphismEx
 
@@ -8,70 +9,48 @@ namespace  PolymorphismEx
     {
         static void Main(string[] args)
         {
-            int numberOfHeroes = int.Parse(Console.ReadLine());
-
             List<IHero> raidGroup = new List<IHero>();
 
-            for (int i = 0; i < numberOfHeroes; i++)
+            int lines = int.Parse(Console.ReadLine());
+            int counter = 0;
+;
+            while (lines != counter)
             {
-                string currentName = Console.ReadLine();
-                string currentType = Console.ReadLine();
+                string heroType = Console.ReadLine();
+                string name = Console.ReadLine();
+               
 
-                IHero currentHero = null;
-
-                if (currentType != "Druid" && currentType != "Paladin" && currentType != "Rogue" && currentType != "Warrior")
+                try
                 {
-                    Console.WriteLine("Invalid hero!");
+                    var hero = FactoryHeroes.CreateHero(name, heroType);
+                    raidGroup.Add(hero);
+                    counter++;
                 }
-                else
+                catch (Exception ex)
                 {
-                    currentHero = GetHeroType(raidGroup, currentName, currentType, currentHero);
+                    Console.WriteLine(ex.Message);
                 }
             }
 
-            int bossPower = int.Parse(Console.ReadLine());
-            int totalHerosPower = 0;
+            double bossPower = double.Parse(Console.ReadLine());
 
             foreach (var hero in raidGroup)
             {
                 Console.WriteLine(hero.CastAbility());
-                totalHerosPower += hero.UnleasheAbilityPower();
             }
 
-            if (totalHerosPower >= bossPower)
+            int sum = raidGroup.Sum(h => h.Power);
+
+            if (sum >= bossPower)
             {
                 Console.WriteLine("Victory!");
             }
             else
             {
-                Console.WriteLine("Defeat!");
-            }
-        }
-
-        private static IHero GetHeroType(List<IHero> heroes, string currentName, string currentType, IHero currentHero)
-        {
-            if (currentType == "Druid")
-            {
-                currentHero = new Druid(currentName);
-                heroes.Add(currentHero);
-            }
-            else if (currentType == "Paladin")
-            {
-                currentHero = new Paladin(currentName);
-                heroes.Add(currentHero);
-            }
-            else if (currentType == "Rogue")
-            {
-                currentHero = new Rogue(currentName);
-                heroes.Add(currentHero);
-            }
-            else if (currentType == "Warrior")
-            {
-                currentHero = new Warrior(currentName);
-                heroes.Add(currentHero);
+                Console.WriteLine("Defeat...");
             }
 
-            return currentHero;
+
         }
     }
 }

@@ -8,22 +8,15 @@ namespace PolymorphismEx
     {
         private int power;
         public Warrior(string name)
-            : base(name)
+            : base(name,100)
         {
         }
 
-        public override int Power
-        {
-            get { return power; }
-            set
-            {
-                power = 100;
-            }
-        }
+       
 
         public override string CastAbility()
         {
-            return $"Warrior - {Name} hit for {Power} damage";
+            return $"{this.GetType().Name} - {Name} hit for {Power} damage";
         }
     }
 }

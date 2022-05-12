@@ -6,24 +6,21 @@ namespace PolymorphismEx
 {
     public abstract class Hero : IHero
     {
-        protected Hero(string name)
+        protected Hero(string name, int power)
         {
-            Name = name;
-            Power = 0;
+            this.Name = name;
+            this.Power = power;
         }
 
-        
-        public string Name { get; set; }
-        public virtual int Power { get;  set; }
+        public string Name { get; private set; }
+
+        public int Power { get; private set; }
 
         public virtual string CastAbility()
         {
-            return $"{this.GetType()} - {Name} healed for {Power}";
+            return $"{ this.GetType().Name} - {this.Name} healed for { this.Power}";
         }
 
-        public virtual int UnleasheAbilityPower()
-        {
-            return this.Power;
-        }
+       
     }
 }

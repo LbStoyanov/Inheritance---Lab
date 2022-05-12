@@ -8,22 +8,15 @@ namespace PolymorphismEx
     {
         private int power;
         public Druid(string name) 
-            : base(name)
+            : base(name,80)
         {
         }
        
-        public override int Power
-        {
-            get { return power; }
-            set
-            {
-                power = 80;
-            }
-        }
+        
 
         public override string CastAbility()
         {
-            return  $"Druid - {Name} healed for {Power}"; 
+            return  $"{this.GetType().Name} - {Name} healed for {Power}"; 
         }
     }
 }

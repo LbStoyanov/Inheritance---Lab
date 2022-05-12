@@ -8,22 +8,15 @@ namespace PolymorphismEx
     {
         private int power;
         public Rogue(string name)
-            : base(name)
+            : base(name,80)
         {
         }
 
-        public override int Power
-        {
-            get { return power; }
-            set
-            {
-                power = 80;
-            }
-        }
+      
 
         public override string CastAbility()
         {
-            return $"Rogue - {Name} hit for {Power} damage";
+            return $"{this.GetType().Name} - {Name} hit for {Power} damage";
         }
     }
 }

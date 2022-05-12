@@ -6,10 +6,9 @@ namespace PolymorphismEx
 {
     public interface IHero
     {
-        string Name { get; set; }
         int Power { get; }
-        string CastAbility();
-        int UnleasheAbilityPower();
 
+        public string CastAbility();
     }
+
 }
