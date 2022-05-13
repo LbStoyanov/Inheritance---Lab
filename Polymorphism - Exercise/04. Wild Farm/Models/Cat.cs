@@ -26,10 +26,5 @@ namespace PolymorphismEx
             }
             this.Weight += FoodEaten * 0.30;
         }
-
-        public override string ToString()
-        {
-            return $"{this.GetType().Name} [{this.Name}, {this.Breed}, {this.Weight}, {this.LivingRegion}, {this.FoodEaten}]";
-        }
     }
 }

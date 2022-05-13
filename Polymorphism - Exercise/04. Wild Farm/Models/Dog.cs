@@ -15,10 +15,6 @@ namespace PolymorphismEx
             Console.WriteLine("Woof!");
         }
 
-        public override string ToString()
-        {
-            return base.ToString();
-        }
         public override void Feed(string foodType)
         {
             if (foodType != "Meat")

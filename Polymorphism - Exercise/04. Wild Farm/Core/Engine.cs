@@ -29,33 +29,28 @@ namespace PolymorphismEx
 
                 IAnimal currentAnimal = null;
 
-                
                 if (animalType == "Owl")
                 {
                     int wingSize = int.Parse(animalInformation[3]);
                     currentAnimal = new Owl(name, weight, foodEaten, wingSize);
-                    currentAnimal.ProducingSound();
                     currentAnimal.Feed(foodType);
                 }
                 if (animalType == "Hen")
                 {
                     int wingSize = int.Parse(animalInformation[3]);
                     currentAnimal = new Hen(name,weight,foodEaten,wingSize);
-                    currentAnimal.ProducingSound();
                     currentAnimal.Feed(foodType);
                 }
                 if (animalType == "Mouse")
                 {
                     string livingRegion = animalInformation[3];
                     currentAnimal = new Mouse(name,weight,foodEaten,livingRegion);
-                    currentAnimal.ProducingSound();
                     currentAnimal.Feed(foodType);
                 }
                 if (animalType == "Dog")
                 {
                     string livingRegion = animalInformation[3];
                     currentAnimal = new Dog(name, weight, foodEaten, livingRegion);
-                    currentAnimal.ProducingSound();
                     currentAnimal.Feed(foodType);
                 }
                 if (animalType == "Cat")
@@ -63,7 +58,6 @@ namespace PolymorphismEx
                     string livingRegion = animalInformation[3];
                     string breed = animalInformation[4];
                     currentAnimal = new Cat(name, weight, foodEaten, livingRegion,breed);
-                    currentAnimal.ProducingSound();
                     currentAnimal.Feed(foodType);
                 }
                 if (animalType == "Tiger")
@@ -71,9 +65,10 @@ namespace PolymorphismEx
                     string livingRegion = animalInformation[3];
                     string breed = animalInformation[4];
                     currentAnimal = new Tiger(name, weight, foodEaten, livingRegion, breed);
-                    currentAnimal.ProducingSound();
                     currentAnimal.Feed(foodType);
                 }
+
+                currentAnimal.ProducingSound();
 
                 animals.Add(currentAnimal);
             }

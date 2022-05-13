@@ -16,10 +16,6 @@ namespace PolymorphismEx
             Console.WriteLine("Cluck");
         }
 
-        public override string ToString()
-        {
-            return base.ToString();
-        }
         public override void Feed(string foodType)
         {
             this.Weight += FoodEaten * 0.35;

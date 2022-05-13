@@ -22,9 +22,8 @@ namespace PolymorphismEx
 
         }
 
-        public virtual void ProducingSound()
-        {
-        }
+        public abstract void ProducingSound();
+        
         public override string ToString()
         {
             return base.ToString();
