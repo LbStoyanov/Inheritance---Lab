@@ -29,7 +29,7 @@ namespace PolymorphismEx
             Hen hen = new Hen(name2,animalWeight2,foodEaten2,windgSize2);
 
             owl.Feed(foodType);
-            hen.Feed(foodType);
+            hen.Feed(foodType2);
             owl.ProducingSound();
             hen.ProducingSound();
             Console.WriteLine(owl.ToString());
