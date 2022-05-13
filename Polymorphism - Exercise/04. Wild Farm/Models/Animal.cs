@@ -14,7 +14,7 @@ namespace PolymorphismEx
         }
 
         public string Name { get;private set; }
-        public double Weight { get; set; }
+        public double Weight { get;protected set; }
         public int FoodEaten { get; private set; }
 
         public virtual void Eat()

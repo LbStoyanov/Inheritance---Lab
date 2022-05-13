@@ -4,17 +4,16 @@ using System.Text;
 
 namespace PolymorphismEx
 {
-    public class Owl : Bird
+    public class Hen : Bird
     {
-
-        public Owl(string name, double weight, int foodEaten, double wingSize)
+        public Hen(string name, double weight, int foodEaten, double wingSize)
             : base(name, weight, foodEaten, wingSize)
         {
         }
 
         public override void ProducingSound()
         {
-            Console.WriteLine("Hoot Hoot");
+            Console.WriteLine("Cluck");
         }
 
         public override string ToString()
@@ -23,12 +22,7 @@ namespace PolymorphismEx
         }
         public override void Feed(string foodType)
         {
-            if (foodType != "Meat")
-            {
-                Console.WriteLine($"{this.GetType().Name} does not eat {foodType}!");
-            }
-
-            this.Weight += FoodEaten * 0.25;
+            this.Weight += FoodEaten * 0.35;
         }
     }
 }
