@@ -26,6 +26,8 @@ namespace PolymorphismEx
             if (foodType != "Meat")
             {
                 Console.WriteLine($"{this.GetType().Name} does not eat {foodType}!");
+                FoodEaten = 0;
+                return;
             }
 
             this.Weight += FoodEaten * 0.25;

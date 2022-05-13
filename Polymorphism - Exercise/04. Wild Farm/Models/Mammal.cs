@@ -4,7 +4,7 @@ using System.Text;
 
 namespace PolymorphismEx
 {
-    public class Mammal : Animal
+    public abstract class Mammal : Animal
     {
         public Mammal(string name, double weight, int foodEaten,string livingRegion) 
             : base(name, weight, foodEaten)
@@ -12,7 +12,7 @@ namespace PolymorphismEx
             this.LivingRegion = livingRegion;
         }
 
-        public string LivingRegion { get; private set; }
+        public string LivingRegion { get; protected set; }
 
         public override string ToString()
         {

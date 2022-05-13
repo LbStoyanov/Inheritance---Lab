@@ -21,7 +21,13 @@ namespace PolymorphismEx
         }
         public override void Feed(string foodType)
         {
+            if (foodType != "Meat")
+            {
+                Console.WriteLine($"{this.GetType().Name} does not eat {foodType}!");
+                FoodEaten = 0;
+            }
             this.Weight += FoodEaten * 0.40;
+
         }
     }
 }
