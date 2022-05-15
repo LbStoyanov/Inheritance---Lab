@@ -17,7 +17,6 @@ namespace _04._Sum_of_Integers
             {
                 var currentElement = input[i];
                 int currentResult = 0;
-                decimal testRsult = 0.0m;
                 BigInteger testRsult2 = 0;
 
                 try
