@@ -3,15 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32414.318
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "01. Square Root", "01. Square Root\01. Square Root.csproj", "{F642097B-DC90-417C-A1AF-647A04C623DB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "01. Square Root", "01. Square Root\01. Square Root.csproj", "{F642097B-DC90-417C-A1AF-647A04C623DB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "02. Enter Numbers", "02. Enter Numbers\02. Enter Numbers.csproj", "{5FE3CF7A-FE00-4EF4-90AF-35CA69600156}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "02. Enter Numbers", "02. Enter Numbers\02. Enter Numbers.csproj", "{5FE3CF7A-FE00-4EF4-90AF-35CA69600156}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "03. Cards", "03. Cards\03. Cards.csproj", "{0DF5964B-8CC0-4EFC-B642-3287FAA81BF0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "03. Cards", "03. Cards\03. Cards.csproj", "{0DF5964B-8CC0-4EFC-B642-3287FAA81BF0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "04. Sum of Integers", "04. Sum of Integers\04. Sum of Integers.csproj", "{A929C8CE-BE0E-4EF0-B968-DC984E4BCBEA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "04. Sum of Integers", "04. Sum of Integers\04. Sum of Integers.csproj", "{A929C8CE-BE0E-4EF0-B968-DC984E4BCBEA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "05. Play Catch", "05. Play Catch\05. Play Catch.csproj", "{EFFF51FA-507C-465E-A54E-A4C4154C205D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "05. Play Catch", "05. Play Catch\05. Play Catch.csproj", "{EFFF51FA-507C-465E-A54E-A4C4154C205D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "06. Money Transactions", "06. Money Transactions\06. Money Transactions.csproj", "{850B67BB-18A3-473D-ABEF-FEEE778206E3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{EFFF51FA-507C-465E-A54E-A4C4154C205D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EFFF51FA-507C-465E-A54E-A4C4154C205D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EFFF51FA-507C-465E-A54E-A4C4154C205D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{850B67BB-18A3-473D-ABEF-FEEE778206E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{850B67BB-18A3-473D-ABEF-FEEE778206E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{850B67BB-18A3-473D-ABEF-FEEE778206E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{850B67BB-18A3-473D-ABEF-FEEE778206E3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
