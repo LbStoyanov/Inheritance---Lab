@@ -21,86 +21,35 @@ namespace _05._Play_Catch
 
                     if (action == "Replace")
                     {
-                        int indexResult = 0;
-                        int elementResult = 0;
-                        string index = commands[1];
-                        string element = commands[2];
+                        int index = int.Parse(commands[1]);
+                        int element = int.Parse(commands[2]);
 
-                        if (!int.TryParse(index, out indexResult))
-                        {
-                            exceptionsCounter++;
-                            throw new ArgumentException("The index does not exist!");
-                        }
-
-                        if (!int.TryParse(element, out elementResult))
-                        {
-                            exceptionsCounter++;
-                            throw new ArgumentException("The variable is not in the correct format!");
-                        }
-
-                        if (int.Parse(index) < 0 || int.Parse(index) > integers.Length - 1)
-                        {
-                            exceptionsCounter++;
-                            throw new ArgumentException("The index does not exist!");
-                        }
-
-                        integers[int.Parse(index)] = int.Parse(element);
+                        integers[index] = element;
                     }
 
                     if (action == "Show")
                     {
-                        string index = commands[1];
-                        int result = 0;
+                        int index = int.Parse(commands[1]);
 
-                        if (int.TryParse(index, out result))
-                        {
-                            if (result >= 0 && result <= integers.Length - 1)
-                            {
-                                Console.WriteLine(integers[result]);
-                            }
-                            else
-                            {
-                                exceptionsCounter++;
-                                throw new ArgumentException("The index does not exist!");
-                            }
-                        }
-                        else
-                        {
-                            exceptionsCounter++;
-                            throw new ArgumentException("The variable is not in the correct format!");
-                        }
+                        Console.WriteLine(integers[index]);
                     }
 
                     if (action == "Print")
                     {
-                        int startIndexResult = 0;
-                        int endIndexResult = 0;
-                        string startIndex = commands[1];
-                        string endIndex = commands[2];
+                        int startIndex = int.Parse(commands[1]);
+                        int endIndex = int.Parse(commands[2]);
 
-                        if (!int.TryParse(startIndex, out startIndexResult))
+                        if (startIndex < 0 || endIndex > integers.Length - 1)
                         {
-                            exceptionsCounter++;
-                            throw new ArgumentException("The index does not exist!");
+                            throw new IndexOutOfRangeException();
                         }
-
-                        if (!int.TryParse(endIndex, out endIndexResult))
-                        {
-                            exceptionsCounter++;
-                            throw new ArgumentException("The variable is not in the correct format!");
-                        }
-
-                        if (int.Parse(startIndex) < 0 || int.Parse(endIndex) > integers.Length - 1)
-                        {
-                            exceptionsCounter++;
-                            throw new ArgumentException("The index does not exist!");
-                        }
+                        
 
                         List<int> resultList = new List<int>();
 
                         for (int i = 0; i < integers.Length; i++)
                         {
-                            if (i >= int.Parse(startIndex) && i <= int.Parse(endIndex))
+                            if (i >= startIndex && i <= endIndex)
                             {
                                 resultList.Add(integers[i]);
                             }
@@ -109,9 +58,20 @@ namespace _05._Play_Catch
                         Console.WriteLine(string.Join(", ",resultList));
                     }
                 }
-                catch (Exception ex)
+                catch (IndexOutOfRangeException)
                 {
-                    Console.WriteLine(ex.Message);
+                    exceptionsCounter++;
+                    Console.WriteLine($"The index does not exist!");
+                }
+                catch (ArgumentOutOfRangeException)
+                {
+                    exceptionsCounter++;
+                    Console.WriteLine($"The index does not exist!");
+                }
+                catch (FormatException)
+                {
+                    exceptionsCounter++;
+                    Console.WriteLine("The variable is not in the correct format!");
                 }
             }
 
