@@ -7,7 +7,7 @@ namespace Skeleton.Tests
     public class AxeTests
     {
         [Test]
-        public void Àxe_Loose_Durability_After_Attack()
+        public void Axe_Loose_Durability_After_Attack()
         {
             Axe axe = new Axe(10, 20);
             Dummy dummy = new Dummy(100,100);
