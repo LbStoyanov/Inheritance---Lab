@@ -60,6 +60,76 @@ namespace Database.Tests
             Assert.Throws<InvalidOperationException>(
                 () => database.Add(wrongParameter));
         }
+        [TestCase(
+            new[] {3,4,5},
+            new[] { 1, 2, 3, 4, 5, },
+            3,
+            5)]
+
+        [TestCase(
+            new int[0],
+            new[] { 1, 2, 3, 4, 5, },
+            5,
+            0)]
+
+        [TestCase(
+            new[] {1},
+            new[] { 5 },
+            1,
+            1)]
+        public void Remove_With_Valid_Data(int[] ctorParams, int[] addedElements, int removedCount,int expectedCount)
+        {
+            //Arange
+            Database database = new Database(ctorParams);
+
+            foreach (var item in addedElements)
+            {
+                database.Add(item);
+            }
+            //Act
+
+            for (int i = 0; i < removedCount; i++)
+            {
+                database.Remove();
+            }
+            //Assert
+
+            Assert.AreEqual(expectedCount,database.Count);
+        }
+
+        [TestCase(
+            new[] { 1 },
+            1)]
+        [TestCase(
+            new[] { 1,2,3,4,5 },
+            5)]
+        [TestCase(
+            new int[0] ,
+            0)]
+
+        public void Remove_With_Invalid_Data_NegativeTest(int[] ctorParams,int toRemove)
+        {
+            Database database = new Database(ctorParams);
+
+            for (int i = 0; i < toRemove; i++)
+            {
+                database.Remove();
+            }
+
+            Assert.Throws<InvalidOperationException>(
+                () => database.Remove());
+
+        }
+        [Test]
+        public void Test_Fetch_Method_If_Returns_The_Array()
+        {
+            int[] arr = new int[16];
+            Database database = new Database(arr);
+
+            database.Fetch();
+
+            Assert.AreEqual(arr, database.Fetch());
+        }
 
     }
 }
