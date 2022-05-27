@@ -65,7 +65,7 @@ namespace DatabaseExtended.Tests
                          new Person(10, "Zabludeniq"),
                          new Person(11, "Zaribeniq"),
                          new Person(12, "Zaslepeniq"),
-                         new Person(11, "Zanemareniq"),
+                         new Person(13, "Zanemareniq"),
                      },
                      new Person[]
                      {
@@ -86,7 +86,19 @@ namespace DatabaseExtended.Tests
                          new Person(3, "Turbalan"),
 
                      },
-                     new Person(7, "Turbalan"))
+                     new Person(7, "Turbalan"),
+                   new TestCaseData(
+                     new Person[]
+                     {
+                     },
+                     new Person[]
+                     {
+                         new Person(1, "Koncho"),
+                         new Person(2, "Moncho"),
+                         new Person(3, "Turbalan"),
+
+                     },
+                     new Person(6, "Turbalan2")))
             };
 
             foreach (var item in testCases)
