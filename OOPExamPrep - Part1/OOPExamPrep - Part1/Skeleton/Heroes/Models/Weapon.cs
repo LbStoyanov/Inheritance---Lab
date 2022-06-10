@@ -9,7 +9,13 @@ namespace Heroes.Models
     {
         private string name;
         private int durability;
-        private int damage;
+
+        protected Weapon(string name, int durability)
+        {
+            Name = name;
+            Durability = durability;
+        }
+
         public string Name
         {
             get { return this.name; }
@@ -36,15 +42,7 @@ namespace Heroes.Models
             }
         }
 
-        public virtual int DoDamage()
-        {
-            this.durability--;
-            if (this.durability == 0)
-            {
-                return 0;
-            }
-            return this.damage;
-        }
-        
+        public abstract int DoDamage();
+       
     }
 }
