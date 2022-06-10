@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Heroes.Models
+namespace Heroes.Models.Weapons
 {
     public class Claymore : Weapon
     {
@@ -20,7 +20,7 @@ namespace Heroes.Models
                 return 0;
             }
 
-            return this.damage;
+            return damage;
         }
     }
 }

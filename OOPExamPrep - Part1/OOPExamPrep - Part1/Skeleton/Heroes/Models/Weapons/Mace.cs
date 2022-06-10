@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Heroes.Models
+namespace Heroes.Models.Weapons
 {
     public class Mace : Weapon
     {
         private int damage = 25;
         public Mace(string name, int durability) : base(name, durability)
         {
-            
+
         }
 
         public override int DoDamage()
@@ -22,7 +22,7 @@ namespace Heroes.Models
                 return 0;
             }
 
-            return this.damage;
+            return damage;
         }
     }
 }

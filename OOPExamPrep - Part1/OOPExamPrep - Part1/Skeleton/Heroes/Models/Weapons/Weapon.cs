@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Heroes.Models
+namespace Heroes.Models.Weapons
 {
     public abstract class Weapon : IWeapon
     {
@@ -18,31 +18,31 @@ namespace Heroes.Models
 
         public string Name
         {
-            get { return this.name; }
+            get { return name; }
             set
             {
                 if (string.IsNullOrEmpty(value))
                 {
                     throw new ArgumentException("Weapon type cannot be null or empty.");
                 }
-                this.name = value;
+                name = value;
             }
         }
 
         public int Durability
         {
-            get { return this.durability; }
+            get { return durability; }
             set
             {
                 if (value < 0)
                 {
                     throw new ArgumentException("Durability cannot be below 0.");
                 }
-                this.durability = value;
+                durability = value;
             }
         }
 
         public abstract int DoDamage();
-       
+
     }
 }
