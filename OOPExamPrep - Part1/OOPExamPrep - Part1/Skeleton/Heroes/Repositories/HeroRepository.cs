@@ -8,25 +8,44 @@ using System.Text;
 
 namespace Heroes.Repositories
 {
-    public class HeroRepository : IRepository<Hero>
+    public class HeroRepository : IRepository<IHero>
     {
 
-        private List<Hero> models;
-        public IReadOnlyCollection<Hero> Models { get { return this.models.AsReadOnly(); } }
+        IReadOnlyCollection<IHero> IRepository<IHero>.Models { get; }
 
         public void Add(Hero model)
         {
-            this.models.Add(model);
+            
         }
 
-        public Hero FindByName(string name)
+        public void Add(IHero model)
         {
-            return models.FirstOrDefault(x => x.Name == name);
+            //if (models == null)
+            //{
+            //    models = new List<Hero>();
+            //}
+
+            //models.Add((Hero)model);
         }
 
-        public bool Remove(Hero model)
+
+        public bool Remove(IHero model)
         {
-            return this.models.Remove(model);
+            //if (models == null)
+            //{
+            //    return false;
+            //}
+
+            //var result = models.Remove((Hero)model);
+
+            //return result;
+
+            return true;
+        }
+
+        IHero IRepository<IHero>.FindByName(string name)
+        {
+            return null;
         }
     }
 }

@@ -18,6 +18,7 @@ namespace Heroes.Models.Heroes
             Name = name;
             Health = health;
             Armour = armour;
+            isAlive = true;
         }
 
         public string Name

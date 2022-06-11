@@ -6,7 +6,7 @@ namespace Heroes.Models.Weapons
 {
     public class Claymore : Weapon
     {
-        private const int damage = 20;
+        private const int Damage = 20;
         public Claymore(string name, int durability) : base(name, durability)
         {
         }
@@ -20,7 +20,7 @@ namespace Heroes.Models.Weapons
                 return 0;
             }
 
-            return damage;
+            return Damage;
         }
     }
 }

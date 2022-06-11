@@ -1,4 +1,6 @@
 ﻿using Heroes.Models.Contracts;
+using Heroes.Models.Heroes;
+using Heroes.Models.Weapons;
 using Heroes.Repositories.Contracts;
 using System;
 using System.Collections.Generic;
@@ -9,7 +11,10 @@ namespace Heroes.Repositories
 {
     public class WeaponRepository : IRepository<IWeapon>
     {
-        public IReadOnlyCollection<IWeapon> Models => new List<IWeapon>();
+      
+        public IReadOnlyCollection<IWeapon> Models { get; }
+
+     
 
         public void Add(IWeapon model)
         {
@@ -18,15 +23,19 @@ namespace Heroes.Repositories
 
         public IWeapon FindByName(string name)
         {
-            return Models.FirstOrDefault(x => x.Name == name);
+            return null;
         }
+
 
         public bool Remove(IWeapon model)
         {
-            if (Models.Contains(model))
-            {
-                return true;
-            }
+            //if (models == null)
+            //{
+            //    return false;
+            //}
+
+            //var result = models.Remove((Weapon)model);
+            //return result;
 
             return false;
         }
