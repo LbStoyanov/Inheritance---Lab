@@ -85,7 +85,8 @@ namespace Heroes.Models.Heroes
 
         public void TakeDamage(int points)
         {
-            throw new NotImplementedException();
+            Health -= points;
+
         }
     }
 }

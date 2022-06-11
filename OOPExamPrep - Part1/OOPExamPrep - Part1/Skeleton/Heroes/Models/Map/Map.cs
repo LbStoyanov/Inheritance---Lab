@@ -9,7 +9,7 @@ namespace Heroes.Models.Map
     {
         public string Fight(ICollection<IHero> heroes)
         {
-            throw new NotImplementedException();
+            return "";
         }
     }
 }

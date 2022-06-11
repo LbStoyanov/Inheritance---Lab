@@ -2,6 +2,7 @@
 using Heroes.Repositories.Contracts;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Heroes.Repositories
@@ -12,17 +13,22 @@ namespace Heroes.Repositories
 
         public void Add(IHero model)
         {
-            throw new NotImplementedException();
+            
         }
 
         public IHero FindByName(string name)
         {
-            throw new NotImplementedException();
+            return Models.FirstOrDefault(x => x.Name == name);
         }
 
         public bool Remove(IHero model)
         {
-            throw new NotImplementedException();
+            if (Models.Contains(model))
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }
