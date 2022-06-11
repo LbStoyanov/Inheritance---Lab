@@ -7,6 +7,7 @@ namespace Heroes.Models.Map
 {
     public class Map : IMap
     {
+       
         public string Fight(ICollection<IHero> heroes)
         {
             return "";

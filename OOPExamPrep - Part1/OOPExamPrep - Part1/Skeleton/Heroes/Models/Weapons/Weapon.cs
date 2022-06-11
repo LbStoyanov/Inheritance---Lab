@@ -21,7 +21,7 @@ namespace Heroes.Models.Weapons
             get { return name; }
             set
             {
-                if (string.IsNullOrEmpty(value))
+                if (string.IsNullOrWhiteSpace(value))
                 {
                     throw new ArgumentException("Weapon type cannot be null or empty.");
                 }

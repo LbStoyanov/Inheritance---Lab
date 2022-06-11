@@ -10,6 +10,7 @@ namespace Heroes.Models.Heroes
         private string name;
         private int health;
         private int armor;
+        private bool isAlive;
         private IWeapon weapon;
 
         protected Hero(string name, int health, int armour)
@@ -24,7 +25,7 @@ namespace Heroes.Models.Heroes
             get { return name; }
             set
             {
-                if (string.IsNullOrEmpty(value))
+                if (string.IsNullOrWhiteSpace(value))
                 {
                     throw new ArgumentException("Hero name cannot be null or empty.");
                 }
@@ -71,21 +72,48 @@ namespace Heroes.Models.Heroes
             }
         }
 
-        bool IHero.IsAlive
+        public bool IsAlive
         {
-            get { return health > 0; }
+            get => this.isAlive;
+            protected set
+            {
+                if (this.health <= 0)
+                {
+                    value = false;
+                }
+
+                value = true;
+            }
+
         }
 
 
 
         public void AddWeapon(IWeapon weapon)
         {
-            this.weapon = weapon;
+            if (this.weapon != null)
+            {
+                this.weapon = weapon;
+            }
+            
         }
 
         public void TakeDamage(int points)
         {
-            Health -= points;
+            this.Armour -= points;
+
+            if (this.Armour <= 0)
+            {
+                this.Armour = 0;
+
+                this.Health -= points;
+
+                if (this.Health <= 0)
+                {
+                    this.Health = 0;
+                    this.IsAlive = false;
+                }
+            }
 
         }
     }
