@@ -37,7 +37,7 @@ namespace Formula1.Models
         public int NumberOfLaps
         {
             get { return numberOfLaps; }
-            set
+            private set
             {
                 if (value < 1)
                 {
@@ -54,7 +54,7 @@ namespace Formula1.Models
             set { tookPlace = value; }
         }
 
-        public ICollection<IPilot> Pilots { get; private set; }
+        public ICollection<IPilot> Pilots { get; }
 
         public void AddPilot(IPilot pilot)
         {
