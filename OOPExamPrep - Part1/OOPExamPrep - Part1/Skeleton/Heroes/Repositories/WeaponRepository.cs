@@ -11,17 +11,17 @@ namespace Heroes.Repositories
 {
     public class WeaponRepository : IRepository<IWeapon>
     {
-        private List<Weapon> models;
+        private List<IWeapon> models;
         public WeaponRepository()
         {
-            models = new List<Weapon>();
+            models = new List<IWeapon>();
         }
 
         public IReadOnlyCollection<IWeapon> Models { get { return this.models.AsReadOnly(); } }
 
         public void Add(IWeapon model)
         {
-            models.Add((Weapon)model);
+            models.Add(model);
         }
 
         public IWeapon FindByName(string name)
@@ -32,7 +32,7 @@ namespace Heroes.Repositories
 
         public bool Remove(IWeapon model)
         {
-            var result = models.Remove((Weapon)model);
+            var result = models.Remove(model);
             return result;
         }
     }

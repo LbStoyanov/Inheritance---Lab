@@ -10,24 +10,24 @@ namespace Heroes.Repositories
 {
     public class HeroRepository : IRepository<IHero>
     {
-        private List<Hero> models;
+        private List<IHero> models;
         public HeroRepository()
         {
-            models = new List<Hero>();
+            models = new List<IHero>();
         }
         IReadOnlyCollection<IHero> IRepository<IHero>.Models { get { return this.models.AsReadOnly(); } }
 
 
         public void Add(IHero model)
         {
-            models.Add((Hero)model);
+            models.Add(model);
         }
 
 
         public bool Remove(IHero model)
         {
           
-            var result = models.Remove((Hero)model);
+            var result = models.Remove(model);
 
             return result;
 
