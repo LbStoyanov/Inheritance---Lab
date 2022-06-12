@@ -24,7 +24,8 @@ namespace Formula1.Models
             {
                 if (string.IsNullOrWhiteSpace(value) || value.Length < 5)
                 {
-                    throw new ArgumentException(ExceptionMessages.InvalidPilot, value);
+                    //throw new ArgumentException(ExceptionMessages.InvalidPilot, value);
+                    throw new ArgumentException($"Invalid pilot name: {value}.");
                 }
 
                 fullName = value;
@@ -39,7 +40,8 @@ namespace Formula1.Models
             {
                 if (value == null)
                 {
-                    throw new NullReferenceException(ExceptionMessages.InvalidCarForPilot);
+                    //throw new NullReferenceException(ExceptionMessages.InvalidCarForPilot);
+                    throw new NullReferenceException("Pilot car can not be null.");
                 }
             }
         }
