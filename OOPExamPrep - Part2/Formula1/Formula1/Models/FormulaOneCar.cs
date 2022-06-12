@@ -48,7 +48,7 @@ namespace Formula1.Models
         public double EngineDisplacement
         {
             get { return engineDisplacement; }
-            set
+            private set
             {
                 if (value < 1.6 || value > 2.0)
                 {
