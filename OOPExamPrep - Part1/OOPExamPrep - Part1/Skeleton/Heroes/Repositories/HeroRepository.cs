@@ -10,42 +10,37 @@ namespace Heroes.Repositories
 {
     public class HeroRepository : IRepository<IHero>
     {
+        private List<Hero> models;
+        IReadOnlyCollection<IHero> IRepository<IHero>.Models { get { return this.models.AsReadOnly(); } }
 
-        IReadOnlyCollection<IHero> IRepository<IHero>.Models { get; }
-
-        public void Add(Hero model)
-        {
-            
-        }
 
         public void Add(IHero model)
         {
-            //if (models == null)
-            //{
-            //    models = new List<Hero>();
-            //}
+            if (models == null)
+            {
+                models = new List<Hero>();
+            }
 
-            //models.Add((Hero)model);
+            models.Add((Hero)model);
         }
 
 
         public bool Remove(IHero model)
         {
-            //if (models == null)
-            //{
-            //    return false;
-            //}
+            if (models == null)
+            {
+                return false;
+            }
 
-            //var result = models.Remove((Hero)model);
+            var result = models.Remove((Hero)model);
 
-            //return result;
+            return result;
 
-            return true;
         }
 
         IHero IRepository<IHero>.FindByName(string name)
         {
-            return null;
+            return models.FirstOrDefault(x => x.Name == name);
         }
     }
 }

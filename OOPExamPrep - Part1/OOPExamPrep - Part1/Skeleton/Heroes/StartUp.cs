@@ -8,8 +8,15 @@ namespace Heroes
 {
     public class StartUp
     {
+        public static double Average(int a, int b)
+        {
+            return a + b / 2.0;
+        }
         public static void Main()
         {
+
+            Console.WriteLine(Average(2, 1));
+
             //IEngine engine = new Engine();
             //engine.Run();
 

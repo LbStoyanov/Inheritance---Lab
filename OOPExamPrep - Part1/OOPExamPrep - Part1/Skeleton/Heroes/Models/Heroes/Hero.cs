@@ -24,7 +24,7 @@ namespace Heroes.Models.Heroes
         public string Name
         {
             get { return name; }
-            set
+            private set
             {
                 if (string.IsNullOrWhiteSpace(value))
                 {
@@ -37,7 +37,7 @@ namespace Heroes.Models.Heroes
         public int Health
         {
             get { return health; }
-            set
+            private set
             {
                 if (value < 0)
                 {
@@ -50,7 +50,7 @@ namespace Heroes.Models.Heroes
         public int Armour
         {
             get { return health; }
-            set
+            private set
             {
                 if (value < 0)
                 {
