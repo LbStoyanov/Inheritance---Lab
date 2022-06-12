@@ -12,17 +12,15 @@ namespace Heroes.Repositories
     public class WeaponRepository : IRepository<IWeapon>
     {
         private List<Weapon> models;
-        public IReadOnlyCollection<IWeapon> Models { get { return this.models.AsReadOnly(); } }
+        public WeaponRepository()
+        {
+            models = new List<Weapon>();
+        }
 
-     
+        public IReadOnlyCollection<IWeapon> Models { get { return this.models.AsReadOnly(); } }
 
         public void Add(IWeapon model)
         {
-            if (models == null)
-            {
-                models = new List<Weapon>();
-            }
-
             models.Add((Weapon)model);
         }
 
@@ -34,15 +32,8 @@ namespace Heroes.Repositories
 
         public bool Remove(IWeapon model)
         {
-            if (models == null)
-            {
-                return false;
-            }
-
             var result = models.Remove((Weapon)model);
             return result;
-
-
         }
     }
 }

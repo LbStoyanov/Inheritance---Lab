@@ -11,8 +11,8 @@ namespace Heroes.Core
 {
     public class Controller : IController
     {
-        private HeroRepository heroes;
-        private WeaponRepository weapons;
+        private HeroRepository heroes => new HeroRepository();
+        private WeaponRepository weapons => new WeaponRepository();
 
         public Controller()
         {
@@ -27,25 +27,26 @@ namespace Heroes.Core
 
         public string CreateHero(string type, string name, int health, int armour)
         {
+            //IHero hero = null;
 
+            //if (type == "Knight")
+            //{
+            //    hero = new Knight(name, health, armour);
+            //    heroes.Add(hero);
+            //    return $"Successfully added Sir {name} to the collection.";
+            //}
+            //else if (type == "Barbarian")
+            //{
+            //    hero = new Barbarian(name, health, armour);
+            //    heroes.Add(hero);
+            //    return $"Successfully added Barbarian {name} to the collection.";
+            //}
+            //else
+            //{
+            //    throw new InvalidOperationException("Invalid hero type.");
+            //}
+            return "";
 
-            IHero hero = null;
-
-            if (type == "Knight")
-            {
-                hero = new Knight(name, health, armour);
-            }
-            else if (type == "Barbarian")
-            {
-                hero = new Barbarian(name, health, armour);
-            }
-            else
-            {
-                throw new InvalidOperationException("Invalid hero type.");
-            }
-
-            
-          
         }
 
         public string CreateWeapon(string type, string name, int durability)

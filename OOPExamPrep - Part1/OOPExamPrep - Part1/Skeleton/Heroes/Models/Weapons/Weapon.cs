@@ -10,7 +10,7 @@ namespace Heroes.Models.Weapons
         private string name;
         private int durability;
 
-        protected Weapon(string name, int durability)
+        public Weapon(string name, int durability)
         {
             Name = name;
             Durability = durability;

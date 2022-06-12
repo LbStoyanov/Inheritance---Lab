@@ -13,7 +13,7 @@ namespace Heroes.Models.Heroes
         private bool isAlive;
         private IWeapon weapon;
 
-        protected Hero(string name, int health, int armour)
+        public Hero(string name, int health, int armour)
         {
             Name = name;
             Health = health;
@@ -49,14 +49,14 @@ namespace Heroes.Models.Heroes
 
         public int Armour
         {
-            get { return health; }
+            get { return armor; }
             private set
             {
                 if (value < 0)
                 {
                     throw new ArgumentException("Hero armour cannot be below 0.");
                 }
-                health = value;
+                armor = value;
             }
         }
 
@@ -76,7 +76,7 @@ namespace Heroes.Models.Heroes
         public bool IsAlive
         {
             get => this.isAlive;
-            protected set
+            private set
             {
                 if (this.health <= 0)
                 {

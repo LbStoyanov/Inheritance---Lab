@@ -2,20 +2,26 @@
 using Heroes.Core.Contracts;
 using Heroes.Models;
 using Heroes.Models.Contracts;
+using Heroes.Models.Heroes;
+using Heroes.Repositories;
+using Heroes.Repositories.Contracts;
 using System;
 
 namespace Heroes
 {
     public class StartUp
     {
-        public static double Average(int a, int b)
-        {
-            return a + b / 2.0;
-        }
         public static void Main()
         {
+            IHero knight = new Knight("Peko",5,5);
 
-            Console.WriteLine(Average(2, 1));
+            HeroRepository heroRepo = new HeroRepository();
+
+            heroRepo.Add(knight);
+            heroRepo.Add(knight);
+
+            Console.WriteLine();
+
 
             //IEngine engine = new Engine();
             //engine.Run();
