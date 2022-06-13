@@ -28,15 +28,49 @@ namespace Formula1.Core
             var car = FormulaOneCarRepository.Models.FirstOrDefault(c => c.Model == carModel);
 
 
-            if (!pilotRepository.Models.Any(p => p.FullName == pilotName) || pilotRepository.Models.Any(c => c.Car == car))
+            if (!pilotRepository.Models.Any(p => p.FullName == pilotName))
             {
-
+                throw new InvalidOperationException(String.Format(ExceptionMessages.PilotDoesNotExistOrHasCarErrorMessage, pilotName));
             }
+
+            var pilot = pilotRepository.Models.FirstOrDefault(p => p.FullName == pilotName);
+
+            if (pilot.Car != null)
+            {
+                throw new InvalidOperationException(String.Format(ExceptionMessages.PilotDoesNotExistOrHasCarErrorMessage, pilotName));
+            }
+
+            pilot.AddCar(car);
+
+            FormulaOneCarRepository.Remove(car);
+
+            return String.Format(OutputMessages.SuccessfullyPilotToCar, pilotName,car.GetType().Name, carModel);
+          
         }
 
         public string AddPilotToRace(string raceName, string pilotFullName)
         {
-            throw new NotImplementedException();
+            if (!raceRepository.Models.Any(r => r.RaceName == raceName))
+            {
+                throw new NullReferenceException(String.Format(ExceptionMessages.RaceDoesNotExistErrorMessage, raceName));
+            }
+
+            if (!pilotRepository.Models.Any(p => p.FullName == pilotFullName))
+            {
+                throw new InvalidOperationException(String.Format(ExceptionMessages.PilotDoesNotExistErrorMessage, pilotFullName));
+            }
+
+            var pilot = pilotRepository.Models.FirstOrDefault(p => p.FullName == pilotFullName);
+            var race = raceRepository.Models.FirstOrDefault(r => r.RaceName == raceName);
+
+            if (pilot.CanRace == false || race.Pilots.Any(r => r.FullName == pilotFullName))
+            {
+                throw new InvalidOperationException(String.Format(ExceptionMessages.PilotDoesNotExistErrorMessage, pilotFullName));
+            }
+
+            race.AddPilot(pilot);
+
+            return String.Format(OutputMessages.SuccessfullyAddPilotToRace, pilotFullName, raceName);
         }
 
         public string CreateCar(string type, string model, int horsepower, double engineDisplacement)
@@ -97,17 +131,81 @@ namespace Formula1.Core
 
         public string PilotReport()
         {
-            throw new NotImplementedException();
+            StringBuilder result = new StringBuilder();
+
+            pilotRepository.Models.OrderByDescending(p => p.NumberOfWins);
+
+            foreach (var pilot in pilotRepository.Models)
+            {
+                result.AppendLine(pilot.ToString());
+            }
+
+            return result.ToString().TrimEnd();
         }
 
         public string RaceReport()
         {
-            throw new NotImplementedException();
+            StringBuilder result = new StringBuilder();
+            raceRepository.Models.Select(r => r.TookPlace == true);
+
+            foreach (var race in raceRepository.Models)
+            {
+                result.AppendLine(race.RaceInfo());
+            }
+
+            return result.ToString().TrimEnd();
+
         }
 
         public string StartRace(string raceName)
         {
-            throw new NotImplementedException();
+            if (!raceRepository.Models.Any(r => r.RaceName == raceName))
+            {
+                throw new NullReferenceException(String.Format(ExceptionMessages.RaceDoesNotExistErrorMessage, raceName));
+            }
+
+            
+            var race = raceRepository.Models.FirstOrDefault(r => r.RaceName == raceName);
+
+            if (race.Pilots.Count() < 3)
+            {
+                throw new InvalidOperationException(String.Format(ExceptionMessages.InvalidRaceParticipants, raceName));
+            }
+
+            if (race.TookPlace == true)
+            {
+                throw new InvalidOperationException(String.Format(ExceptionMessages.RaceTookPlaceErrorMessage, raceName));
+            }
+
+
+
+            race.Pilots.OrderByDescending(p => p.Car.RaceScoreCalculator(race.NumberOfLaps));
+            race.Pilots.First().WinRace();
+
+            StringBuilder finalScore = new StringBuilder();
+            int pilotsCounter = 1;
+
+            foreach (var pilot in race.Pilots)
+            {
+                if (pilotsCounter == 1)
+                {
+                    finalScore.AppendLine(String.Format(OutputMessages.PilotFirstPlace,pilot.FullName,raceName));
+                }
+                if (pilotsCounter == 2)
+                {
+                    finalScore.AppendLine(String.Format(OutputMessages.PilotSecondPlace, pilot.FullName, raceName));
+                }
+                if (pilotsCounter == 3)
+                {
+                    finalScore.AppendLine(String.Format(OutputMessages.PilotThirdPlace, pilot.FullName, raceName));
+                    break;
+                }
+
+                pilotsCounter++;
+            }
+
+            return finalScore.ToString().TrimEnd();
+
         }
     }
 }
