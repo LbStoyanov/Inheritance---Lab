@@ -41,6 +41,8 @@ namespace Formula1.Models
                 {
                     throw new NullReferenceException(ExceptionMessages.InvalidCarForPilot);
                 }
+
+                car = value;
             }
         }
 
