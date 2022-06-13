@@ -2,6 +2,7 @@
 using Formula1.Repositories.Contracts;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Formula1.Repositories
@@ -18,17 +19,19 @@ namespace Formula1.Repositories
 
         public void Add(IPilot model)
         {
-            throw new NotImplementedException();
+            pilots.Add(model);
         }
 
         public IPilot FindByName(string name)
         {
-            throw new NotImplementedException();
+            return pilots.FirstOrDefault(p => p.FullName == name);
         }
 
         public bool Remove(IPilot model)
         {
-            throw new NotImplementedException();
+            bool result = pilots.Remove(model);
+
+            return result;
         }
     }
 }
