@@ -12,20 +12,23 @@ namespace Formula1.Core
 {
     public class Controller : IController
     {
-        private PilotRepository pilotRepository => new PilotRepository();
-        private RaceRepository raceRepository => new RaceRepository();
-        private FormulaOneCarRepository FormulaOneCarRepository => new FormulaOneCarRepository();
+        private PilotRepository pilotRepository;
+        private RaceRepository raceRepository;
+        private FormulaOneCarRepository formulaOneCarRepository;
         public Controller()
         {
+            pilotRepository = new PilotRepository();
+            raceRepository = new RaceRepository();
+            formulaOneCarRepository = new FormulaOneCarRepository();
         }
         public string AddCarToPilot(string pilotName, string carModel)
         {
-            if (!FormulaOneCarRepository.Models.Any(c => c.Model == carModel))
+            if (!formulaOneCarRepository.Models.Any(c => c.Model == carModel))
             {
                 throw new NullReferenceException(String.Format(ExceptionMessages.CarDoesNotExistErrorMessage, carModel));
             }
 
-            var car = FormulaOneCarRepository.Models.FirstOrDefault(c => c.Model == carModel);
+            var car = formulaOneCarRepository.Models.FirstOrDefault(c => c.Model == carModel);
 
 
             if (!pilotRepository.Models.Any(p => p.FullName == pilotName))
@@ -42,7 +45,7 @@ namespace Formula1.Core
 
             pilot.AddCar(car);
 
-            FormulaOneCarRepository.Remove(car);
+            formulaOneCarRepository.Remove(car);
 
             return String.Format(OutputMessages.SuccessfullyPilotToCar, pilotName,car.GetType().Name, carModel);
           
@@ -90,12 +93,12 @@ namespace Formula1.Core
                 throw new InvalidOperationException(String.Format(ExceptionMessages.InvalidTypeCar, type));
             }
 
-            if (FormulaOneCarRepository.Models.Contains(formulaOneCar))
+            if (formulaOneCarRepository.Models.Contains(formulaOneCar))
             {
                 throw new InvalidOperationException(String.Format(ExceptionMessages.CarExistErrorMessage, formulaOneCar.Model));
             }
 
-            FormulaOneCarRepository.Add(formulaOneCar);
+            formulaOneCarRepository.Add(formulaOneCar);
 
             return String.Format(OutputMessages.SuccessfullyCreateCar, type, model);
         }
@@ -112,7 +115,6 @@ namespace Formula1.Core
             pilotRepository.Add(pilot);
 
             return String.Format(OutputMessages.SuccessfullyCreatePilot, fullName);
-            
         }
 
         public string CreateRace(string raceName, int numberOfLaps)
@@ -165,9 +167,9 @@ namespace Formula1.Core
             }
 
             
-            var race = raceRepository.Models.FirstOrDefault(r => r.RaceName == raceName);
+            Race race = (Race)raceRepository.Models.FirstOrDefault(r => r.RaceName == raceName);
 
-            if (race.Pilots.Count() < 3)
+            if (race.Pilots.Count < 3 )
             {
                 throw new InvalidOperationException(String.Format(ExceptionMessages.InvalidRaceParticipants, raceName));
             }
@@ -177,17 +179,19 @@ namespace Formula1.Core
                 throw new InvalidOperationException(String.Format(ExceptionMessages.RaceTookPlaceErrorMessage, raceName));
             }
 
+           
 
+           var result = race.Pilots.Select(p => p.Car.RaceScoreCalculator(race.NumberOfLaps)).OrderByDescending(x => x);
 
-            race.Pilots.OrderByDescending(p => p.Car.RaceScoreCalculator(race.NumberOfLaps));
-            race.Pilots.First().WinRace();
+           
 
             StringBuilder finalScore = new StringBuilder();
-            int pilotsCounter = 1;
+
+            int pilotsCounter = 3;
 
             foreach (var pilot in race.Pilots)
             {
-                if (pilotsCounter == 1)
+                if (pilotsCounter == 3)
                 {
                     finalScore.AppendLine(String.Format(OutputMessages.PilotFirstPlace,pilot.FullName,raceName));
                 }
@@ -195,14 +199,17 @@ namespace Formula1.Core
                 {
                     finalScore.AppendLine(String.Format(OutputMessages.PilotSecondPlace, pilot.FullName, raceName));
                 }
-                if (pilotsCounter == 3)
+                if (pilotsCounter == 1)
                 {
                     finalScore.AppendLine(String.Format(OutputMessages.PilotThirdPlace, pilot.FullName, raceName));
                     break;
                 }
 
-                pilotsCounter++;
+                pilotsCounter--;
             }
+            race.TookPlace = true;
+
+            finalScore.AppendLine(race.RaceInfo());
 
             return finalScore.ToString().TrimEnd();
 

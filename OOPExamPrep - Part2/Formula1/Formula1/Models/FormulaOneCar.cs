@@ -15,7 +15,7 @@ namespace Formula1.Models
         public FormulaOneCar(string model, int horsepower, double engineDisplacement)
         {
             this.Model = model;
-            this.Horsepower = horsePower;
+            this.Horsepower = horsepower;
             this.EngineDisplacement = engineDisplacement;
         }
         public string Model
@@ -37,7 +37,7 @@ namespace Formula1.Models
             get { return horsePower; }
             private set
             {
-                if (value < 900 || value > 1050)
+                if (value < 900 && value > 1050)
                 {
                     throw new ArgumentException(ExceptionMessages.InvalidF1HorsePower, value.ToString());
                 }

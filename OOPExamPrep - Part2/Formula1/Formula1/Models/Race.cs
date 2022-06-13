@@ -11,14 +11,13 @@ namespace Formula1.Models
         private string raceName;
         private int numberOfLaps;
         private bool tookPlace;
-        private List<IPilot> pilots;
 
         public Race(string raceName, int numberOfLaps)
         {
             this.RaceName = raceName;
             this.NumberOfLaps = numberOfLaps;
             this.tookPlace = false;
-            this.pilots = new List<IPilot>();
+            this.Pilots = new List<IPilot>();
         }
         public string RaceName
         {
@@ -58,7 +57,7 @@ namespace Formula1.Models
 
         public void AddPilot(IPilot pilot)
         {
-            pilots.Add(pilot);
+            Pilots.Add(pilot);
         }
 
         public string RaceInfo()
@@ -66,9 +65,18 @@ namespace Formula1.Models
             StringBuilder sb = new StringBuilder();
 
             sb.AppendLine($"The {this.RaceName } race has:");
-            sb.AppendLine($"Participants: {pilots.Count }");
+            sb.AppendLine($"Participants: {Pilots.Count }");
             sb.AppendLine($"Number of laps: {numberOfLaps }");
-            sb.AppendLine($"Took place: {tookPlace}");
+
+            if (tookPlace == true)
+            {
+                sb.AppendLine($"Took place: Yes");
+            }
+            else
+            {
+                sb.AppendLine($"Took place: No");
+            }
+            
 
             return sb.ToString().TrimEnd();
 
