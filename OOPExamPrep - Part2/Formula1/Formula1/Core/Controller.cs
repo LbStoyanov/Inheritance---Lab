@@ -127,6 +127,7 @@ namespace Formula1.Core
             Race race = new Race(raceName, numberOfLaps);
 
             raceRepository.Add(race);
+            raceRepository.Remove(race);
 
             return String.Format(OutputMessages.SuccessfullyCreateRace, raceName);
         }

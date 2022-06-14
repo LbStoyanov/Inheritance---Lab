@@ -31,7 +31,6 @@ namespace Formula1.Repositories
         {
             
             bool result = pilots.Remove(model);
-            pilots.Remove(model);
             return result;
         }
     }

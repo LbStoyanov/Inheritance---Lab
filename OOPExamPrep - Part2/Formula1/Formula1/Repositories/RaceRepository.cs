@@ -30,7 +30,6 @@ namespace Formula1.Repositories
         public bool Remove(IRace model)
         {
             bool result = races.Remove(model);
-            races.Remove(model);
 
             return result;
         }
