@@ -34,8 +34,10 @@ namespace Formula1.Repositories
 
         public bool Remove(IFormulaOneCar model)
         {
-            bool result = cars.Remove(model);
+            
 
+            bool result = cars.Remove(model);
+            cars.Remove(model);
             return result;
         }
     }

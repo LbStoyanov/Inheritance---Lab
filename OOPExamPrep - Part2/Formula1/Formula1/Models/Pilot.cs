@@ -9,13 +9,14 @@ namespace Formula1.Models
     public class Pilot : IPilot
     {
         private string fullName;
-        private bool canRace = false;
+        private bool canRace;
         private IFormulaOneCar car;
         private int numberOfWins;
 
         public Pilot(string fullName)
         {
-            this.FullName = fullName;      
+            this.FullName = fullName;
+            this.canRace = false;
         }
         public string FullName
         {
@@ -46,11 +47,11 @@ namespace Formula1.Models
             }
         }
 
-        public int NumberOfWins
-            => this.numberOfWins;
+        public int NumberOfWins { get { return numberOfWins; } }
+            
 
-        public bool CanRace 
-            => this.canRace;
+        public bool CanRace { get { return canRace; } }
+            
 
         public void AddCar(IFormulaOneCar car)
         {

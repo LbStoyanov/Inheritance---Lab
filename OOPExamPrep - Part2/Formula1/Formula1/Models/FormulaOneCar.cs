@@ -27,6 +27,7 @@ namespace Formula1.Models
                 {
                     throw new ArgumentException(ExceptionMessages.InvalidF1CarModel,value);
                 }
+
                 model = value;
             }
         }
@@ -41,6 +42,7 @@ namespace Formula1.Models
                 {
                     throw new ArgumentException(ExceptionMessages.InvalidF1HorsePower, value.ToString());
                 }
+
                 horsePower = value;
             }
         }

@@ -29,8 +29,9 @@ namespace Formula1.Repositories
 
         public bool Remove(IPilot model)
         {
+            
             bool result = pilots.Remove(model);
-
+            pilots.Remove(model);
             return result;
         }
     }
