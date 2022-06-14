@@ -135,9 +135,9 @@ namespace Formula1.Core
         {
             StringBuilder result = new StringBuilder();
 
-            pilotRepository.Models.OrderByDescending(p => p.NumberOfWins);
+            var orderedPilotsReport = pilotRepository.Models.OrderByDescending(p => p.NumberOfWins);
 
-            foreach (var pilot in pilotRepository.Models)
+            foreach (var pilot in orderedPilotsReport)
             {
                 result.AppendLine(pilot.ToString());
             }
@@ -148,7 +148,7 @@ namespace Formula1.Core
         public string RaceReport()
         {
             StringBuilder result = new StringBuilder();
-            //.Models.Select(r => r.TookPlace == true);
+            
 
             foreach (var race in raceRepository.Models)
             {
@@ -193,10 +193,10 @@ namespace Formula1.Core
             finalScore.AppendLine(String.Format(OutputMessages.PilotFirstPlace, winner.FullName, raceName));
             finalScore.AppendLine(String.Format(OutputMessages.PilotSecondPlace, second.FullName, raceName));
             finalScore.AppendLine(String.Format(OutputMessages.PilotThirdPlace, thirt.FullName, raceName));
-
+            winner.WinRace();
             race.TookPlace = true;
 
-            //finalScore.AppendLine(race.RaceInfo());
+            
 
             return finalScore.ToString().TrimEnd();
 
