@@ -17,6 +17,18 @@ namespace SmartphoneShop.Tests
         }
 
         [Test]
+        public void Test_Capacity_Creation()
+        {
+            Smartphone smradphone1 = new Smartphone("Nokia Tugla 4", 20);
+            Smartphone smradphone2 = new Smartphone("Nokia Tugla 6", 40);
+            Smartphone smradphone3 = new Smartphone("Nokia Tugla 8", 60);
+
+            Shop shop = new Shop(5);
+           
+            Assert.AreEqual(shop.Capacity, 5);
+        }
+
+        [Test]
         public void Test_Shop_Creation()
         {
 
@@ -43,19 +55,31 @@ namespace SmartphoneShop.Tests
         }
 
         [Test]
-        public void Test_Shop_Add_Method_Working()
+        public void Test_Shop_Add_Method_With_Free_Capacity_Working()
         {
             Smartphone smradphone1 = new Smartphone("Nokia Tugla 4", 20000);
-            Smartphone smradphone2 = new Smartphone("Nokia Tugla 6", 40000);
-            Smartphone smradphone3 = new Smartphone("Nokia Tugla 8", 60000);
+            
 
             Shop shop = new Shop(5);
             shop.Add(smradphone1);
-            shop.Add(smradphone2);
-            shop.Add(smradphone3);
-
-            Assert.AreEqual(3, shop.Count);
             
+
+            Assert.AreEqual(1, shop.Count);
+            
+        }
+
+        [Test]
+        public void Test_Shop_Add_Method_With_Full_Capacity_Working()
+        {
+            Smartphone smradphone1 = new Smartphone("Nokia Tugla 4", 20000);
+
+            Shop shop = new Shop(0);
+
+            Assert.Throws<InvalidOperationException>(() =>
+            {
+                shop.Add(smradphone1);
+            });
+
         }
         [Test]
         public void Test_Shop_Add_Same_Phone_Twice_Throws()
@@ -130,11 +154,11 @@ namespace SmartphoneShop.Tests
         }
 
         [Test]
-        public void TestPhone_Method_Working()
+        public void TestPhone_Method_With_Lower_Battery_Usige_Working()
         {
-            Smartphone smradphone1 = new Smartphone("Nokia Tugla 4", 20000);
-            Smartphone smradphone2 = new Smartphone("Nokia Tugla 6", 40000);
-            Smartphone smradphone3 = new Smartphone("Nokia Tugla 8", 60000);
+            Smartphone smradphone1 = new Smartphone("Nokia Tugla 4", 10);
+            Smartphone smradphone2 = new Smartphone("Nokia Tugla 6", 20);
+            Smartphone smradphone3 = new Smartphone("Nokia Tugla 8", 30);
 
             Shop shop = new Shop(5);
             shop.Add(smradphone1);
@@ -142,12 +166,92 @@ namespace SmartphoneShop.Tests
             shop.Add(smradphone3);
 
 
+            shop.TestPhone("Nokia Tugla 4", 9);
+
+            Assert.AreEqual(1, smradphone1.CurrentBateryCharge);
+
+        }
+        [Test]
+        public void TestPhone_Method_With_Higher_Battery_Usige_Working()
+        {
+            Smartphone smradphone1 = new Smartphone("Nokia Tugla 4", 9);
+            Smartphone smradphone2 = new Smartphone("Nokia Tugla 6", 20);
+            Smartphone smradphone3 = new Smartphone("Nokia Tugla 8", 30);
+
+            Shop shop = new Shop(5);
+            shop.Add(smradphone1);
+            shop.Add(smradphone2);
+            shop.Add(smradphone3);
+
+
+            
+            Assert.Throws<InvalidOperationException>(() =>
+            {
+                shop.TestPhone("Nokia Tugla 4", 10);
+            });
+
+
+        }
+
+        
+        [Test]
+        public void TestPhone_Method_With_Null_Phone_Working()
+        {
+            Smartphone smradphone1 = new Smartphone("Nokia Tugla 4", 10);
+            Smartphone smradphone2 = new Smartphone("Nokia Tugla 6", 20);
+            Smartphone smradphone3 = new Smartphone("Nokia Tugla 8", 30);
+
+            Shop shop = new Shop(5);
+            shop.Add(smradphone1);
+            shop.Add(smradphone2);
+            shop.Add(smradphone3);
+
 
             Assert.Throws<InvalidOperationException>(() =>
             {
-                shop.Remove("Nokia Tugla 9");
+                shop.TestPhone("Nokia Tugla 5", 11);
             });
 
         }
+
+        [Test]
+        public void ChargePhone_Method_With_NullValue_Throws()
+        {
+            Smartphone smradphone1 = new Smartphone("Nokia Tugla 4", 10);
+            Smartphone smradphone2 = new Smartphone("Nokia Tugla 6", 20);
+            Smartphone smradphone3 = new Smartphone("Nokia Tugla 8", 30);
+
+            Shop shop = new Shop(5);
+            shop.Add(smradphone1);
+            shop.Add(smradphone2);
+            shop.Add(smradphone3);
+
+
+            Assert.Throws<InvalidOperationException>(() =>
+            {
+                shop.ChargePhone("Nokia Tugla 5");
+            });
+
+        }
+
+        [Test]
+        public void ChargePhone_Method_With_Valide_Phone()
+        {
+            Smartphone smradphone1 = new Smartphone("Nokia Tugla 4", 10);
+            Smartphone smradphone2 = new Smartphone("Nokia Tugla 6", 20);
+            Smartphone smradphone3 = new Smartphone("Nokia Tugla 8", 30);
+
+            Shop shop = new Shop(5);
+            shop.Add(smradphone1);
+            shop.Add(smradphone2);
+            shop.Add(smradphone3);
+
+
+            shop.ChargePhone("Nokia Tugla 4");
+
+            Assert.AreEqual(smradphone1.CurrentBateryCharge, smradphone1.MaximumBatteryCharge);
+
+        }
+
     }
 }
