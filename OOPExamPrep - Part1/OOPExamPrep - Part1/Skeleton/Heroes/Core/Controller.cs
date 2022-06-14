@@ -6,16 +6,19 @@ using System.Text;
 using System.Linq;
 using Heroes.Models.Contracts;
 using Heroes.Models.Heroes;
+using Heroes.Models.Weapons;
 
 namespace Heroes.Core
 {
     public class Controller : IController
     {
-        private HeroRepository heroes => new HeroRepository();
-        private WeaponRepository weapons => new WeaponRepository();
+        private HeroRepository heroes;
+        private WeaponRepository weapons;
 
         public Controller()
         {
+            this.heroes = new HeroRepository();
+            this.weapons = new WeaponRepository();
         }
 
        
@@ -27,31 +30,68 @@ namespace Heroes.Core
 
         public string CreateHero(string type, string name, int health, int armour)
         {
-            //IHero hero = null;
+            if (heroes.Models.Any(x => x.Name == name))
+            {
+                throw new InvalidOperationException($"The hero { name } already exists.");
+            }
 
-            //if (type == "Knight")
-            //{
-            //    hero = new Knight(name, health, armour);
-            //    heroes.Add(hero);
-            //    return $"Successfully added Sir {name} to the collection.";
-            //}
-            //else if (type == "Barbarian")
-            //{
-            //    hero = new Barbarian(name, health, armour);
-            //    heroes.Add(hero);
-            //    return $"Successfully added Barbarian {name} to the collection.";
-            //}
-            //else
-            //{
-            //    throw new InvalidOperationException("Invalid hero type.");
-            //}
-            return "";
+            if (type != "Knight" && type != "Barbarian")
+            {
+                throw new InvalidOperationException("Invalid hero type.");
+            }
 
+            IHero hero = null;
+
+            string result = string.Empty;
+
+            if (type == "Knight")
+            {
+                hero = new Knight(name, health, armour);
+                heroes.Add(hero);
+                result = $"Successfully added Sir {name} to the collection.";
+            }
+            else if (type == "Barbarian")
+            {
+                hero = new Barbarian(name, health, armour);
+                heroes.Add(hero);
+                result = $"Successfully added Barbarian {name} to the collection.";
+            }
+            
+            return result;
         }
 
         public string CreateWeapon(string type, string name, int durability)
         {
-            throw new NotImplementedException();
+            if (weapons.Models.Any(x => x.Name == name))
+            {
+                throw new InvalidOperationException($"The weapon {name} already exists.");
+            }
+
+            if (type != "Mace" && type != "Claymore")
+            {
+                throw new InvalidOperationException("Invalid weapon type.");
+            }
+
+            string result = string.Empty;
+
+            IWeapon weapon = null;
+
+            if (type == "Mace")
+            {
+                weapon = new Mace(name, durability);
+
+                weapons.Add(weapon);
+            }
+            else if (type == "Barbarian")
+            {
+                weapon = new Claymore(name, durability);
+
+                weapons.Add(weapon);
+            }
+
+            result = $"A {type.ToLower()} {name.ToLower()} is added to the collection.";
+
+            return result;
         }
 
         public string HeroReport()
