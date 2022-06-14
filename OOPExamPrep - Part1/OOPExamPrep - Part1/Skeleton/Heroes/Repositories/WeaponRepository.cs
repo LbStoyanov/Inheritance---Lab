@@ -11,28 +11,28 @@ namespace Heroes.Repositories
 {
     public class WeaponRepository : IRepository<IWeapon>
     {
-        private List<IWeapon> models;
+        private List<IWeapon> weapons;
         public WeaponRepository()
         {
-            models = new List<IWeapon>();
+            weapons = new List<IWeapon>();
         }
 
-        public IReadOnlyCollection<IWeapon> Models { get { return this.models.AsReadOnly(); } }
+        public IReadOnlyCollection<IWeapon> Models { get { return this.weapons.AsReadOnly(); } }
 
         public void Add(IWeapon model)
         {
-            models.Add(model);
+            weapons.Add(model);
         }
 
         public IWeapon FindByName(string name)
         {
-            return models.FirstOrDefault(x => x.Name == name);
+            return weapons.FirstOrDefault(x => x.Name == name);
         }
 
 
         public bool Remove(IWeapon model)
         {
-            var result = models.Remove(model);
+            var result = weapons.Remove(model);
             return result;
         }
     }

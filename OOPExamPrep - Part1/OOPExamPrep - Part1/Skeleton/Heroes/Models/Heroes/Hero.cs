@@ -82,10 +82,11 @@ namespace Heroes.Models.Heroes
                 {
                     value = false;
                 }
-
-                value = true;
+                else
+                {
+                    value = true;
+                }
             }
-
         }
 
 
