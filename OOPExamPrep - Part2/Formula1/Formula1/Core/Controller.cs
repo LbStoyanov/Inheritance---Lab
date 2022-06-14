@@ -148,10 +148,14 @@ namespace Formula1.Core
         public string RaceReport()
         {
             StringBuilder result = new StringBuilder();
-            raceRepository.Models.Select(r => r.TookPlace == true);
+            //.Models.Select(r => r.TookPlace == true);
 
             foreach (var race in raceRepository.Models)
             {
+                if (race.TookPlace == false)
+                {
+                    continue;
+                }
                 result.AppendLine(race.RaceInfo());
             }
 
@@ -179,37 +183,20 @@ namespace Formula1.Core
                 throw new InvalidOperationException(String.Format(ExceptionMessages.RaceTookPlaceErrorMessage, raceName));
             }
 
-           
-
-           var result = race.Pilots.Select(p => p.Car.RaceScoreCalculator(race.NumberOfLaps)).OrderByDescending(x => x);
-
-           
 
             StringBuilder finalScore = new StringBuilder();
+            List<IPilot> finalThreePilots = race.Pilots.OrderByDescending(p => p.Car.RaceScoreCalculator(race.NumberOfLaps)).ToList();
 
-            int pilotsCounter = 3;
+            Pilot winner = (Pilot)finalThreePilots[0];
+            Pilot second = (Pilot)finalThreePilots[1];
+            Pilot thirt = (Pilot)finalThreePilots[2];
+            finalScore.AppendLine(String.Format(OutputMessages.PilotFirstPlace, winner.FullName, raceName));
+            finalScore.AppendLine(String.Format(OutputMessages.PilotSecondPlace, second.FullName, raceName));
+            finalScore.AppendLine(String.Format(OutputMessages.PilotThirdPlace, thirt.FullName, raceName));
 
-            foreach (var pilot in race.Pilots)
-            {
-                if (pilotsCounter == 3)
-                {
-                    finalScore.AppendLine(String.Format(OutputMessages.PilotFirstPlace,pilot.FullName,raceName));
-                }
-                if (pilotsCounter == 2)
-                {
-                    finalScore.AppendLine(String.Format(OutputMessages.PilotSecondPlace, pilot.FullName, raceName));
-                }
-                if (pilotsCounter == 1)
-                {
-                    finalScore.AppendLine(String.Format(OutputMessages.PilotThirdPlace, pilot.FullName, raceName));
-                    break;
-                }
-
-                pilotsCounter--;
-            }
             race.TookPlace = true;
 
-            finalScore.AppendLine(race.RaceInfo());
+            //finalScore.AppendLine(race.RaceInfo());
 
             return finalScore.ToString().TrimEnd();
 
