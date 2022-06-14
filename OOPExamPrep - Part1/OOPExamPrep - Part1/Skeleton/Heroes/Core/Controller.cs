@@ -25,7 +25,26 @@ namespace Heroes.Core
 
         public string AddWeaponToHero(string weaponName, string heroName)
         {
-            throw new NotImplementedException();
+            if (!heroes.Models.Any(x => x.Name == heroName))
+            {
+                throw new InvalidOperationException($"Hero {heroName} does not exist.");
+            }
+
+            if (!weapons.Models.Any(x => x.Name == weaponName))
+            {
+                throw new InvalidOperationException($"Weapon {weaponName} does not exist.");
+            }
+
+            IHero hero = heroes.Models.FirstOrDefault(x => x.Name == heroName);
+
+            if (hero.Weapon != null)
+            {
+                throw new InvalidOperationException($"Hero {heroName} is well-armed.");
+            }
+
+            IWeapon weapon = weapons.Models.FirstOrDefault(x => x.Name == weaponName);
+
+            return $"Hero {heroName} can participate in battle using a {weapon.GetType().Name.ToLower()}.";
         }
 
         public string CreateHero(string type, string name, int health, int armour)
