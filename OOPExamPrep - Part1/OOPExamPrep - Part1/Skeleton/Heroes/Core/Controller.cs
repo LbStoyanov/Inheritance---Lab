@@ -7,6 +7,7 @@ using System.Linq;
 using Heroes.Models.Contracts;
 using Heroes.Models.Heroes;
 using Heroes.Models.Weapons;
+using Heroes.Models.Map;
 
 namespace Heroes.Core
 {
@@ -43,6 +44,9 @@ namespace Heroes.Core
             }
 
             IWeapon weapon = weapons.Models.FirstOrDefault(x => x.Name == weaponName);
+
+            hero.AddWeapon(weapon);
+            weapons.Remove(weapon);
 
             return $"Hero {heroName} can participate in battle using a {weapon.GetType().Name.ToLower()}.";
         }
@@ -108,19 +112,43 @@ namespace Heroes.Core
                 weapons.Add(weapon);
             }
 
-            result = $"A {type.ToLower()} {name.ToLower()} is added to the collection.";
+            result = $"A {type.ToLower()} {name} is added to the collection.";
 
             return result;
         }
 
         public string HeroReport()
         {
-            throw new NotImplementedException();
+            StringBuilder result = new StringBuilder();
+
+            var orderedListOfHeroes = 
+                heroes.Models.OrderBy(x => x.GetType().Name).ThenBy(x => x.Health).ThenBy(x => x.Name).ToList();
+
+            foreach (var hero in orderedListOfHeroes)
+            {
+                result.AppendLine($"{hero.GetType().Name}: {hero.Name}");
+                result.AppendLine($"--Health: {hero.Health}");
+                result.AppendLine($"--Armour: {hero.Armour }");
+                if (hero.Weapon == null)
+                {
+                    result.AppendLine($"--Weapon: Unarmed");
+                }
+                else
+                {
+                    result.AppendLine($"--Weapon: {hero.Weapon.Name}");
+                }
+                
+            }
+
+            return result.ToString().TrimEnd();
         }
 
         public string StartBattle()
         {
-            throw new NotImplementedException();
+            IMap map = new Map();
+            string result = map.Fight((ICollection<IHero>)heroes);
+            return result;
+
         }
     }
 }
