@@ -7,16 +7,27 @@ namespace NavalVessels.Models
 {
     public class Submarine : Vessel, ISubmarine
     {
-        public Submarine(string name, double mainWeaponCaliber, double speed, double armorThickness) 
-            : base(name, mainWeaponCaliber, speed, armorThickness)
+        public Submarine(string name, double mainWeaponCaliber, double speed) 
+            : base(name, mainWeaponCaliber, speed, 200)
         {
+            this.SubmergeMode = false;
         }
 
-        public bool SubmergeMode => throw new NotImplementedException();
+        public bool SubmergeMode { get; }
 
         public void ToggleSubmergeMode()
         {
             throw new NotImplementedException();
+        }
+
+        public override void RepairVessel()
+        {
+            base.RepairVessel();
+        }
+
+        public override string ToString()
+        {
+            return base.ToString();
         }
     }
 }
