@@ -23,7 +23,30 @@ namespace NavalVessels.Core
 
         public string AssignCaptain(string selectedCaptainName, string selectedVesselName)
         {
-            throw new NotImplementedException();
+            if (!captains.Any(x => x.FullName == selectedCaptainName))
+            {
+                return String.Format(OutputMessages.CaptainNotFound, selectedCaptainName);
+            }
+
+            if (!vessels.Models.Any(x => x.Name == selectedVesselName))
+            {
+                return String.Format(OutputMessages.VesselNotFound, selectedVesselName);
+            }
+
+            var searchedVessel = vessels.Models.FirstOrDefault(x => x.Name == selectedVesselName);
+
+            if (searchedVessel.Captain != null)
+            {
+                return String.Format(OutputMessages.VesselOccupied, selectedVesselName);
+            }
+
+            Captain captain = (Captain)captains.FirstOrDefault(x => x.FullName == selectedCaptainName);
+
+            captain.AddVessel(searchedVessel);
+            searchedVessel.Captain = captain;
+            
+
+            return String.Format(OutputMessages.SuccessfullyAssignCaptain,selectedCaptainName, selectedVesselName);
         }
 
         public string AttackVessels(string attackingVesselName, string defendingVesselName)
@@ -33,7 +56,10 @@ namespace NavalVessels.Core
 
         public string CaptainReport(string captainFullName)
         {
-            throw new NotImplementedException();
+
+            Captain captain = (Captain)captains.FirstOrDefault(x => x.FullName == captainFullName);
+
+            return captain.Report();
         }
 
         public string HireCaptain(string fullName)
@@ -81,17 +107,49 @@ namespace NavalVessels.Core
 
         public string ServiceVessel(string vesselName)
         {
-            throw new NotImplementedException();
+            if (vessels.Models.Any(x => x.Name == vesselName))
+            {
+                IVessel vessel = vessels.Models.FirstOrDefault(x => x.Name == vesselName);
+                vessel.RepairVessel();
+                return String.Format(OutputMessages.SuccessfullyRepairVessel, vesselName);
+
+            }
+
+            return String.Format(OutputMessages.VesselNotFound, vesselName);
+
         }
 
         public string ToggleSpecialMode(string vesselName)
         {
-            throw new NotImplementedException();
+            if (vessels.Models.Any(x => x.Name == vesselName))
+            {
+                IVessel vessel = vessels.Models.FirstOrDefault(x => x.Name == vesselName);
+
+                if (vessel.GetType().Name == "Submarine")
+                {
+                    Submarine submarine = vessel as Submarine;
+                    submarine.ToggleSubmergeMode();
+                    return String.Format(OutputMessages.ToggleSubmarineSubmergeMode,vesselName);
+                    
+                }
+
+                if (vessel.GetType().Name == "Battleship")
+                {
+                    Battleship battleship = vessel as Battleship;
+                    battleship.ToggleSonarMode();
+                    return String.Format(OutputMessages.ToggleBattleshipSonarMode, vesselName);
+                }
+            }
+            
+
+            return String.Format(OutputMessages.VesselNotFound, vesselName);
         }
 
         public string VesselReport(string vesselName)
         {
-            throw new NotImplementedException();
+            Vessel vessel = (Vessel)vessels.Models.FirstOrDefault(x => x.Name == vesselName);
+
+            return vessel.ToString();
         }
     }
 }
