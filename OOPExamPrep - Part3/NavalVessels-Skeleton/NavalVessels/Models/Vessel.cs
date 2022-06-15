@@ -18,7 +18,6 @@ namespace NavalVessels.Models
             this.MainWeaponCaliber = mainWeaponCaliber;
             this.Speed = speed;
             this.ArmorThickness = armorThickness;
-            attackerListOfTargets = new List<string>();
         }
         public string Name
         {
@@ -69,7 +68,7 @@ namespace NavalVessels.Models
                 target.ArmorThickness = 0;
             }
 
-            attackerListOfTargets.Add(target.Name);
+            Targets.Add(target.Name);
 
         }
 
@@ -91,7 +90,7 @@ namespace NavalVessels.Models
             }
             else
             {
-                result.AppendLine($"Targets: {string.Join(", ",attackerListOfTargets)}");
+                result.AppendLine($"Targets: {string.Join(", ",Targets)}");
             }
 
            return result.ToString().TrimEnd();

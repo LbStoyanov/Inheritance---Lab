@@ -2,6 +2,7 @@
 using NavalVessels.Repositories.Contracts;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace NavalVessels.Repositories
@@ -17,17 +18,19 @@ namespace NavalVessels.Repositories
 
         public void Add(IVessel model)
         {
-            throw new NotImplementedException();
+            vessels.Add(model);
         }
 
         public IVessel FindByName(string name)
         {
-            throw new NotImplementedException();
+            return vessels.FirstOrDefault(x => x.Name == name);
         }
 
         public bool Remove(IVessel model)
         {
-            throw new NotImplementedException();
+            bool result = vessels.Remove(model);
+
+            return result;
         }
     }
 }
