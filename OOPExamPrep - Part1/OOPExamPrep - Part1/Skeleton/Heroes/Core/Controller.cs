@@ -145,9 +145,9 @@ namespace Heroes.Core
 
         public string StartBattle()
         {
-            IMap map = new Map();
-            string result = map.Fight((ICollection<IHero>)heroes);
-            return result;
+            Map map = new Map();
+           
+            return map.Fight((ICollection<IHero>)heroes); 
 
         }
     }

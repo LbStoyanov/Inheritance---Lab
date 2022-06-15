@@ -9,7 +9,6 @@ namespace Heroes.Models.Map
 {
     public class Map : IMap
     {
-       
         public string Fight(ICollection<IHero> heroes)
         {
 
@@ -18,8 +17,8 @@ namespace Heroes.Models.Map
 
             while (true)
             {
-                var aliveKnights = knights.Where(x => x.IsAlive);
-                var aliveBarbarians = barbarians.Where(x => x.IsAlive);
+                var aliveKnights = knights.Where(x => x.IsAlive && x.Weapon != null);
+                var aliveBarbarians = barbarians.Where(x => x.IsAlive && x.Weapon != null);
 
                 foreach (var knight in aliveKnights)
                 {
