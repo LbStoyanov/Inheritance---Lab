@@ -22,7 +22,7 @@ namespace NavalVessels.Models
 
         public override void RepairVessel()
         {
-            base.RepairVessel();
+
         }
 
         public override string ToString()

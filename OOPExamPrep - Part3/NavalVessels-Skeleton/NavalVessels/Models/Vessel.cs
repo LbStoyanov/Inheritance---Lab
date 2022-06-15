@@ -10,6 +10,7 @@ namespace NavalVessels.Models
     {
         private string name;
         private ICaptain captain;
+        private List<string> attackerListOfTargets;
 
         public Vessel(string name, double mainWeaponCaliber, double speed, double armorThickness)
         {
@@ -17,6 +18,7 @@ namespace NavalVessels.Models
             this.MainWeaponCaliber = mainWeaponCaliber;
             this.Speed = speed;
             this.ArmorThickness = armorThickness;
+            attackerListOfTargets = new List<string>();
         }
         public string Name
         {
@@ -47,26 +49,52 @@ namespace NavalVessels.Models
         }
         public double ArmorThickness { get; set; }
 
-        public double MainWeaponCaliber { get;}
+        public double MainWeaponCaliber { get; protected set; }
 
-        public double Speed { get; }
+        public double Speed { get; protected set; }
 
         public ICollection<string> Targets { get; }
 
         public void Attack(IVessel target)
         {
-            throw new NotImplementedException();
+            if (target == null)
+            {
+                throw new NullReferenceException(ExceptionMessages.InvalidTarget);
+            }
+
+            target.ArmorThickness -= this.MainWeaponCaliber;
+
+            if (target.ArmorThickness < 0)
+            {
+                target.ArmorThickness = 0;
+            }
+
+            attackerListOfTargets.Add(target.Name);
+
         }
 
-        public virtual void RepairVessel()
-        {
-            throw new NotImplementedException();
-        }
+        public abstract void RepairVessel();
+        
 
         public override string ToString()
         {
+            StringBuilder result = new StringBuilder();
 
-           return base.ToString();
+            result.AppendLine($"Type: {this.GetType().Name}");
+            result.AppendLine($"Armor thickness: {this.ArmorThickness}");
+            result.AppendLine($"Main weapon caliber: {this.MainWeaponCaliber}");
+            result.AppendLine($"Speed: {this.Speed} knots");
+            result.AppendLine($"Speed: {this.Speed} knots");
+            if (this.attackerListOfTargets.Count == 0)
+            {
+                result.AppendLine("Targets: None");
+            }
+            else
+            {
+                result.AppendLine($"Targets: {string.Join(", ",attackerListOfTargets)}");
+            }
+
+           return result.ToString().TrimEnd();
         }
     }
 }
