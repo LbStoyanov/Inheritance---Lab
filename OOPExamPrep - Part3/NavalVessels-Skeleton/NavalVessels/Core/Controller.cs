@@ -51,7 +51,29 @@ namespace NavalVessels.Core
 
         public string AttackVessels(string attackingVesselName, string defendingVesselName)
         {
-            throw new NotImplementedException();
+            if (!vessels.Models.Any(x => x.Name == attackingVesselName && x.Name == defendingVesselName))
+            {
+                return String.Format(OutputMessages.VesselNotFound, attackingVesselName);
+            }
+
+            var attackinVessel = vessels.Models.FirstOrDefault(x => x.Name == attackingVesselName);
+            var defendingVessel = vessels.Models.FirstOrDefault(x => x.Name == defendingVesselName);
+
+            if (attackinVessel.ArmorThickness == 0)
+            {
+                return String.Format(OutputMessages.AttackVesselArmorThicknessZero, attackingVesselName);
+            }
+
+            if (defendingVessel.ArmorThickness == 0)
+            {
+                return String.Format(OutputMessages.AttackVesselArmorThicknessZero, defendingVesselName);
+            }
+
+            attackinVessel.Attack(defendingVessel);
+            attackinVessel.Captain.IncreaseCombatExperience();
+            defendingVessel.Captain.IncreaseCombatExperience();
+
+            return String.Format(OutputMessages.SuccessfullyAttackVessel, defendingVesselName,attackinVessel,defendingVessel.ArmorThickness);
         }
 
         public string CaptainReport(string captainFullName)
