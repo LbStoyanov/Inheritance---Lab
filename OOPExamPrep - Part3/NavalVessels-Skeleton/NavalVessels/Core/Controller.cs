@@ -1,8 +1,11 @@
 ﻿using NavalVessels.Core.Contracts;
+using NavalVessels.Models;
 using NavalVessels.Models.Contracts;
 using NavalVessels.Repositories;
+using NavalVessels.Utilities.Messages;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace NavalVessels.Core
@@ -35,12 +38,45 @@ namespace NavalVessels.Core
 
         public string HireCaptain(string fullName)
         {
-            throw new NotImplementedException();
+            if (captains.Any(x => x.FullName == fullName))
+            {
+                return String.Format(OutputMessages.CaptainIsAlreadyHired, fullName);
+            }
+
+            Captain captain = new Captain(fullName);
+            captains.Add(captain);
+
+            return String.Format(OutputMessages.SuccessfullyAddedCaptain, fullName);
         }
 
         public string ProduceVessel(string name, string vesselType, double mainWeaponCaliber, double speed)
         {
-            throw new NotImplementedException();
+            if (vesselType != "Submarine" && vesselType != "Battleship")
+            {
+                return String.Format(OutputMessages.InvalidVesselType, vesselType);
+            }
+
+            if (vessels.Models.Any(x => x.Name == name))
+            {
+                return String.Format(OutputMessages.VesselIsAlreadyManufactured, vesselType,name);
+            }
+
+            IVessel vessel = null;
+
+            if (vesselType == "Submarine")
+            {
+                vessel = new Submarine(name, mainWeaponCaliber, speed);
+            }
+
+            if (vesselType == "Battleship")
+            {
+                vessel = new Battleship(name, mainWeaponCaliber, speed);
+            }
+
+            vessels.Add(vessel);
+
+            return String.Format(OutputMessages.SuccessfullyCreateVessel, vesselType,name,mainWeaponCaliber,speed);
+
         }
 
         public string ServiceVessel(string vesselName)
