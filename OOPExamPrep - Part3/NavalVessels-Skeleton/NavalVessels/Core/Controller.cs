@@ -13,12 +13,12 @@ namespace NavalVessels.Core
     public class Controller : IController
     {
         VesselRepository vessels;
-        List<ICaptain> captains;
+        List<Captain> captains;
 
         public Controller()
         {
             this.vessels = new VesselRepository();
-            this.captains = new List<ICaptain>();
+            this.captains = new List<Captain>();
         }
 
         public string AssignCaptain(string selectedCaptainName, string selectedVesselName)
@@ -33,14 +33,14 @@ namespace NavalVessels.Core
                 return String.Format(OutputMessages.VesselNotFound, selectedVesselName);
             }
 
-            var searchedVessel = vessels.Models.FirstOrDefault(x => x.Name == selectedVesselName);
+            IVessel searchedVessel = vessels.Models.FirstOrDefault(x => x.Name == selectedVesselName);
 
             if (searchedVessel.Captain != null)
             {
                 return String.Format(OutputMessages.VesselOccupied, selectedVesselName);
             }
 
-            Captain captain = (Captain)captains.FirstOrDefault(x => x.FullName == selectedCaptainName);
+            ICaptain captain = captains.FirstOrDefault(x => x.FullName == selectedCaptainName);
 
             captain.AddVessel(searchedVessel);
             searchedVessel.Captain = captain;
@@ -51,9 +51,14 @@ namespace NavalVessels.Core
 
         public string AttackVessels(string attackingVesselName, string defendingVesselName)
         {
-            if (!vessels.Models.Any(x => x.Name == attackingVesselName && x.Name == defendingVesselName))
+            if (!vessels.Models.Any(x => x.Name == attackingVesselName))
             {
                 return String.Format(OutputMessages.VesselNotFound, attackingVesselName);
+            }
+
+            if (!vessels.Models.Any(x => x.Name == defendingVesselName))
+            {
+                return String.Format(OutputMessages.VesselNotFound, defendingVesselName);
             }
 
             var attackinVessel = vessels.Models.FirstOrDefault(x => x.Name == attackingVesselName);
@@ -73,7 +78,9 @@ namespace NavalVessels.Core
             attackinVessel.Captain.IncreaseCombatExperience();
             defendingVessel.Captain.IncreaseCombatExperience();
 
-            return String.Format(OutputMessages.SuccessfullyAttackVessel, defendingVesselName,attackinVessel,defendingVessel.ArmorThickness);
+            double defendingVesselCurrentArmorTickness = defendingVessel.ArmorThickness;
+
+            return String.Format(OutputMessages.SuccessfullyAttackVessel, defendingVesselName,attackinVessel,);
         }
 
         public string CaptainReport(string captainFullName)

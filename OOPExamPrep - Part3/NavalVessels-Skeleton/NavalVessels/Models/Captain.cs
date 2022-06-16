@@ -11,11 +11,14 @@ namespace NavalVessels.Models
     {
         private string fullName;
         private int combatExperience = 0;
+       
         
 
         public Captain(string fullName)
         {
             this.FullName = fullName;
+            this.Vessels = new List<IVessel>();
+            
         }
         public string FullName
         {
@@ -47,10 +50,7 @@ namespace NavalVessels.Models
 
         public void IncreaseCombatExperience()
         {
-            if (this.Vessels.Any(x => x.Captain.Vessels.Count > 0))
-            {
-                this.combatExperience += 10;
-            }
+            this.combatExperience += 10;
         }
 
         public string Report()

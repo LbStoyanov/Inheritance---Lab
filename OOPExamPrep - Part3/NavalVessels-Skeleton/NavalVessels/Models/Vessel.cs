@@ -10,7 +10,7 @@ namespace NavalVessels.Models
     {
         private string name;
         private ICaptain captain;
-        private List<string> attackerListOfTargets;
+       
 
         public Vessel(string name, double mainWeaponCaliber, double speed, double armorThickness)
         {
@@ -18,6 +18,7 @@ namespace NavalVessels.Models
             this.MainWeaponCaliber = mainWeaponCaliber;
             this.Speed = speed;
             this.ArmorThickness = armorThickness;
+            this.Targets = new List<string>();
         }
         public string Name
         {
@@ -42,7 +43,7 @@ namespace NavalVessels.Models
                 {
                     throw new NullReferenceException(ExceptionMessages.InvalidCaptainToVessel);
                 }
-                value = this.captain;
+                this.captain = value;
             }
 
         }
@@ -79,12 +80,13 @@ namespace NavalVessels.Models
         {
             StringBuilder result = new StringBuilder();
 
+            result.AppendLine($"- {this.Name}");
             result.AppendLine($"Type: {this.GetType().Name}");
             result.AppendLine($"Armor thickness: {this.ArmorThickness}");
             result.AppendLine($"Main weapon caliber: {this.MainWeaponCaliber}");
             result.AppendLine($"Speed: {this.Speed} knots");
             result.AppendLine($"Speed: {this.Speed} knots");
-            if (this.attackerListOfTargets.Count == 0)
+            if (this.Targets.Count == 0)
             {
                 result.AppendLine("Targets: None");
             }
