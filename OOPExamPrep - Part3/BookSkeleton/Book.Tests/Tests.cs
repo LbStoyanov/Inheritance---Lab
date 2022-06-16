@@ -53,5 +53,80 @@
                 Book book = new Book("Pri Lancho", null);
             });
         }
+
+        [Test]
+        public void AddFootNote_Method_With_NonExistin_Footnote()
+        {
+
+            Book book = new Book("Pri Lancho", "Lanche");
+            book.AddFootnote(1,"Q sum LanchO");
+
+            Assert.AreEqual(1, book.FootnoteCount);
+
+           
+        }
+
+        [Test]
+        public void AddFootNote_Method_With_Existing_Footnote()
+        {
+
+            Book book = new Book("Pri Lancho", "Lanche");
+            book.AddFootnote(1, "Q sum LanchO");
+
+            Assert.Throws<InvalidOperationException>(() =>
+            {
+                book.AddFootnote(1, "Q");
+            });
+        }
+
+        [Test]
+        public void FindFootNote_Method_With_NoneExisting_Footnote()
+        {
+
+            Book book = new Book("Pri Lancho", "Lanche");
+            book.AddFootnote(1, "Q sum LanchO");
+
+            Assert.Throws<InvalidOperationException>(() =>
+            {
+                book.FindFootnote(2); 
+            });
+        }
+
+        [Test]
+        public void FindFootNote_Method_With_Existing_Footnote()
+        {
+
+            Book book = new Book("Pri Lancho", "Lanche");
+            book.AddFootnote(1, "Q sum LanchO");
+            string enteredResult = book.FindFootnote(1);
+            string text = "Q sum LanchO";
+            string returningResult = $"Footnote #{1}: {text}";
+
+            Assert.AreEqual(enteredResult, returningResult);
+        }
+
+        [Test]
+        public void AlterFootNote_Method_With_NonExisting_Footnote()
+        {
+
+            Book book = new Book("Pri Lancho", "Lanche");
+            book.AddFootnote(1, "Q sum LanchO");
+            
+
+            Assert.Throws<InvalidOperationException>(() =>
+            {
+                book.AlterFootnote(2, "kak");
+            });
+        }
+
+        [Test]
+        public void AlterFootNote_Method_With_Existing_Footnote()
+        {
+
+            Book book = new Book("Pri Lancho", "Lanche");
+            book.AddFootnote(1, "Q sum LanchO");
+            
+
+        }
     }
 }
