@@ -66,55 +66,57 @@ namespace NavalVessels.Models
 
                 foreach (var submarine in submarines)
                 {
-                    result.AppendLine($"- {submarine.Name}");
-                    result.AppendLine($"Type: {submarine.GetType().Name}");
-                    result.AppendLine($"Armor thickness: {submarine.ArmorThickness}");
-                    result.AppendLine($"Main weapon caliber: {submarine.MainWeaponCaliber}");
-                    result.AppendLine($"Speed: {submarine.Speed} knots");
-                    result.AppendLine($"Speed: {submarine.Speed} knots");
-                    if (submarine.Targets.Count > 0)
-                    {
-                        result.AppendLine($"Targets: {string.Join(", ", submarine.Targets)}");
-                    }
-                    else
-                    {
-                        result.AppendLine($"Targets: None");
-                    }
+                    result.AppendLine(submarine.ToString());
+                    //result.AppendLine($"- {submarine.Name}");
+                    //result.AppendLine($"Type: {submarine.GetType().Name}");
+                    //result.AppendLine($"Armor thickness: {submarine.ArmorThickness}");
+                    //result.AppendLine($"Main weapon caliber: {submarine.MainWeaponCaliber}");
+                    //result.AppendLine($"Speed: {submarine.Speed} knots");
 
-                    if (submarine.SubmergeMode == false)
-                    {
-                        result.AppendLine("Submerge mode: OFF");
-                        continue;
-                    }
+                    //if (submarine.Targets.Count > 0)
+                    //{
+                    //    result.AppendLine($"Targets: {string.Join(", ", submarine.Targets)}");
+                    //}
+                    //else
+                    //{
+                    //    result.AppendLine($"Targets: None");
+                    //}
 
-                    result.AppendLine("Submerge mode: ON");
-                    
+                    //if (submarine.SubmergeMode == false)
+                    //{
+                    //    result.AppendLine("Submerge mode: OFF");
+                    //    continue;
+                    //}
+
+                    //result.AppendLine("Submerge mode: ON");
+
                 }
 
                 foreach (var battleship in battleships)
                 {
-                    result.AppendLine($"- {battleship.Name}");
-                    result.AppendLine($"Type: {battleship.GetType().Name}");
-                    result.AppendLine($"Armor thickness: {battleship.ArmorThickness}");
-                    result.AppendLine($"Main weapon caliber: {battleship.MainWeaponCaliber}");
-                    result.AppendLine($"Speed: {battleship.Speed} knots");
-                    result.AppendLine($"Speed: {battleship.Speed} knots");
-                    if (battleship.Targets.Count > 0)
-                    {
-                        result.AppendLine($"Targets: {string.Join(", ", battleship.Targets)}");
-                    }
-                    else
-                    {
-                        result.AppendLine($"Targets: None");
-                    }
+                    result.AppendLine(battleship.ToString());
+                    //result.AppendLine($"- {battleship.Name}");
+                    //result.AppendLine($"Type: {battleship.GetType().Name}");
+                    //result.AppendLine($"Armor thickness: {battleship.ArmorThickness}");
+                    //result.AppendLine($"Main weapon caliber: {battleship.MainWeaponCaliber}");
+                    //result.AppendLine($"Speed: {battleship.Speed} knots");
+                    
+                    //if (battleship.Targets.Count > 0)
+                    //{
+                    //    result.AppendLine($"Targets: {string.Join(", ", battleship.Targets)}");
+                    //}
+                    //else
+                    //{
+                    //    result.AppendLine($"Targets: None");
+                    //}
 
-                    if (battleship.SonarMode == false)
-                    {
-                        result.AppendLine("Sonar mode: OFF");
-                        continue;
-                    }
+                    //if (battleship.SonarMode == false)
+                    //{
+                    //    result.AppendLine("Sonar mode: OFF");
+                    //    continue;
+                    //}
 
-                    result.AppendLine("Sonar mode: ON");
+                    //result.AppendLine("Sonar mode: ON");
 
                 }
             }

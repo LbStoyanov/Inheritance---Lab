@@ -51,7 +51,20 @@ namespace NavalVessels.Models
         public override string ToString()
         {
             StringBuilder result = new StringBuilder();
-            result.AppendLine(base.ToString());
+            result.AppendLine($"- {this.Name}");
+            result.AppendLine($"Type: {this.GetType().Name}");
+            result.AppendLine($"Armor thickness: {this.ArmorThickness}");
+            result.AppendLine($"Main weapon caliber: {this.MainWeaponCaliber}");
+            result.AppendLine($"Speed: {this.Speed} knots");
+            
+            if (this.Targets.Count == 0)
+            {
+                result.AppendLine("Targets: None");
+            }
+            else
+            {
+                result.AppendLine($"Targets: {string.Join(", ", Targets)}");
+            }
 
             if (this.SonarMode == false)
             {

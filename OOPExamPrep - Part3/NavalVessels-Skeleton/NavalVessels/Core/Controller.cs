@@ -80,7 +80,8 @@ namespace NavalVessels.Core
 
             double defendingVesselCurrentArmorTickness = defendingVessel.ArmorThickness;
 
-            return String.Format(OutputMessages.SuccessfullyAttackVessel, defendingVesselName,attackinVessel,);
+            //return String.Format(OutputMessages.SuccessfullyAttackVessel, defendingVesselName,attackinVessel, defendingVesselCurrentArmorTickness);
+            return String.Format($"Vessel {defendingVesselName} was attacked by vessel {attackingVesselName} - current armor thickness: {defendingVesselCurrentArmorTickness}.");
         }
 
         public string CaptainReport(string captainFullName)

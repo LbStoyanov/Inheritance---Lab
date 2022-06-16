@@ -85,7 +85,7 @@ namespace NavalVessels.Models
             result.AppendLine($"Armor thickness: {this.ArmorThickness}");
             result.AppendLine($"Main weapon caliber: {this.MainWeaponCaliber}");
             result.AppendLine($"Speed: {this.Speed} knots");
-            result.AppendLine($"Speed: {this.Speed} knots");
+            
             if (this.Targets.Count == 0)
             {
                 result.AppendLine("Targets: None");
