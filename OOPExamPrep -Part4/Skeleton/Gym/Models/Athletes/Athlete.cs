@@ -47,7 +47,7 @@ namespace Gym.Models.Athletes
             }
         }
 
-        public int Stamina { get; }
+        public int Stamina { get; set; }
 
         public int NumberOfMedals
         {
