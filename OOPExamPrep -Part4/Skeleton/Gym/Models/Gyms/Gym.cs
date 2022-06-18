@@ -34,7 +34,7 @@ namespace Gym.Models.Gyms
             }
         }
 
-        public int Capacity { get; private set; }
+        public int Capacity { get; }
             
 
         public double EquipmentWeight
