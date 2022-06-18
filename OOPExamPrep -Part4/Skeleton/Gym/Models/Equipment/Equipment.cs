@@ -7,11 +7,8 @@ namespace Gym.Models.Equipment
 {
     public abstract class Equipment : IEquipment
     {
-        protected Equipment(int v1, int v2)
-        {
-        }
-
-        private Equipment(double weight, decimal price)
+       
+        public Equipment(double weight, decimal price)
         {
             Weight = weight;
             Price = price;
