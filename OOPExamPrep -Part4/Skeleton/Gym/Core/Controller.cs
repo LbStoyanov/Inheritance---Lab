@@ -98,9 +98,9 @@ namespace Gym.Core
         {
             var gym = gyms.FirstOrDefault(n => n.Name == gymName);
 
-            var equipmentTotalWeight = gym.Equipment.Select(x => x.Weight).Sum();
+            
 
-            return String.Format(OutputMessages.EquipmentTotalWeight, gymName, equipmentTotalWeight);
+            return String.Format(OutputMessages.EquipmentTotalWeight, gymName, gym.EquipmentWeight);
         }
 
         public string InsertEquipment(string gymName, string equipmentType)
@@ -136,10 +136,12 @@ namespace Gym.Core
         {
             var gym = gyms.FirstOrDefault(n => n.Name == gymName);
 
-            foreach (var athlete in gym.Athletes)
-            {
-                athlete.Exercise();
-            }
+            //foreach (var athlete in gym.Athletes)
+            //{
+            //    athlete.Exercise();
+            //}
+
+            gym.Exercise();
 
             return String.Format(OutputMessages.AthleteExercise, gym.Athletes.Count());
         }

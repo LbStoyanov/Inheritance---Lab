@@ -79,7 +79,7 @@ namespace Gym.Models.Gyms
 
             if (Athletes.Count == 0)
             {
-                result.AppendLine("No athletes");
+                result.AppendLine("Athletes: No athletes");
             }
             else
             {
@@ -91,7 +91,7 @@ namespace Gym.Models.Gyms
 
 
             result.AppendLine($"Equipment total count: {Equipment.Count}");
-            result.AppendLine($"Equipment total weight: {Equipment.Select(x => x.Weight).Sum()} grams");
+            result.AppendLine($"Equipment total weight: {EquipmentWeight:f2} grams");
 
             return result.ToString().TrimEnd();
         }
