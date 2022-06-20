@@ -73,7 +73,27 @@ namespace Gym.Models.Gyms
 
         public string GymInfo()
         {
-            throw new NotImplementedException();
+            StringBuilder result = new StringBuilder();
+
+            result.AppendLine($"{this.Name} is a {this.GetType().Name}:");
+
+            if (Athletes.Count == 0)
+            {
+                result.AppendLine("No athletes");
+            }
+            else
+            {
+                var listOfAthletes = Athletes.Select(x => x.FullName).ToList();
+
+                result.AppendLine($"Athletes: {string.Join(", ", listOfAthletes)}");
+            }
+
+
+
+            result.AppendLine($"Equipment total count: {Equipment.Count}");
+            result.AppendLine($"Equipment total weight: {Equipment.Select(x => x.Weight).Sum()} grams");
+
+            return result.ToString().TrimEnd();
         }
 
         public bool RemoveAthlete(IAthlete athlete)
