@@ -34,7 +34,7 @@ namespace Gym.Models.Gyms
             }
         }
 
-        public int Capacity { get; }
+        public int Capacity { get; private set; }
             
 
         public double EquipmentWeight
@@ -49,17 +49,26 @@ namespace Gym.Models.Gyms
 
         public void AddAthlete(IAthlete athlete)
         {
-            throw new NotImplementedException();
+            if (Capacity == 0)
+            {
+                throw new InvalidOperationException(ExceptionMessages.NotEnoughSize);
+            }
+
+            Athletes.Add(athlete);
+            Capacity--;
         }
 
         public void AddEquipment(IEquipment equipment)
         {
-            throw new NotImplementedException();
+            Equipment.Add(equipment);
         }
 
         public void Exercise()
         {
-            throw new NotImplementedException();
+            foreach (var atlhete in Athletes)
+            {
+                atlhete.Exercise();
+            }
         }
 
         public string GymInfo()
@@ -69,7 +78,7 @@ namespace Gym.Models.Gyms
 
         public bool RemoveAthlete(IAthlete athlete)
         {
-            throw new NotImplementedException();
+            return Athletes.Remove(athlete);
         }
     }
 }

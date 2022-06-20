@@ -54,7 +54,7 @@ namespace Gym.Models.Athletes
             get { return this.numberOfMedals; }
             private set
             {
-                if (value <=0)
+                if (value < 0)
                 {
                     throw new ArgumentException(ExceptionMessages.InvalidAthleteMedals);
                 }
