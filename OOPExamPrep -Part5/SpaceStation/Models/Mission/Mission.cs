@@ -11,7 +11,7 @@ namespace SpaceStation.Models.Mission
     {
         public void Explore(IPlanet planet, ICollection<IAstronaut> astronauts)
         {
-            throw new NotImplementedException();
+            
         }
     }
 }

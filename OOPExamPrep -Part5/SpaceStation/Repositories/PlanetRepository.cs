@@ -2,6 +2,7 @@
 using SpaceStation.Repositories.Contracts;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace SpaceStation.Repositories
@@ -18,17 +19,17 @@ namespace SpaceStation.Repositories
 
         public void Add(IPlanet model)
         {
-            throw new NotImplementedException();
+            this.planets.Add(model);
         }
 
         public IPlanet FindByName(string name)
         {
-            throw new NotImplementedException();
+            return this.planets.FirstOrDefault(p => p.Name == name);
         }
 
         public bool Remove(IPlanet model)
         {
-            throw new NotImplementedException();
+            return this.planets.Remove(model);
         }
     }
 }

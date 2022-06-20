@@ -2,6 +2,7 @@
 using SpaceStation.Repositories.Contracts;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace SpaceStation.Repositories
@@ -18,17 +19,17 @@ namespace SpaceStation.Repositories
 
         public void Add(IAstronaut model)
         {
-            throw new NotImplementedException();
+            this.astronauts.Add(model);
         }
 
         public IAstronaut FindByName(string name)
         {
-            throw new NotImplementedException();
+            return this.astronauts.FirstOrDefault(a => a.Name == name);
         }
 
         public bool Remove(IAstronaut model)
         {
-            throw new NotImplementedException();
+            return this.astronauts.Remove(model);
         }
     }
 }
