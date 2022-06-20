@@ -26,6 +26,8 @@ namespace SpaceStation.Core
             {
 
             }
+
+            return "";
         }
 
         public string AddPlanet(string planetName, params string[] items)
