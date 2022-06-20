@@ -44,6 +44,8 @@ namespace Gym.Models.Athletes
                 {
                     throw new ArgumentException(ExceptionMessages.InvalidAthleteMotivation);
                 }
+
+                this.motivation = value;
             }
         }
 
@@ -58,6 +60,8 @@ namespace Gym.Models.Athletes
                 {
                     throw new ArgumentException(ExceptionMessages.InvalidAthleteMedals);
                 }
+
+                this.numberOfMedals = value;
             }
         }
 
