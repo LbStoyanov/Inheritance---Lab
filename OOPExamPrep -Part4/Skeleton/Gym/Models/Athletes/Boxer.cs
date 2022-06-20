@@ -16,11 +16,7 @@ namespace Gym.Models.Athletes
         {
             Stamina += 15;
 
-            if (Stamina > 100)
-            {
-                Stamina = 100;
-                throw new ArgumentException(ExceptionMessages.InvalidStamina);
-            }
+          
         }
     }
 }
