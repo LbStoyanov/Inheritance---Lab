@@ -1,4 +1,5 @@
 ﻿using SpaceStation.Models.Astronauts.Contracts;
+using SpaceStation.Models.Bags;
 using SpaceStation.Models.Bags.Contracts;
 using SpaceStation.Utilities.Messages;
 using System;
@@ -10,6 +11,15 @@ namespace SpaceStation.Models.Astronauts
     public abstract class Astronaut : IAstronaut
     {
         private string name;
+        private double oxygen;
+      
+
+        public Astronaut(string name, double oxygen)
+        {
+            this.Name = name;
+            this.Oxygen = oxygen;
+            
+        }
         public string Name
         {
             get { return this.name; }
@@ -24,15 +34,27 @@ namespace SpaceStation.Models.Astronauts
             }
         }
 
-        public double Oxygen => throw new NotImplementedException();
-
-        public bool CanBreath => throw new NotImplementedException();
-
-        public IBag Bag => throw new NotImplementedException();
-
-        public void Breath()
+        public double Oxygen
         {
-            throw new NotImplementedException();
+            get { return this.oxygen; }
+            protected set
+            {
+                if (value < 0)
+                {
+                    throw new ArgumentException(ExceptionMessages.InvalidOxygen);
+                }
+
+                this.oxygen = value;
+            }
+        }
+
+        public bool CanBreath { get; }
+
+        public IBag Bag { get; }
+
+        public virtual void Breath()
+        {
+            this.Oxygen -= 10;
         }
     }
 }
