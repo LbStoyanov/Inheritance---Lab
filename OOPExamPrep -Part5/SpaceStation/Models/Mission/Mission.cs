@@ -17,9 +17,12 @@ namespace SpaceStation.Models.Mission
 
             foreach (var astronaut in astronautsThatCanExplore)
             {
+                List<string> itemsForRemove = new List<string>();
+
                 foreach (var item in planet.Items)
                 {
                     astronaut.Bag.Items.Add(item);
+                    itemsForRemove.Add(item);
                     astronaut.Breath();
 
                     if (astronaut.Oxygen <= 0)
@@ -31,6 +34,11 @@ namespace SpaceStation.Models.Mission
                     {
                         return;
                     }
+                }
+
+                foreach (var item in itemsForRemove)
+                {
+                    planet.Items.Remove(item);
                 }
             }
 

@@ -71,11 +71,11 @@ namespace SpaceStation.Core
 
             Mission mission = new Mission();
 
-            //int deadAstronauts = 0;
+            
 
             var legitAstronauts = astronauts.Models.Where(a => a.Oxygen > 60).ToList();
 
-            if (legitAstronauts == null)
+            if (legitAstronauts.Count() == 0)
             {
                 throw new InvalidOperationException(ExceptionMessages.InvalidAstronautCount);
             }
@@ -83,7 +83,9 @@ namespace SpaceStation.Core
             mission.Explore(planet, legitAstronauts);
             this.exploredPlanetsCount++;
 
-            return String.Format(OutputMessages.PlanetExplored, planet.Name, legitAstronauts.Count);
+            int deadAstronauts = legitAstronauts.Where(x =>x.Oxygen <= 0).Count();
+
+            return String.Format(OutputMessages.PlanetExplored, planet.Name, deadAstronauts);
         }
 
         public string Report()
@@ -104,7 +106,7 @@ namespace SpaceStation.Core
                 }
                 else
                 {
-                    result.AppendLine($"Bag items: {string.Join(", ", astronaut.Bag)}");
+                    result.AppendLine($"Bag items: {string.Join(", ", astronaut.Bag.Items)}");
                 }
             }
 
