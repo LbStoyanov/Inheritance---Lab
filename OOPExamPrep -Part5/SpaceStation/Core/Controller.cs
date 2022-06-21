@@ -2,6 +2,7 @@
 using SpaceStation.Models.Astronauts;
 using SpaceStation.Models.Mission;
 using SpaceStation.Models.Planets;
+using SpaceStation.Models.Planets.Contracts;
 using SpaceStation.Repositories;
 using SpaceStation.Utilities.Messages;
 using System;
@@ -20,22 +21,23 @@ namespace SpaceStation.Core
         public Controller()
         {
             this.astronauts = new AstronautRepository();
+            this.planets = new PlanetRepository();
         }
         public string AddAstronaut(string type, string astronautName)
         {
 
-            if (type == typeof(Biologist).ToString())
+            if (type == "Biologist")
             {
                 Biologist biologist = new Biologist(astronautName);
                 astronauts.Add(biologist);
 
             }
-            else if (type == typeof(Geodesist).ToString())
+            else if (type == "Geodesist")
             {
                 Geodesist geodesist = new Geodesist(astronautName);
                 astronauts.Add(geodesist);
             }
-            else if (type == typeof(Meteorologist).ToString())
+            else if (type == "Meteorologist")
             {
                 Meteorologist meteorologist = new Meteorologist(astronautName);
                 astronauts.Add(meteorologist);
@@ -50,8 +52,15 @@ namespace SpaceStation.Core
 
         public string AddPlanet(string planetName, params string[] items)
         {
-            Planet planet = new Planet(planetName);
-            planet.Items.Add(items.ToString());
+
+            IPlanet planet = new Planet(planetName);
+            planets.Add(planet);
+
+            foreach (var item in items)
+            {
+                planet.Items.Add(item);
+            }
+            
 
             return String.Format(OutputMessages.PlanetAdded, planetName);
         }
@@ -64,14 +73,14 @@ namespace SpaceStation.Core
 
             //int deadAstronauts = 0;
 
-            var legitAstronauts = astronauts.Models.Select(a => a.Oxygen > 60).ToList();
+            var legitAstronauts = astronauts.Models.Where(a => a.Oxygen > 60).ToList();
 
             if (legitAstronauts == null)
             {
                 throw new InvalidOperationException(ExceptionMessages.InvalidAstronautCount);
             }
 
-            mission.Explore(planet, (ICollection<Models.Astronauts.Contracts.IAstronaut>)astronauts);
+            mission.Explore(planet, legitAstronauts);
             this.exploredPlanetsCount++;
 
             return String.Format(OutputMessages.PlanetExplored, planet.Name, legitAstronauts.Count);

@@ -1,4 +1,5 @@
-﻿using SpaceStation.Models.Astronauts.Contracts;
+﻿using SpaceStation.Models.Astronauts;
+using SpaceStation.Models.Astronauts.Contracts;
 using SpaceStation.Repositories.Contracts;
 using System;
 using System.Collections.Generic;
