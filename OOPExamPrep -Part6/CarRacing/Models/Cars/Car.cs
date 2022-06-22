@@ -70,7 +70,7 @@ namespace CarRacing.Models.Cars
         public int HorsePower
         {
             get { return this.horsePower; }
-            private set
+            protected set
             {
                 if (value < 0)
                 {
@@ -84,7 +84,7 @@ namespace CarRacing.Models.Cars
         public double FuelAvailable
         {
             get { return this.fuelAvailable; }
-            private set
+            protected set
             {
                 if (value < 0)
                 {
@@ -111,7 +111,7 @@ namespace CarRacing.Models.Cars
 
         public virtual void Drive()
         {
-            throw new NotImplementedException();
+            this.FuelAvailable -= this.FuelConsumptionPerRace;
         }
     }
 }
