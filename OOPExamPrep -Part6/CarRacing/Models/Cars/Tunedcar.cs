@@ -14,7 +14,9 @@ namespace CarRacing.Models.Cars
         public override void Drive()
         {
             this.FuelAvailable -= this.FuelConsumptionPerRace;
-            Math.Round((int)(this.HorsePower -= (this.HorsePower  * 0.3)));
+            int reducedHorsePower = (int)Math.Round(this.HorsePower * 0.3);
+            this.HorsePower -= reducedHorsePower;
+
         }
     }
 }
