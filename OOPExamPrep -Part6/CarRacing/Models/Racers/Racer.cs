@@ -17,7 +17,10 @@ namespace CarRacing.Models.Racers
 
         public Racer(string username, string racingBehavior, int drivingExperience, ICar car)
         {
-            this
+            this.Username = username;
+            this.RacingBehavior = racingBehavior;
+            this.DrivingExperience = drivingExperience;
+            this.Car = car;
         }
         public string Username
         {
@@ -50,7 +53,7 @@ namespace CarRacing.Models.Racers
         public int DrivingExperience
         {
             get { return this.drivingExperience; }
-            private set
+            protected set
             {
                 if (value < 0 && value > 100)
                 {
@@ -77,12 +80,12 @@ namespace CarRacing.Models.Racers
 
         public bool IsAvailable()
         {
-            throw new NotImplementedException();
+            return this.car.FuelAvailable - this.car.FuelConsumptionPerRace > 0;
         }
 
-        public void Race()
+        public virtual void Race()
         {
-            throw new NotImplementedException();
+            
         }
     }
 }
