@@ -4,6 +4,7 @@ using CarRacing.Repositories.Contracts;
 using CarRacing.Utilities.Messages;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace CarRacing.Repositories
@@ -29,7 +30,7 @@ namespace CarRacing.Repositories
 
         public ICar FindBy(string property)
         {
-            throw new NotImplementedException();
+            return cars.FirstOrDefault(x => x.VIN == property);
         }
 
         public bool Remove(ICar model)
