@@ -13,7 +13,7 @@ namespace CarRacing.Models.Racers
         private string username;
         private string racingBehavior;
         private int drivingExperience;
-        private Car car;
+        private ICar car;
 
         public Racer(string username, string racingBehavior, int drivingExperience, ICar car)
         {
@@ -74,7 +74,7 @@ namespace CarRacing.Models.Racers
                     throw new ArgumentException(ExceptionMessages.InvalidRacerCar);
                 }
 
-                this.Car = value;
+                this.car = value;
             }
         }
 

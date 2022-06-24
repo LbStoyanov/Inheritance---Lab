@@ -8,7 +8,12 @@ namespace CarRacing.Repositories
 {
     public class RacerRepository : IRepository<IRacer>
     {
-        public IReadOnlyCollection<IRacer> Models => throw new NotImplementedException();
+        private List<IRacer> racers;
+        public RacerRepository()
+        {
+            this.racers = new List<IRacer>();
+        }
+        public IReadOnlyCollection<IRacer> Models { get { return this.racers.AsReadOnly(); } }
 
         public void Add(IRacer model)
         {
