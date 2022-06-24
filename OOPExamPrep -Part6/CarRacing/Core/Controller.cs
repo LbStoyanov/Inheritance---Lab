@@ -95,7 +95,16 @@ namespace CarRacing.Core
 
         public string Report()
         {
-            throw new NotImplementedException();
+            var orderedRacers = this.racers.Models.OrderByDescending(x => x.DrivingExperience).ThenBy(y => y.Username);
+
+            StringBuilder result = new StringBuilder();
+
+            foreach (var racer in orderedRacers)
+            {
+                result.AppendLine(racer.ToString());
+            }
+
+            return result.ToString().TrimEnd();
         }
     }
 }

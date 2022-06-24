@@ -87,5 +87,17 @@ namespace CarRacing.Models.Racers
         {
             
         }
+
+        public override string ToString()
+        {
+            StringBuilder result = new StringBuilder();
+
+            result.AppendLine($"{this.GetType().Name}: {this.Username}");
+            result.AppendLine($"--Driving behavior: {this.RacingBehavior}");
+            result.AppendLine($"--Driving experience: {this.DrivingExperience}");
+            result.AppendLine($"--Car: {this.Car.Make} {this.Car.Model} ({this.Car.VIN})");
+
+            return result.ToString().TrimEnd();
+        }
     }
 }
