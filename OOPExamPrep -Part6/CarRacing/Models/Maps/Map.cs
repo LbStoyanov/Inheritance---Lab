@@ -17,12 +17,12 @@ namespace CarRacing.Models.Maps
 
             if (!racerOne.IsAvailable() && racerTwo.IsAvailable())
             {
-                racerTwo.Car.Drive();
+                racerTwo.Race();
                 result = String.Format(OutputMessages.OneRacerIsNotAvailable, racerTwo.Username, racerOne.Username);
             }
             else if (racerOne.IsAvailable() && !racerTwo.IsAvailable())
             {
-                racerOne.Car.Drive();
+                racerOne.Race();
                 result = String.Format(OutputMessages.OneRacerIsNotAvailable, racerOne.Username, racerTwo.Username);
             }
             else if (!racerOne.IsAvailable() && !racerTwo.IsAvailable())
@@ -31,6 +31,8 @@ namespace CarRacing.Models.Maps
             }
             else
             {
+                racerOne.Race();
+                racerTwo.Race();
                 double racerOneChanceOfWinning = 0.0;
                 double racerTwoChanceOfWinning = 0.0;
 

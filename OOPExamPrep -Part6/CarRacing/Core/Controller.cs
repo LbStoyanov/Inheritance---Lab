@@ -10,6 +10,7 @@ using System.Text;
 using System.Linq;
 using CarRacing.Models.Cars.Contracts;
 using CarRacing.Models.Racers.Contracts;
+using CarRacing.Models.Maps;
 
 namespace CarRacing.Core
 {
@@ -23,6 +24,7 @@ namespace CarRacing.Core
         {
             this.cars = new CarRepository();
             this.racers = new RacerRepository();
+            this.map = new Map();
         }
         public string AddCar(string type, string make, string model, string VIN, int horsePower)
         {
@@ -77,14 +79,14 @@ namespace CarRacing.Core
 
         public string BeginRace(string racerOneUsername, string racerTwoUsername)
         {
-            if (racers.Models.Any(x => x.Username == racerOneUsername))
+            if (!racers.Models.Any(x => x.Username == racerOneUsername))
             {
-                throw new ArgumentException(ExceptionMessages.RacerCannotBeFound, racerOneUsername);
+                throw new ArgumentException(String.Format(ExceptionMessages.RacerCannotBeFound, racerOneUsername));
             }
 
-            if (racers.Models.Any(x => x.Username == racerTwoUsername))
+            if (!racers.Models.Any(x => x.Username == racerTwoUsername))
             {
-                throw new ArgumentException(ExceptionMessages.RacerCannotBeFound, racerTwoUsername);
+                throw new ArgumentException(String.Format(ExceptionMessages.RacerCannotBeFound, racerTwoUsername));
             }
 
             IRacer racerOne = racers.Models.FirstOrDefault(x => x.Username == racerOneUsername);
