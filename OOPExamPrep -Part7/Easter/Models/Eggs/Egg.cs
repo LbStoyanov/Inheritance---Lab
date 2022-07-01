@@ -24,6 +24,8 @@ namespace Easter.Models.Eggs
                 {
                     throw new ArgumentException(ExceptionMessages.InvalidEggName);
                 }
+
+                this.name = value;
             }
         }
 

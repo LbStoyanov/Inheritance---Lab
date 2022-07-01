@@ -2,27 +2,33 @@
 using Easter.Repositories.Contracts;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Easter.Repositories
 {
     public class BunnyRepository : IRepository<IBunny>
     {
-        public IReadOnlyCollection<IBunny> Models => throw new NotImplementedException();
+        private List<IBunny> bunnies;
+        public BunnyRepository()
+        {
+            this.bunnies = new List<IBunny>();
+        }
+        public IReadOnlyCollection<IBunny> Models { get { return this.bunnies.AsReadOnly(); } }
 
         public void Add(IBunny model)
         {
-            throw new NotImplementedException();
+            this.bunnies.Add(model);
         }
 
         public IBunny FindByName(string name)
         {
-            throw new NotImplementedException();
+            return this.bunnies.FirstOrDefault(x => x.Name == name);
         }
 
         public bool Remove(IBunny model)
         {
-            throw new NotImplementedException();
+            return this.bunnies.Remove(model);
         }
     }
 }

@@ -2,27 +2,33 @@
 using Easter.Repositories.Contracts;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Easter.Repositories
 {
     public class EggRepository : IRepository<IEgg>
     {
-        public IReadOnlyCollection<IEgg> Models => throw new NotImplementedException();
+        private List<IEgg> eggs;
+        public EggRepository()
+        {
+            this.eggs = new List<IEgg>();
+        }
+        public IReadOnlyCollection<IEgg> Models { get { return this.eggs.AsReadOnly(); } }
 
         public void Add(IEgg model)
         {
-            throw new NotImplementedException();
+            this.eggs.Add(model);
         }
 
         public IEgg FindByName(string name)
         {
-            throw new NotImplementedException();
+            return this.eggs.FirstOrDefault(x => x.Name == name);
         }
 
         public bool Remove(IEgg model)
         {
-            throw new NotImplementedException();
+            return this.eggs.Remove(model);
         }
     }
 }
