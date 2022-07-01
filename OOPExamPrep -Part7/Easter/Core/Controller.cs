@@ -71,20 +71,38 @@ namespace Easter.Core
 
         public string ColorEgg(string eggName)
         {
-            var coloringBunny = bunnies.Models.FirstOrDefault(x => x.Energy >= 50);
+            string result = string.Empty;
 
-            if (coloringBunny == null)
+            var coloringBunnies = bunnies.Models.Where(x => x.Energy >= 50);
+
+            if (coloringBunnies == null)
             {
                 throw new InvalidOperationException(ExceptionMessages.BunniesNotReady);
             }
 
-            coloringBunny.Work();
-            
 
             Egg egg = (Egg)eggs.FindByName(eggName);
+            List<Bunny> bunniesForRemove = new List<Bunny>();
 
-            egg.GetColored();
+            //isDone na qiceto kazva dali e boqdisano ili ne!!!
 
+            foreach (var bunny in coloringBunnies)
+            {
+                bunny.Work();
+                egg.GetColored();
+
+                //while cikul dotkato zaeka ima boq!!!!!
+                if (egg.IsDone())
+                {
+
+                }
+
+                if (bunny.Energy == 0)
+                {
+
+                }
+            }
+            
             this.coloredEggs++;
 
             //•	The bunny starts coloring the egg. This is only possible,
@@ -108,6 +126,7 @@ namespace Easter.Core
             {
                 result.AppendLine($"Name: {bunny.Name}");
                 result.AppendLine($"Energy: {bunny.Energy}");
+
                 result.AppendLine($"Dyes: {bunny.Dyes} not finished");
             }
 
