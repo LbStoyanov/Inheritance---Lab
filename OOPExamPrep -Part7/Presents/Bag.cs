@@ -1,6 +1,6 @@
 ﻿namespace Presents
 {
-    using Presents.Test;
+    using Test;
     using System;
     using System.Collections.Generic;
     using System.Linq;

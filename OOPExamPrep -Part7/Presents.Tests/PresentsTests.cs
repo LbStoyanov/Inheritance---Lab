@@ -1,8 +1,9 @@
-﻿namespace Presents.Tests
+﻿namespace Presents
 {
     using NUnit.Framework;
-    using Presents.Test;
+    using Test;
     using System;
+    using System.Collections.Generic;
 
     [TestFixture]
     public class PresentsTests
@@ -61,7 +62,7 @@
         }
 
         [Test]
-        public void Bag_Remove_Method_Working()
+        public void Bag_Remove_Method_With_Present_Working()
         {
             Present present = new Present("Hurka", 2.5);
             Bag bag = new Bag();
@@ -71,6 +72,69 @@
             
 
             Assert.AreEqual(isRemoved,expectedOutput);
+        }
+
+        [Test]
+        public void Bag_Remove_Method__No_Present_Working()
+        {
+            Present present = new Present("Hurka", 2.5);
+            Present present2 = new Present("Hurka2", 2.5);
+            Bag bag = new Bag();
+            bag.Create(present);
+            bool expectedOutput = bag.Remove(present2);
+            bool isRemoved = false;
+
+
+            Assert.AreEqual(isRemoved, expectedOutput);
+        }
+
+        [Test]
+        public void GetPresentWithLeastMagic_Method_Working()
+        {
+            Present present = new Present("Hurka", 2.4);
+            Present present2 = new Present("Hurka2", 2.5);
+            Bag bag = new Bag();
+            bag.Create(present);
+            bag.Create(present2);
+
+            var expectedOutput = bag.GetPresentWithLeastMagic();
+
+
+            Assert.AreEqual(present, expectedOutput);
+        }
+
+        [Test]
+        public void GetPresents_Method_Working()
+        {
+            Present present = new Present("Hurka", 2.4);
+            Present present2 = new Present("Hurka2", 2.5);
+            Bag bag = new Bag();
+            bag.Create(present);
+            bag.Create(present2);
+
+            var expectedOutput = bag.GetPresents();
+            var list = new List<Present>();
+            list.Add(present);
+            list.Add(present2);
+
+
+            Assert.AreEqual(list, expectedOutput);
+        }
+
+        [Test]
+        public void GetPresent_Method_Working()
+        {
+            Present present = new Present("Hurka", 2.4);
+            Present present2 = new Present("Hurka2", 2.5);
+            Bag bag = new Bag();
+            bag.Create(present);
+            bag.Create(present2);
+
+            var expectedOutput = bag.GetPresent(present.Name);
+          
+
+
+            Assert.AreEqual(present, expectedOutput);
         }
     }
 }
