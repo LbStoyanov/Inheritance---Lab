@@ -9,7 +9,7 @@ namespace Easter.Models.Eggs
     public class Egg : IEgg
     {
         private string name;
-        //private int energyRequired;
+       
         public Egg(string name, int energyRequired)
         {
             this.Name = name;

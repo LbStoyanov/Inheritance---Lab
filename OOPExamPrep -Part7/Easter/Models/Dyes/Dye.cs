@@ -8,7 +8,7 @@ namespace Easter.Models.Dyes
     
     public class Dye : IDye
     {
-        //private int power;
+        
         public Dye(int power)
         {
             this.Power = power;

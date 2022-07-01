@@ -11,6 +11,8 @@ namespace Easter.Models.Bunnies
     {
         private string name;
         private int energy;
+
+
         
 
         public Bunny(string name, int energy)
@@ -30,6 +32,7 @@ namespace Easter.Models.Bunnies
                 }
 
                 this.name = value;
+
             }
         }
 
