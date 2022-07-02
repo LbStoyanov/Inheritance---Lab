@@ -3,6 +3,7 @@ using Easter.Models.Eggs.Contracts;
 using Easter.Models.Workshops.Contracts;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Easter.Models.Workshops
@@ -11,7 +12,10 @@ namespace Easter.Models.Workshops
     {
         public void Color(IEgg egg, IBunny bunny)
         {
-            throw new NotImplementedException();
+            if (bunny.Dyes.Any(x => x.Power > 0))
+            {
+
+            }
         }
     }
 }

@@ -3,6 +3,7 @@ using Easter.Models.Bunnies;
 using Easter.Models.Bunnies.Contracts;
 using Easter.Models.Dyes;
 using Easter.Models.Eggs;
+using Easter.Models.Eggs.Contracts;
 using Easter.Models.Workshops;
 using Easter.Repositories;
 using Easter.Utilities.Messages;
@@ -73,7 +74,7 @@ namespace Easter.Core
 
         public string ColorEgg(string eggName)
         {
-            string result = string.Empty;
+            //string result = string.Empty;
 
             var coloringBunnies = bunnies.Models.Where(x => x.Energy >= 50);
 
@@ -84,7 +85,7 @@ namespace Easter.Core
 
 
 
-            Egg egg = (Egg)eggs.FindByName(eggName);
+            IEgg egg = eggs.FindByName(eggName);
 
             Workshop workshop = new Workshop();
 
@@ -108,19 +109,17 @@ namespace Easter.Core
                         if (egg.IsDone())
                         {
                             this.coloredEggs++;
-                            break;
+
+                            return String.Format(OutputMessages.EggIsDone,eggName);
                         }
 
                         if (bunny.Energy == 0)
                         {
                             bunniesForRemove.Add(bunny);
+                            break;
                         }
                     }
 
-                    if (egg.IsDone())
-                    {
-                        break;
-                    }
                 }
             }
             
@@ -134,7 +133,7 @@ namespace Easter.Core
             //then the Bunny should take the next Dye from its collection, if it has any left.
 
 
-            return String.Format(OutputMessages.EggIsDone, eggName);
+            return String.Format(OutputMessages.EggIsNotDone, eggName);
         }
 
         public string Report()
