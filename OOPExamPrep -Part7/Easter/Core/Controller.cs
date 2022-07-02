@@ -106,6 +106,7 @@ namespace Easter.Core
                         dye.Use();
                         bunny.Work();
                         egg.GetColored();
+
                         if (egg.IsDone())
                         {
                             this.coloredEggs++;
