@@ -1,7 +1,9 @@
 ﻿using Easter.Core.Contracts;
 using Easter.Models.Bunnies;
+using Easter.Models.Bunnies.Contracts;
 using Easter.Models.Dyes;
 using Easter.Models.Eggs;
+using Easter.Models.Workshops;
 using Easter.Repositories;
 using Easter.Utilities.Messages;
 using System;
@@ -81,29 +83,48 @@ namespace Easter.Core
             }
 
 
+
             Egg egg = (Egg)eggs.FindByName(eggName);
-            List<Bunny> bunniesForRemove = new List<Bunny>();
+
+            Workshop workshop = new Workshop();
+
+            List<IBunny> bunniesForRemove = new List<IBunny>();
 
             //isDone na qiceto kazva dali e boqdisano ili ne!!!
 
             foreach (var bunny in coloringBunnies)
             {
-                bunny.Work();
-                egg.GetColored();
-
-                //while cikul dotkato zaeka ima boq!!!!!
-                if (egg.IsDone())
+                //1.Vzimam zaeka
+                //2.vzimam purvata boq na tozi zaek
+                foreach (var dye in bunny.Dyes)
                 {
+                    //•	If a bunny’s energy becomes 0, remove it from the repository.
+                   
+                    while (!dye.IsFinished())
+                    {
+                        dye.Use();
+                        bunny.Work();
+                        egg.GetColored();
+                        if (egg.IsDone())
+                        {
+                            this.coloredEggs++;
+                            break;
+                        }
 
-                }
+                        if (bunny.Energy == 0)
+                        {
+                            bunniesForRemove.Add(bunny);
+                        }
+                    }
 
-                if (bunny.Energy == 0)
-                {
-
+                    if (egg.IsDone())
+                    {
+                        break;
+                    }
                 }
             }
             
-            this.coloredEggs++;
+            
 
             //•	The bunny starts coloring the egg. This is only possible,
             //if the bunny has energy and an dye that isn't finished.
