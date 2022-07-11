@@ -74,8 +74,6 @@ namespace Easter.Core
 
         public string ColorEgg(string eggName)
         {
-            //string result = string.Empty;
-
             var coloringBunnies = bunnies.Models.Where(x => x.Energy >= 50);
 
             if (coloringBunnies == null)
