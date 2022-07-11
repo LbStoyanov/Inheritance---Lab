@@ -16,13 +16,17 @@ namespace Easter.Models.Workshops
             if (bunny.Energy > 0 && bunny.Dyes.Any(x => x.Power > 0))
             {
 
-
                 foreach (var dye in bunny.Dyes)
                 {
 
                     bunny.Work();
-                    dye.Use();
-                    egg.GetColored();
+
+                    while (!dye.IsFinished())
+                    {
+                        dye.Use();
+                        egg.GetColored();
+                    }
+                   
 
                     if (bunny.Energy < 0)
                     {
