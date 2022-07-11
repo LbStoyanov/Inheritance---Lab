@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32414.318
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "01. Class Box Data", "01. Class Box Data\01. Class Box Data.csproj", "{ED967043-76A7-4AA3-A5E3-4BC2E5EC4110}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StartUp", "01. Class Box Data\StartUp.csproj", "{ED967043-76A7-4AA3-A5E3-4BC2E5EC4110}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shoping spree", "Shoping spree\Shoping spree.csproj", "{7A4EED95-0391-4C0A-B070-AA55D52CDC65}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shoping spree", "Shoping spree\Shoping spree.csproj", "{7A4EED95-0391-4C0A-B070-AA55D52CDC65}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pizza Calories", "Pizza Calories\Pizza Calories.csproj", "{78BD36BF-D74E-4040-AC6B-F9CA8756D7AA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pizza Calories", "Pizza Calories\Pizza Calories.csproj", "{78BD36BF-D74E-4040-AC6B-F9CA8756D7AA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "05. Football Team Generator", "05. Football Team Generator\05. Football Team Generator.csproj", "{DA4DA871-5C68-439C-8443-CD5C3468AB2C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "05. Football Team Generator", "05. Football Team Generator\05. Football Team Generator.csproj", "{DA4DA871-5C68-439C-8443-CD5C3468AB2C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
