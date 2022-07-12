@@ -32,18 +32,22 @@ namespace Easter.Core
                 throw new InvalidOperationException(ExceptionMessages.InvalidBunnyType);
             }
 
-            Bunny bunny = null;
+            //IBunny bunny = null;
 
-            if (bunnyName == "HappyBunny")
+            if (bunnyType == "HappyBunny")
             {
-                bunny = new HappyBunny(bunnyName);
+                HappyBunny happyBunny = new HappyBunny(bunnyName);
+                this.bunnies.Add(happyBunny);
+                //bunny = new HappyBunny(bunnyName);
             }
-            else if (bunnyName == "SleepyBunny")
+            else if (bunnyType == "SleepyBunny")
             {
-                bunny = new SleepyBunny(bunnyName);
+                SleepyBunny sleepyBunny = new SleepyBunny(bunnyName);
+                this.bunnies.Add(sleepyBunny);
+                //bunny = new SleepyBunny(bunnyName);
             }
 
-            this.bunnies.Add(bunny);
+            //this.bunnies.Add(bunny);
 
             return String.Format(OutputMessages.BunnyAdded, bunnyType, bunnyName);
         }
@@ -76,61 +80,27 @@ namespace Easter.Core
         {
             var coloringBunnies = bunnies.Models.Where(x => x.Energy >= 50);
 
+            //var result = string.Empty;
+
             if (coloringBunnies == null)
             {
                 throw new InvalidOperationException(ExceptionMessages.BunniesNotReady);
             }
 
-
-
             IEgg egg = eggs.FindByName(eggName);
 
             Workshop workshop = new Workshop();
 
-            List<IBunny> bunniesForRemove = new List<IBunny>();
-
-            //isDone na qiceto kazva dali e boqdisano ili ne!!!
-
             foreach (var bunny in coloringBunnies)
             {
-                //1.Vzimam zaeka
-                //2.vzimam purvata boq na tozi zaek
-                foreach (var dye in bunny.Dyes)
+                workshop.Color(egg, bunny);
+
+                if (egg.IsDone())
                 {
-                    //•	If a bunny’s energy becomes 0, remove it from the repository.
-                   
-                    while (!dye.IsFinished())
-                    {
-                        dye.Use();
-                        bunny.Work();
-                        egg.GetColored();
-
-                        if (egg.IsDone())
-                        {
-                            this.coloredEggs++;
-
-                            return String.Format(OutputMessages.EggIsDone,eggName);
-                        }
-
-                        if (bunny.Energy == 0)
-                        {
-                            bunniesForRemove.Add(bunny);
-                            break;
-                        }
-                    }
-
+                    this.coloredEggs++;
+                    return String.Format(OutputMessages.EggIsDone, eggName);
                 }
             }
-            
-            
-
-            //•	The bunny starts coloring the egg. This is only possible,
-            //if the bunny has energy and an dye that isn't finished.
-            //•	At the same time the egg is getting colored, so call the GetColored() method for the egg. 
-            //•	Keep working until the egg is done or the bunny has energy and dyes to use.
-            //•	If at some point the power of the current dye reaches or drops below 0, meaning it is finished,
-            //then the Bunny should take the next Dye from its collection, if it has any left.
-
 
             return String.Format(OutputMessages.EggIsNotDone, eggName);
         }
@@ -139,14 +109,16 @@ namespace Easter.Core
         {
             StringBuilder result = new StringBuilder();
             result.AppendLine($"{this.coloredEggs} eggs are done!");
-            result.AppendLine("Bunnies info:");
+            result.AppendLine("Bunnys info: ");
 
             foreach (var bunny in bunnies.Models)
             {
                 result.AppendLine($"Name: {bunny.Name}");
                 result.AppendLine($"Energy: {bunny.Energy}");
 
-                result.AppendLine($"Dyes: {bunny.Dyes} not finished");
+                var notFinishedDyes = bunny.Dyes.Select(x => x.IsFinished() == false);
+
+                result.AppendLine($"Dyes: {notFinishedDyes.Count()} not finished");
             }
 
             return result.ToString().TrimEnd();

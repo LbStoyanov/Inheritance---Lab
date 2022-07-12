@@ -21,24 +21,22 @@ namespace Easter.Models.Workshops
 
                     bunny.Work();
 
-                    while (!dye.IsFinished())
+                    while (!dye.IsFinished() && !egg.IsDone())
                     {
                         dye.Use();
                         egg.GetColored();
                     }
-                   
+
+                    if (egg.IsDone())
+                    {
+                        return;
+                    }
 
                     if (bunny.Energy < 0)
                     {
                         break;
                     }
                 }
-
-                if (egg.IsDone())
-                {
-
-                }
-
             }
         }
     }
