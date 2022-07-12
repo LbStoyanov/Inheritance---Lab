@@ -12,17 +12,15 @@ namespace Easter.Models.Workshops
     {
         public void Color(IEgg egg, IBunny bunny)
         {
-            //This is only possible, if the bunny has energy and an dye that isn't finished.
             if (bunny.Energy > 0 && bunny.Dyes.Any(x => x.Power > 0))
             {
 
                 foreach (var dye in bunny.Dyes)
                 {
 
-                    bunny.Work();
-
                     while (!dye.IsFinished() && !egg.IsDone())
                     {
+                        bunny.Work();
                         dye.Use();
                         egg.GetColored();
                     }
