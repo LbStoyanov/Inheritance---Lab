@@ -18,7 +18,7 @@ namespace Easter.Models.Workshops
                 foreach (var dye in bunny.Dyes)
                 {
 
-                    while (!dye.IsFinished() && !egg.IsDone())
+                    while (!dye.IsFinished() && !egg.IsDone() && bunny.Energy > 0)
                     {
                         bunny.Work();
                         dye.Use();

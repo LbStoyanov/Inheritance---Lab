@@ -78,7 +78,7 @@ namespace Easter.Core
 
         public string ColorEgg(string eggName)
         {
-            var coloringBunnies = bunnies.Models.Where(x => x.Energy >= 50);
+            var coloringBunnies = bunnies.Models.Where(x => x.Energy >= 50).OrderByDescending(x => x.Energy);
 
             //var result = string.Empty;
 
@@ -91,15 +91,33 @@ namespace Easter.Core
 
             Workshop workshop = new Workshop();
 
+            var bunnysForRemove = new List<IBunny>();
+
             foreach (var bunny in coloringBunnies)
             {
                 workshop.Color(egg, bunny);
 
+                if (bunny.Energy == 0)
+                {
+                    bunnysForRemove.Add(bunny);
+                }
+
                 if (egg.IsDone())
                 {
                     this.coloredEggs++;
-                    return String.Format(OutputMessages.EggIsDone, eggName);
+                    break;
                 }
+            }
+
+            if (egg.IsDone())
+            {
+
+                foreach (var bunny in bunnysForRemove)
+                {
+                    this.bunnies.Remove(bunny);
+                }
+
+                return String.Format(OutputMessages.EggIsDone, eggName);
             }
 
             return String.Format(OutputMessages.EggIsNotDone, eggName);
@@ -116,7 +134,7 @@ namespace Easter.Core
                 result.AppendLine($"Name: {bunny.Name}");
                 result.AppendLine($"Energy: {bunny.Energy}");
 
-                var notFinishedDyes = bunny.Dyes.Select(x => x.IsFinished() == false);
+                var notFinishedDyes = bunny.Dyes.Where(x => x.IsFinished() == false);
 
                 result.AppendLine($"Dyes: {notFinishedDyes.Count()} not finished");
             }
