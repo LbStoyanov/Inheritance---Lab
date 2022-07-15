@@ -110,7 +110,7 @@ namespace AquaShop.Core.Contracts
                 fish = new SaltwaterFish(fishName, fishSpecies, price);
             }
 
-            aquarium.AddFish(fish);
+           
 
 
             if (fish.GetType().Name == "FreshwaterFish" && aquarium.GetType().Name != "FreshwaterAquarium")
@@ -122,7 +122,7 @@ namespace AquaShop.Core.Contracts
                 return OutputMessages.UnsuitableWater;
             }
 
-            
+            aquarium.AddFish(fish);
 
             return string.Format(OutputMessages.EntityAddedToAquarium, fishType, aquariumName);
 
@@ -142,10 +142,13 @@ namespace AquaShop.Core.Contracts
         {
             IAquarium aquarium = this.aquariums.Where(x => x.Name == aquariumName).FirstOrDefault();
 
-            var sumOfAllFishesAndDecorations = 
-                aquarium.Decorations.Select(x => x.Price).Sum() + aquarium.Fish.Select(f =>f.Price).Sum();
+            var sumOfFishes = aquarium.Fish.Select(x => x.Price).Sum();
 
-            return string.Format(OutputMessages.AquariumValue, sumOfAllFishesAndDecorations);
+            var sumOfdecorations = aquarium.Decorations.Select(x => x.Price).Sum();
+
+            var totalSum = sumOfdecorations + sumOfFishes;
+
+            return string.Format(OutputMessages.AquariumValue,aquariumName, totalSum);
         }
 
         public string Report()
