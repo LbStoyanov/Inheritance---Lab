@@ -35,7 +35,7 @@ namespace AquaShop.Models.Fish
 
         public string Species
         {
-            get { return this.species; }
+            get => this.species;
             private set
             {
                 if (string.IsNullOrWhiteSpace(value))
@@ -50,7 +50,7 @@ namespace AquaShop.Models.Fish
 
         public decimal Price
         {
-            get { return this.price; }
+            get => this.price;
             private set
             {
                 if (value <=0)

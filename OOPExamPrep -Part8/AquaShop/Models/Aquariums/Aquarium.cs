@@ -12,8 +12,11 @@ namespace AquaShop.Models.Aquariums
     public abstract class Aquarium : IAquarium
     {
         private string name;
-        public Aquarium()
+
+        protected Aquarium(string name, int capacity)
         {
+            this.Name = name;
+            this.Capacity = capacity;
             this.Decorations = new List<IDecoration>();
             this.Fish = new List<IFish>();
         }
@@ -30,7 +33,7 @@ namespace AquaShop.Models.Aquariums
                 this.name = value;
             }
         }
-        public int Capacity { get; }
+        public int Capacity { get; private set; }
 
         public int Comfort
             => this.Decorations.Select(x => x.Comfort).Sum();
@@ -38,27 +41,59 @@ namespace AquaShop.Models.Aquariums
         public ICollection<IFish> Fish { get; }
         public void AddFish(IFish fish)
         {
-            throw new NotImplementedException();
+            if (this.Capacity <= 0)
+            {
+                throw new InvalidOperationException(ExceptionMessages.NotEnoughCapacity);
+            }
+
+            this.Capacity--;
+            this.Fish.Add(fish);
         }
 
         public bool RemoveFish(IFish fish)
         {
-            throw new NotImplementedException();
+            if (this.Fish.Remove(fish))
+            {
+                this.Capacity++;
+                return true;
+            }
+
+            return false;
+            
         }
 
         public void AddDecoration(IDecoration decoration)
         {
-            throw new NotImplementedException();
+            this.Decorations.Add(decoration);
         }
 
         public void Feed()
         {
-            throw new NotImplementedException();
+            foreach (var fish in this.Fish)
+            {
+                fish.Eat();
+            }
         }
 
         public string GetInfo()
         {
-            throw new NotImplementedException();
+            var result = new StringBuilder();
+
+            result.AppendLine($"{this.Name} ({this.GetType().Name}):");
+            if (this.Fish.Count <= 0)
+            {
+                result.AppendLine("Fish: none");
+            }
+            else
+            {
+                result.AppendLine($"Fish: {string.Join(", ", this.Fish.Select(x => x.Name).ToList())}");
+            }
+
+            result.AppendLine($"Decorations: {this.Decorations.Count}");
+            result.AppendLine($"Comfort: {this.Comfort}");
+
+            return result.ToString().TrimEnd();
+
         }
     }
 }
