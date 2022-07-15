@@ -7,6 +7,7 @@ using AquaShop.Models.Aquariums;
 using AquaShop.Models.Aquariums.Contracts;
 using AquaShop.Models.Decorations;
 using AquaShop.Models.Decorations.Contracts;
+using AquaShop.Models.Fish;
 using AquaShop.Models.Fish.Contracts;
 using AquaShop.Repositories;
 using AquaShop.Utilities.Messages;
@@ -98,7 +99,19 @@ namespace AquaShop.Core.Contracts
 
             IAquarium aquarium = this.aquariums.FirstOrDefault(x => x.Name == aquariumName);
 
-            IFish fish = aquarium.Fish.FirstOrDefault(x => x.Name == fishName);
+            IFish fish = null;
+
+            if (fishType == "FreshwaterFish")
+            {
+                fish = new FreshwaterFish(fishName, fishSpecies, price);
+            }
+            else
+            {
+                fish = new SaltwaterFish(fishName, fishSpecies, price);
+            }
+
+            aquarium.AddFish(fish);
+
 
             if (fish.GetType().Name == "FreshwaterFish" && aquarium.GetType().Name != "FreshwaterAquarium")
             {
@@ -109,7 +122,7 @@ namespace AquaShop.Core.Contracts
                 return OutputMessages.UnsuitableWater;
             }
 
-            aquarium.AddFish(fish);
+            
 
             return string.Format(OutputMessages.EntityAddedToAquarium, fishType, aquariumName);
 
@@ -127,12 +140,24 @@ namespace AquaShop.Core.Contracts
 
         public string CalculateValue(string aquariumName)
         {
-            
+            IAquarium aquarium = this.aquariums.Where(x => x.Name == aquariumName).FirstOrDefault();
+
+            var sumOfAllFishesAndDecorations = 
+                aquarium.Decorations.Select(x => x.Price).Sum() + aquarium.Fish.Select(f =>f.Price).Sum();
+
+            return string.Format(OutputMessages.AquariumValue, sumOfAllFishesAndDecorations);
         }
 
         public string Report()
         {
-            throw new NotImplementedException();
+            StringBuilder result = new StringBuilder();
+
+            foreach (var aquarium in aquariums)
+            {
+                result.AppendLine(aquarium.GetInfo());
+            }
+
+            return result.ToString().TrimEnd();
         }
     }
 }
