@@ -5,9 +5,9 @@ using WarCroft.Entities.Characters.Contracts;
 
 namespace WarCroft.Entities.Items
 {
-    public class HealthPotion : Item
+    public class FirePotion : Item
     {
-        public HealthPotion() 
+        public FirePotion() 
             : base(5)
         {
         }
@@ -16,7 +16,11 @@ namespace WarCroft.Entities.Items
         {
             if (character.IsAlive)
             {
-                character.Health += 20;
+                character.Health -= 20;
+                if (character.Health == 0)
+                {
+                    character.IsAlive = false;
+                }
             }
         }
     }
