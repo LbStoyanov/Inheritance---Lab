@@ -4,6 +4,7 @@ using System.Text;
 using WarCroft.Constants;
 using WarCroft.Entities.Characters.Contracts;
 using WarCroft.Entities.Inventory;
+using WarCroft.Entities.Items;
 
 namespace WarCroft.Entities.Characters
 {
@@ -26,6 +27,14 @@ namespace WarCroft.Entities.Characters
                 }
 
                 character.TakeDamage(character.AbilityPoints);
+            }
+        }
+
+        public override void UseItem(Item item)
+        {
+            if (this.IsAlive)
+            {
+                item.AffectCharacter();
             }
         }
     }

@@ -23,6 +23,10 @@ namespace WarCroft.Entities.Items
                     character.IsAlive = false;
                 }
             }
+            else
+            {
+                base.AffectCharacter(character);
+            }
         }
     }
 }

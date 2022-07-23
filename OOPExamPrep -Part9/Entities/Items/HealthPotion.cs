@@ -18,6 +18,10 @@ namespace WarCroft.Entities.Items
             {
                 character.Health += 20;
             }
+            else
+            {
+                base.AffectCharacter(character);
+            }
         }
     }
 }

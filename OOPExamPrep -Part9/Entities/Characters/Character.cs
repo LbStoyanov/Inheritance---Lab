@@ -36,6 +36,12 @@ namespace WarCroft.Entities.Characters.Contracts
         public double Health { get;  set; }
 
         public double BaseArmor{ get; set; }
+
+        public static explicit operator Character(Type v)
+        {
+            throw new NotImplementedException();
+        }
+
         public double Armor{ get; set; }
         public double AbilityPoints { get; protected set; }
         public Bag Bag { get; set; }
@@ -64,19 +70,15 @@ namespace WarCroft.Entities.Characters.Contracts
                     this.Armor -= hitPoints;
                 }
 
-                if (this.Health == 0)
+                if (this.Health <= 0)
                 {
+                    this.Health = 0;
                     this.IsAlive = false;
                 }
             }
         }
 
-        public void UseItem(Item item)
-        {
-            if (this.IsAlive)
-            {
-                item.AffectCharacter(this);
-            }
-        }
-	}
+        public abstract void UseItem(Item item);
+
+    }
 }

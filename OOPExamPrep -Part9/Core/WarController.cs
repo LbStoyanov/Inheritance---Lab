@@ -124,7 +124,14 @@ namespace WarCroft.Core
 
             foreach (var character in orderedCharacters)
             {
-                result.AppendLine($"{character.Name} - HP: {character.Health}/{character.BaseHealth}, AP: {character.Armor}/{character.BaseArmor}, Status: {character.IsAlive}");
+                if (character.IsAlive)
+                {
+                    result.AppendLine($"{character.Name} - HP: {character.Health}/{character.BaseHealth}, AP: {character.Armor}/{character.BaseArmor}, Status: Alive");
+                }
+                else
+                {
+                    result.AppendLine($"{character.Name} - HP: {character.Health}/{character.BaseHealth}, AP: {character.Armor}/{character.BaseArmor}, Status: Dead");
+                }
             }
 
             return result.ToString().TrimEnd();
@@ -146,12 +153,12 @@ namespace WarCroft.Core
                 throw new ArgumentException(ExceptionMessages.CharacterNotInParty, receiverName);
             }
 
-            Character attacker = this.party.FirstOrDefault(x => x.Name == attackerName);
-            Character receiver = this.party.FirstOrDefault(x => x.Name == receiverName);
+            var attacker = this.party.FirstOrDefault(x => x.Name == attackerName);
+            var receiver = this.party.FirstOrDefault(x => x.Name == receiverName);
 
-            if (!attacker.IsAlive)
+            if (!receiver.IsAlive)
             {
-                throw new ArgumentException(ExceptionMessages.AttackFail, attackerName);
+                throw new InvalidOperationException(ExceptionMessages.AffectedCharacterDead);
             }
 
             receiver.TakeDamage(attacker.AbilityPoints);
@@ -187,13 +194,15 @@ namespace WarCroft.Core
                 throw new ArgumentException(ExceptionMessages.CharacterNotInParty, healingReceiverName);
             }
 
-            Character healer = this.party.FirstOrDefault(x => x.Name == healerName);
-            Character healingReceiver = this.party.FirstOrDefault(x => x.Name == healingReceiverName);
+            Priest healer = (Priest)this.party.FirstOrDefault(x => x.Name == healerName);
+            var healingReceiver = this.party.FirstOrDefault(x => x.Name == healingReceiverName);
 
             if (!healer.IsAlive)
             {
                 throw new ArgumentException(string.Format(ExceptionMessages.HealerCannotHeal, healerName));
             }
+
+            healer.Heal(healingReceiver);
 
             return string.Format(SuccessMessages.HealCharacter, healerName, healingReceiverName, healer.AbilityPoints,
                 healingReceiverName, healingReceiver.Health);
