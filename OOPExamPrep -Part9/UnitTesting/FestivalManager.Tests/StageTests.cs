@@ -174,7 +174,17 @@ namespace FestivalManager.Tests
             stage.AddSong(song);
             stage.AddSongToPerformer(song.Name, performer.FullName);
 
-            Assert.AreEqual(1, performer.SongList.Count);
+            string result = $"{song} will be performed by {performer}";
+
+            Assert.AreEqual(result, stage.AddSongToPerformer(song.Name, performer.FullName));
+
+        }
+
+        [Test]
+        public void Stage_Add_Song_To_Performer_With_Invalid_Song_Working()
+        {
+       
+
 
         }
 
