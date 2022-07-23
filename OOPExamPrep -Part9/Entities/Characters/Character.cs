@@ -37,10 +37,7 @@ namespace WarCroft.Entities.Characters.Contracts
 
         public double BaseArmor{ get; set; }
 
-        public static explicit operator Character(Type v)
-        {
-            throw new NotImplementedException();
-        }
+     
 
         public double Armor{ get; set; }
         public double AbilityPoints { get; protected set; }
@@ -78,7 +75,11 @@ namespace WarCroft.Entities.Characters.Contracts
             }
         }
 
-        public abstract void UseItem(Item item);
+        public void UseItem(Item item)
+        {
+            this.EnsureAlive();
+            item.AffectCharacter(this);
+        }
 
     }
 }

@@ -30,12 +30,6 @@ namespace WarCroft.Entities.Characters
             }
         }
 
-        public override void UseItem(Item item)
-        {
-            if (this.IsAlive)
-            {
-                item.AffectCharacter();
-            }
-        }
+       
     }
 }
