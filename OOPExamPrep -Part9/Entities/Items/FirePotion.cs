@@ -17,6 +17,7 @@ namespace WarCroft.Entities.Items
             if (character.IsAlive)
             {
                 character.Health -= 20;
+
                 if (character.Health == 0)
                 {
                     character.IsAlive = false;

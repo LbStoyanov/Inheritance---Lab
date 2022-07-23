@@ -31,7 +31,7 @@ namespace WarCroft.Entities.Inventory
                 throw new InvalidOperationException(ExceptionMessages.ExceedMaximumBagCapacity);
             }
 
-            this.Items.Add(item);
+            this.items.Add(item);
         }
 
         public Item GetItem(string name)
@@ -47,6 +47,7 @@ namespace WarCroft.Entities.Inventory
             }
 
             Item itemForRemove = this.Items.FirstOrDefault(x => x.GetType().Name == name);
+            this.items.Remove(itemForRemove);
 
             return itemForRemove;
         }
