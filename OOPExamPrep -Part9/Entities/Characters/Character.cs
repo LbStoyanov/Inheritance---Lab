@@ -2,6 +2,7 @@
 
 using WarCroft.Constants;
 using WarCroft.Entities.Inventory;
+using WarCroft.Entities.Items;
 
 namespace WarCroft.Entities.Characters.Contracts
 {
@@ -36,7 +37,7 @@ namespace WarCroft.Entities.Characters.Contracts
 
         public double BaseArmor{ get; set; }
         public double Armor{ get; set; }
-        public double AbilityPoints { get; set; }
+        public double AbilityPoints { get; protected set; }
         public Bag Bag { get; set; }
 		public bool IsAlive { get; set; } = true;
 
@@ -52,10 +53,30 @@ namespace WarCroft.Entities.Characters.Contracts
         {
             if (this.IsAlive)
             {
-                this.Armor -= hitPoints;
+                if (this.Armor - hitPoints < 0)
+                {
+                    var takedDamage = hitPoints - this.Armor;
+                    this.Armor = 0;
+                    this.Health -= takedDamage;
+                }
+                else
+                {
+                    this.Armor -= hitPoints;
+                }
+
+                if (this.Health == 0)
+                {
+                    this.IsAlive = false;
+                }
             }
         }
 
-
+        public void UseItem(Item item)
+        {
+            if (this.IsAlive)
+            {
+                item.AffectCharacter(this);
+            }
+        }
 	}
 }

@@ -25,7 +25,7 @@ namespace WarCroft.Entities.Characters
                     throw new InvalidOperationException(ExceptionMessages.CharacterAttacksSelf);
                 }
 
-                character.
+                character.TakeDamage(character.AbilityPoints);
             }
         }
     }
