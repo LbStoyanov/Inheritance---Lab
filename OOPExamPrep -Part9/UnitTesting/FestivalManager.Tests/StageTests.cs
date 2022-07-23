@@ -181,10 +181,23 @@ namespace FestivalManager.Tests
         }
 
         [Test]
-        public void Stage_Add_Song_To_Performer_With_Invalid_Song_Working()
+        public void Stage_Play_Method_Working()
         {
-       
 
+            Stage stage = new Stage();
+            Performer performer = new Performer("Penko", "Penkov", 20);
+
+            stage.AddPerformer(performer);
+
+            TimeSpan time2 = new TimeSpan(0, 1, 30);
+            Song song = new Song("Doko doko", time2);
+
+            stage.AddSong(song);
+            stage.AddSongToPerformer(song.Name, performer.FullName);
+
+            string result = $"{1} performers played {performer.SongList.Count} songs";
+
+            Assert.AreEqual(result,stage.Play());
 
         }
 
