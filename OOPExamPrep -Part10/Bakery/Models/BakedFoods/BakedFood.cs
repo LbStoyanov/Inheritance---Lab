@@ -11,9 +11,11 @@ namespace Bakery.Models.BakedFoods
         private string name;
         private int portion;
         private decimal price;
-        public BakedFood()
+        public BakedFood(string name, int portion, decimal price)
         {
-                
+            this.Name = name;
+            this.Portion = portion;
+            this.Price = price;
         }
 
         public string Name
@@ -53,6 +55,11 @@ namespace Bakery.Models.BakedFoods
                 }
                 this.price = value;
             }
+        }
+
+        public override string ToString()
+        {
+            return $"{this.Name}: {this.Portion}g - {this.Price:f2}";
         }
     }
 }
