@@ -2,21 +2,43 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Text;
+using Bakery.Models.BakedFoods;
 using Bakery.Models.BakedFoods.Contracts;
+using Bakery.Models.Drinks;
 using Bakery.Models.Drinks.Contracts;
 using Bakery.Models.Tables.Contracts;
+using Bakery.Utilities.Messages;
 
 namespace Bakery.Models.Tables
 {
     public abstract class Table : ITable
     {
+        private List<BakedFood> foodOrders;
+        private List<Drink> drinkOrders;
+        private int capacity;
 
-        public Table()
+        public Table(int tableNumber, int capacity, decimal pricePerPerson)
         {
-            
+            this.TableNumber = tableNumber;
+            this.Capacity = capacity;
+            this.PricePerPerson = pricePerPerson;
+            this.foodOrders = new List<BakedFood>();
         }
         public int TableNumber { get; }
-        public int Capacity { get; }
+
+        public int Capacity
+        {
+            get { return this.capacity; }
+            private set
+            {
+                if (value < 0)
+                {
+                    throw new ArgumentException(ExceptionMessages.InvalidTableCapacity);
+                }
+
+                this.capacity = value;
+            }
+        }
         public int NumberOfPeople { get; }
         public decimal PricePerPerson { get; }
         public bool IsReserved { get; }
