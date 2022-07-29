@@ -16,6 +16,7 @@ namespace Bakery.Models.Tables
         private List<BakedFood> foodOrders;
         private List<Drink> drinkOrders;
         private int capacity;
+        private int numberOfPeople;
 
         public Table(int tableNumber, int capacity, decimal pricePerPerson)
         {
@@ -39,10 +40,31 @@ namespace Bakery.Models.Tables
                 this.capacity = value;
             }
         }
-        public int NumberOfPeople { get; }
+
+        public int NumberOfPeople
+        {
+            get
+            {
+                return this.numberOfPeople;
+
+            }
+            private set
+            {
+                if (value <= 0 )
+                {
+                    throw new ArgumentException(ExceptionMessages.InvalidNumberOfPeople);
+                }
+
+                this.numberOfPeople = value;
+            }
+        }
         public decimal PricePerPerson { get; }
-        public bool IsReserved { get; }
+
+        public bool IsReserved
+            => this.capacity == 0 ?true:false;
+                
         public decimal Price { get; }
+            
         public void Reserve(int numberOfPeople)
         {
             throw new NotImplementedException();
