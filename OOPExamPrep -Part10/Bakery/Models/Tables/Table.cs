@@ -43,11 +43,7 @@ namespace Bakery.Models.Tables
 
         public int NumberOfPeople
         {
-            get
-            {
-                return this.numberOfPeople;
-
-            }
+            get => this.numberOfPeople;
             private set
             {
                 if (value <= 0 )
