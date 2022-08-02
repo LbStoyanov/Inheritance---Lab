@@ -18,18 +18,19 @@ namespace Bakery.Models.Tables
         private int capacity;
         private int numberOfPeople;
 
-        public Table(int tableNumber, int capacity, decimal pricePerPerson)
+        protected Table(int tableNumber, int capacity, decimal pricePerPerson)
         {
             this.TableNumber = tableNumber;
             this.Capacity = capacity;
             this.PricePerPerson = pricePerPerson;
             this.foodOrders = new List<BakedFood>();
+            this.drinkOrders = new List<Drink>();
         }
         public int TableNumber { get; }
 
         public int Capacity
         {
-            get { return this.capacity; }
+            get => this.capacity;
             private set
             {
                 if (value < 0)
@@ -58,12 +59,13 @@ namespace Bakery.Models.Tables
 
         public bool IsReserved
             => this.capacity == 0 ?true:false;
-                
-        public decimal Price { get; }
+
+        public decimal Price
+            => this.NumberOfPeople * this.PricePerPerson;
             
         public void Reserve(int numberOfPeople)
         {
-            throw new NotImplementedException();
+            this.Capacity -= numberOfPeople;
         }
 
         public void OrderFood(IBakedFood food)

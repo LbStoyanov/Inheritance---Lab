@@ -11,7 +11,8 @@ namespace Bakery.Models.BakedFoods
         private string name;
         private int portion;
         private decimal price;
-        public BakedFood(string name, int portion, decimal price)
+
+        protected BakedFood(string name, int portion, decimal price)
         {
             this.Name = name;
             this.Portion = portion;
@@ -20,7 +21,7 @@ namespace Bakery.Models.BakedFoods
 
         public string Name
         {
-            get { return this.name;}
+            get => this.name;
             private set
             {
                 if (string.IsNullOrWhiteSpace(value))
@@ -33,7 +34,7 @@ namespace Bakery.Models.BakedFoods
 
         public int Portion
         {
-            get { return this.portion; }
+            get => this.portion;
             private set
             {
                 if (value <= 0)
@@ -46,7 +47,7 @@ namespace Bakery.Models.BakedFoods
 
         public decimal Price
         {
-            get { return this.price; }
+            get => this.price;
             private set
             {
                 if (value <= 0)

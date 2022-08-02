@@ -12,7 +12,8 @@ namespace Bakery.Models.Drinks
         private int portion;
         private decimal price;
         private string brand;
-        public Drink(string name, int portion, decimal price, string brand)
+
+        protected Drink(string name, int portion, decimal price, string brand)
         {
             this.Name = name;
             this.Portion = portion;
@@ -22,7 +23,7 @@ namespace Bakery.Models.Drinks
 
         public string Name
         {
-            get { return this.name; }
+            get => this.name;
             private set
             {
                 if (string.IsNullOrWhiteSpace(value))
@@ -35,7 +36,7 @@ namespace Bakery.Models.Drinks
 
         public int Portion
         {
-            get { return this.portion; }
+            get => this.portion;
             private set
             {
                 if (value <= 0)
@@ -48,7 +49,7 @@ namespace Bakery.Models.Drinks
 
         public decimal Price
         {
-            get { return this.price; }
+            get => this.price;
             private set
             {
                 if (value <= 0)
@@ -61,7 +62,7 @@ namespace Bakery.Models.Drinks
 
         public string Brand
         {
-            get { return this.brand; }
+            get => this.brand;
             private set
             {
                 if (string.IsNullOrWhiteSpace(value))
