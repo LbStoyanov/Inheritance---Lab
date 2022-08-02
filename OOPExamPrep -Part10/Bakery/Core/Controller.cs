@@ -15,9 +15,9 @@ namespace Bakery.Core
 {
     public class Controller : IController
     {
-        private List<IBakedFood> foodList;
-        private List<IDrink> drinkList;
-        private List<ITable> tableList;
+        private readonly ICollection<IBakedFood> foodList;
+        private readonly ICollection<IDrink> drinkList;
+        private readonly ICollection<ITable> tableList;
         private decimal totalIncome;
         public Controller()
         {
@@ -28,10 +28,10 @@ namespace Bakery.Core
         }
         public string AddFood(string type, string name, decimal price)
         {
-            if (type != "Bread" && type != "Cake")
-            {
-                return "";
-            }
+            //if (type != "Bread" && type != "Cake")
+            //{
+            //    return "";
+            //}
 
             IBakedFood food = null;
 
@@ -52,10 +52,10 @@ namespace Bakery.Core
 
         public string AddDrink(string type, string name, int portion, string brand)
         {
-            if (type != "Tea" && type != "Water")
-            {
-                return "";
-            }
+            //if (type != "Tea" && type != "Water")
+            //{
+            //    return "";
+            //}
 
             IDrink drink = null;
 
@@ -179,7 +179,7 @@ namespace Bakery.Core
         {
             StringBuilder result = new StringBuilder();
 
-            var freeTables = this.tableList.Where(x => x.IsReserved == false);
+            var freeTables = this.tableList.Where(x => x.IsReserved == false).ToList();
 
             foreach (var freeTable in freeTables)
             {

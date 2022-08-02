@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using System.Text;
 using Bakery.Models.BakedFoods;
 using Bakery.Models.BakedFoods.Contracts;
@@ -13,8 +14,8 @@ namespace Bakery.Models.Tables
 {
     public abstract class Table : ITable
     {
-        private List<IBakedFood> foodOrders;
-        private List<IDrink> drinkOrders;
+        private readonly ICollection<IBakedFood> foodOrders;
+        private readonly ICollection<IDrink> drinkOrders;
         private int capacity;
         private int numberOfPeople;
         private bool isReserved;
@@ -64,11 +65,13 @@ namespace Bakery.Models.Tables
             => this.isReserved;
 
         public decimal Price
-            => this.numberOfPeople * this.PricePerPerson;
-            
+            => foodOrders.Select(f => f.Price).Sum()
+               + drinkOrders.Select(f => f.Price).Sum()
+               + this.NumberOfPeople * this.PricePerPerson;
+
         public void Reserve(int numberOfPeople)
         {
-            this.Capacity -= numberOfPeople;
+           // this.Capacity -= numberOfPeople;
             this.isReserved = true;
             this.numberOfPeople = numberOfPeople;
         }
@@ -85,31 +88,34 @@ namespace Bakery.Models.Tables
 
         public decimal GetBill()
         {
-            decimal result = 0.0m;
-            result += this.numberOfPeople * this.PricePerPerson;
+            //decimal result = 0.0m;
+            //result += this.numberOfPeople * this.PricePerPerson;
 
 
-            foreach (var food in foodOrders)
-            {
-                var currentFoodPrice = food.Price;
-                result += currentFoodPrice;
-            }
+            //foreach (var food in foodOrders)
+            //{
+            //    var currentFoodPrice = food.Price;
+            //    result += currentFoodPrice;
+            //}
 
-            foreach (var drink in drinkOrders)
-            {
-                var currentDrinkPrice = drink.Price;
-                result += currentDrinkPrice;
-            }
+            //foreach (var drink in drinkOrders)
+            //{
+            //    var currentDrinkPrice = drink.Price;
+            //    result += currentDrinkPrice;
+            //}
 
             
 
-            return result;
+            //return result;
+
+            return this.Price;
         }
 
         public void Clear()
         {
             this.foodOrders.Clear();
             this.drinkOrders.Clear();
+            this.isReserved = false;
             this.numberOfPeople = 0;
         }
 
