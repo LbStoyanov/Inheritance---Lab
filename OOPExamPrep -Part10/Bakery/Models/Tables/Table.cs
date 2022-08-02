@@ -13,8 +13,8 @@ namespace Bakery.Models.Tables
 {
     public abstract class Table : ITable
     {
-        private List<BakedFood> foodOrders;
-        private List<Drink> drinkOrders;
+        private List<IBakedFood> foodOrders;
+        private List<IDrink> drinkOrders;
         private int capacity;
         private int numberOfPeople;
 
@@ -23,8 +23,8 @@ namespace Bakery.Models.Tables
             this.TableNumber = tableNumber;
             this.Capacity = capacity;
             this.PricePerPerson = pricePerPerson;
-            this.foodOrders = new List<BakedFood>();
-            this.drinkOrders = new List<Drink>();
+            this.foodOrders = new List<IBakedFood>();
+            this.drinkOrders = new List<IDrink>();
         }
         public int TableNumber { get; }
 
@@ -70,27 +70,54 @@ namespace Bakery.Models.Tables
 
         public void OrderFood(IBakedFood food)
         {
-            throw new NotImplementedException();
+            this.foodOrders.Add(food);
         }
 
         public void OrderDrink(IDrink drink)
         {
-            throw new NotImplementedException();
+            this.drinkOrders.Add(drink);
         }
 
         public decimal GetBill()
         {
-            throw new NotImplementedException();
+            decimal result = 0.0m;
+
+
+            foreach (var food in foodOrders)
+            {
+                var currentFoodPrice = food.Price;
+                result += currentFoodPrice;
+            }
+
+            foreach (var drink in drinkOrders)
+            {
+                var currentDrinkPrice = drink.Price;
+                result += currentDrinkPrice;
+            }
+
+
+            return result;
         }
 
         public void Clear()
         {
-            throw new NotImplementedException();
+            this.foodOrders.Clear();
+            this.drinkOrders.Clear();
+            this.NumberOfPeople = 0;
         }
 
         public string GetFreeTableInfo()
         {
-            throw new NotImplementedException();
+            StringBuilder result = new StringBuilder();
+
+            result.AppendLine($"Table: {this.TableNumber}");
+            result.AppendLine($"Type: {this.GetType().Name}");
+            result.AppendLine($"Capacity: {this.Capacity}");
+            result.AppendLine($"Price per Person: {this.PricePerPerson}");
+
+
+
+            return result.ToString().TrimEnd();
         }
     }
 }
