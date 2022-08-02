@@ -17,6 +17,7 @@ namespace Bakery.Models.Tables
         private List<IDrink> drinkOrders;
         private int capacity;
         private int numberOfPeople;
+        private bool isReserved;
 
         protected Table(int tableNumber, int capacity, decimal pricePerPerson)
         {
@@ -25,6 +26,8 @@ namespace Bakery.Models.Tables
             this.PricePerPerson = pricePerPerson;
             this.foodOrders = new List<IBakedFood>();
             this.drinkOrders = new List<IDrink>();
+            this.isReserved = false;
+            
         }
         public int TableNumber { get; }
 
@@ -58,14 +61,16 @@ namespace Bakery.Models.Tables
         public decimal PricePerPerson { get; }
 
         public bool IsReserved
-            => this.capacity == 0 ?true:false;
+            => this.isReserved;
 
         public decimal Price
-            => this.NumberOfPeople * this.PricePerPerson;
+            => this.numberOfPeople * this.PricePerPerson;
             
         public void Reserve(int numberOfPeople)
         {
             this.Capacity -= numberOfPeople;
+            this.isReserved = true;
+            this.numberOfPeople = numberOfPeople;
         }
 
         public void OrderFood(IBakedFood food)
@@ -81,6 +86,7 @@ namespace Bakery.Models.Tables
         public decimal GetBill()
         {
             decimal result = 0.0m;
+            result += this.numberOfPeople * this.PricePerPerson;
 
 
             foreach (var food in foodOrders)
@@ -95,6 +101,7 @@ namespace Bakery.Models.Tables
                 result += currentDrinkPrice;
             }
 
+            
 
             return result;
         }
@@ -103,7 +110,7 @@ namespace Bakery.Models.Tables
         {
             this.foodOrders.Clear();
             this.drinkOrders.Clear();
-            this.NumberOfPeople = 0;
+            this.numberOfPeople = 0;
         }
 
         public string GetFreeTableInfo()

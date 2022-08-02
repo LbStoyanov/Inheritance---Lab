@@ -18,11 +18,13 @@ namespace Bakery.Core
         private List<IBakedFood> foodList;
         private List<IDrink> drinkList;
         private List<ITable> tableList;
+        private decimal totalIncome;
         public Controller()
         {
                 this.foodList = new List<IBakedFood>();
                 this.drinkList = new List<IDrink>();
                 this.tableList = new List<ITable>();
+                this.totalIncome = 0;
         }
         public string AddFood(string type, string name, decimal price)
         {
@@ -93,7 +95,7 @@ namespace Bakery.Core
 
         public string ReserveTable(int numberOfPeople)
         {
-            ITable table = this.tableList.FirstOrDefault(x => x.IsReserved == true && x.Capacity <= numberOfPeople);
+            ITable table = this.tableList.FirstOrDefault(x => x.IsReserved == false && x.Capacity >= numberOfPeople);
 
             if (table == null)
             {
@@ -107,27 +109,89 @@ namespace Bakery.Core
 
         public string OrderFood(int tableNumber, string foodName)
         {
-            throw new NotImplementedException();
+            ITable table = this.tableList.FirstOrDefault(x => x.TableNumber == tableNumber);
+
+            if (table == null)
+            {
+                return string.Format(OutputMessages.WrongTableNumber, tableNumber);
+            }
+
+            IBakedFood food = this.foodList.FirstOrDefault(x => x.Name == foodName);
+
+            if (food == null)
+            {
+                return string.Format(OutputMessages.NonExistentFood, foodName);
+            }
+
+            table.OrderFood(food);
+
+            return string.Format(OutputMessages.FoodOrderSuccessful,tableNumber,foodName);
         }
 
         public string OrderDrink(int tableNumber, string drinkName, string drinkBrand)
         {
-            throw new NotImplementedException();
+
+            ITable table = this.tableList.FirstOrDefault(x => x.TableNumber == tableNumber);
+
+            if (table == null)
+            {
+                return string.Format(OutputMessages.WrongTableNumber, tableNumber);
+            }
+
+            IDrink drink = this.drinkList.FirstOrDefault(x => x.Name == drinkName && x.Brand == drinkBrand);
+
+            if (drink == null)
+            {
+                return string.Format(OutputMessages.NonExistentDrink, drinkName, drinkBrand);
+            }
+
+            table.OrderDrink(drink);
+
+            return $"Table {tableNumber} ordered {drinkName} {drinkBrand}";
+
         }
 
         public string LeaveTable(int tableNumber)
         {
-            throw new NotImplementedException();
+            StringBuilder result = new StringBuilder();
+
+            ITable table = this.tableList.FirstOrDefault(x => x.TableNumber == tableNumber);
+
+            if (table == null)
+            {
+                return string.Format(OutputMessages.WrongTableNumber, tableNumber);
+            }
+
+            decimal bill = table.GetBill();
+            
+
+
+            result.AppendLine($"Table: {tableNumber}");
+            result.AppendLine($"Bill: {bill}");
+            this.totalIncome += bill;
+
+            table.Clear();
+
+            return result.ToString().TrimEnd();
         }
 
         public string GetFreeTablesInfo()
         {
-            throw new NotImplementedException();
+            StringBuilder result = new StringBuilder();
+
+            var freeTables = this.tableList.Where(x => x.IsReserved == false);
+
+            foreach (var freeTable in freeTables)
+            {
+                result.AppendLine(freeTable.GetFreeTableInfo());
+            }
+
+            return result.ToString().TrimEnd();
         }
 
         public string GetTotalIncome()
         {
-            throw new NotImplementedException();
+            return string.Format(OutputMessages.TotalIncome, this.totalIncome);
         }
     }
 }
