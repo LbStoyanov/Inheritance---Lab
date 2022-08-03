@@ -102,5 +102,64 @@ namespace BankSafe.Tests
 
 
         }
+
+
+        [Test]
+        public void Bankvault_RemoveItem_Method_With_Non_Existing_Cell_Throws()
+        {
+            BankVault bankVault = new BankVault();
+            Item item = new Item("Pepi nojleto", "33");
+            Item item2 = new Item("Pepi nojleto2", "332");
+
+            string cell = "A1";
+            bankVault.AddItem(cell, item);
+            string cell2 = "a";
+
+
+            Assert.Throws<ArgumentException>(() =>
+            {
+                bankVault.RemoveItem(cell2, item);
+            }, "Cell doesn't exists!");
+
+
+        }
+
+        [Test]
+        public void Bankvault_RemoveItem_Method_With_Non_Existing_Item_Throws()
+        {
+            BankVault bankVault = new BankVault();
+            Item item = new Item("Pepi nojleto", "33");
+            Item item2 = new Item("Pepi nojleto2", "332");
+
+            string cell = "A1";
+            bankVault.AddItem(cell, item);
+            
+
+
+            Assert.Throws<ArgumentException>(() =>
+            {
+                bankVault.RemoveItem(cell, item2);
+            }, "Item in that cell doesn't exists!");
+
+
+        }
+        [Test]
+        public void Bankvault_RemoveItem_Method_With_Existing_Item_Working()
+        {
+            BankVault bankVault = new BankVault();
+            Item item = new Item("Pepi nojleto", "33");
+            Item item2 = new Item("Pepi nojleto2", "332");
+
+            string cell = "A1";
+            bankVault.AddItem(cell, item);
+            string expectedOutput = bankVault.RemoveItem(cell, item);
+
+            string expectedResult = $"Remove item:{item.ItemId} successfully!";
+
+            Assert.AreEqual(expectedResult,expectedOutput);
+
+
+
+        }
     }
 }
