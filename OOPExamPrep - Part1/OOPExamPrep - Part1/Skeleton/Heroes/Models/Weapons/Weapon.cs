@@ -10,35 +10,35 @@ namespace Heroes.Models.Weapons
         private string name;
         private int durability;
 
-        public Weapon(string name, int durability)
+        protected Weapon(string name, int durability)
         {
-            Name = name;
-            Durability = durability;
+            this.Name = name;
+            this.Durability = durability;
         }
 
         public string Name
         {
-            get { return name; }
+            get => this.name;
             private set
             {
                 if (string.IsNullOrWhiteSpace(value))
                 {
                     throw new ArgumentException("Weapon type cannot be null or empty.");
                 }
-                name = value;
+                this.name = value;
             }
         }
 
         public int Durability
         {
-            get { return durability; }
+            get => durability;
             protected set
             {
                 if (value < 0)
                 {
                     throw new ArgumentException("Durability cannot be below 0.");
                 }
-                durability = value;
+                this.durability = value;
             }
         }
 

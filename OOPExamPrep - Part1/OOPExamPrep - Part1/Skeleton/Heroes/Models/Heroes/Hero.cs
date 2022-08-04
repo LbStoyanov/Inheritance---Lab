@@ -13,7 +13,7 @@ namespace Heroes.Models.Heroes
         private bool isAlive;
         private IWeapon weapon;
 
-        public Hero(string name, int health, int armour)
+        protected Hero(string name, int health, int armour)
         {
             Name = name;
             Health = health;
@@ -23,40 +23,40 @@ namespace Heroes.Models.Heroes
 
         public string Name
         {
-            get { return name; }
+            get => this.name;
             private set
             {
                 if (string.IsNullOrWhiteSpace(value))
                 {
                     throw new ArgumentException("Hero name cannot be null or empty.");
                 }
-                name = value;
+                this.name = value;
             }
         }
 
         public int Health
         {
-            get { return health; }
+            get => this.health;
             private set
             {
                 if (value < 0)
                 {
                     throw new ArgumentException("Hero health cannot be below 0.");
                 }
-                health = value;
+                this.health = value;
             }
         }
 
         public int Armour
         {
-            get { return armor; }
+            get => this.armor;
             private set
             {
                 if (value < 0)
                 {
                     throw new ArgumentException("Hero armour cannot be below 0.");
                 }
-                armor = value;
+                this.armor = value;
             }
         }
 
@@ -102,19 +102,27 @@ namespace Heroes.Models.Heroes
 
         public void TakeDamage(int points)
         {
-            this.Armour -= points;
+            var armorLeft = this.Armour - points;
 
-            if (this.Armour <= 0)
+            if (armorLeft < 0)
             {
                 this.Armour = 0;
 
-                this.Health -= points;
+                var healthLeft = this.Health - armorLeft;
 
-                if (this.Health <= 0)
+                if (healthLeft < 0)
                 {
                     this.Health = 0;
-                    this.IsAlive = false;
+                    this.isAlive = false;
                 }
+                else
+                {
+                    this.Health -= armorLeft;
+                }
+            }
+            else
+            {
+                this.Armour = armorLeft;
             }
 
         }
