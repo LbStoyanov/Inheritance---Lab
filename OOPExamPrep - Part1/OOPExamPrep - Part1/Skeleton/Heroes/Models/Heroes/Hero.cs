@@ -26,7 +26,7 @@ namespace Heroes.Models.Heroes
             get => this.name;
             private set
             {
-                if (string.IsNullOrWhiteSpace(value))
+                if (string.IsNullOrEmpty(value))
                 {
                     throw new ArgumentException("Hero name cannot be null or empty.");
                 }
@@ -108,7 +108,7 @@ namespace Heroes.Models.Heroes
             {
                 this.Armour = 0;
 
-                var healthLeft = this.Health - armorLeft;
+                var healthLeft = this.Health + armorLeft;
 
                 if (healthLeft < 0)
                 {
@@ -117,7 +117,7 @@ namespace Heroes.Models.Heroes
                 }
                 else
                 {
-                    this.Health -= armorLeft;
+                    this.Health = healthLeft;
                 }
             }
             else
