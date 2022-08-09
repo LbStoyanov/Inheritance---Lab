@@ -11,9 +11,9 @@ namespace EasterRaces.Models.Drivers.Entities
     {
         private string name;
         private bool carParticipate = false;
-        public Driver()
+        public Driver(string name)
         {
-            
+            this.Name = name;
         }
 
         public string Name
