@@ -13,7 +13,7 @@ namespace EasterRaces.Models.Cars.Entities
         private int minHorsePower;
         private int maxHorsePower;
 
-        public Car(string model, int horsePower, double cubicCentimeters, int minHorsePower, int maxHorsePower)
+        protected Car(string model, int horsePower, double cubicCentimeters, int minHorsePower, int maxHorsePower)
         {
             this.Model = model;
             this.HorsePower = horsePower;
@@ -40,7 +40,7 @@ namespace EasterRaces.Models.Cars.Entities
         public int HorsePower
         {
             get => this.horsePower;
-            protected set
+            private set
             {
                 if (value < this.minHorsePower && value > this.maxHorsePower)
                 {
