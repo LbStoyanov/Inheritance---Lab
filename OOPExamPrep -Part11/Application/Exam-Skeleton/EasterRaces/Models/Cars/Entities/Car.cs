@@ -28,7 +28,7 @@ namespace EasterRaces.Models.Cars.Entities
             get => this.model;
             private set
             {
-                if (string.IsNullOrWhiteSpace(value) && value.Length < 4)
+                if (value != null && string.IsNullOrWhiteSpace(value) && value.Length < 4)
                 {
                     throw new ArgumentException(string.Format(ExceptionMessages.InvalidModel, this.model, value.Length));
                 }
@@ -46,12 +46,14 @@ namespace EasterRaces.Models.Cars.Entities
                 {
                     throw new ArgumentException(ExceptionMessages.InvalidHorsePower, value.ToString());
                 }
+
+                this.horsePower = value;
             }
         }
         public double CubicCentimeters { get; protected set; }
         public double CalculateRacePoints(int laps)
         {
-            return (this.CubicCentimeters / this.horsePower) * laps;
+            return (this.CubicCentimeters / this.HorsePower) * laps;
         }
     }
 }

@@ -12,10 +12,12 @@ namespace EasterRaces.Models.Races.Entities
     {
         private string name;
         private int laps;
+        private List<IDriver> drivers;
         public Race(string name,int laps)
         {
             this.Name = name;
             this.Laps = laps;
+            this.drivers = new List<IDriver>();
         }
 
         public string Name
@@ -45,7 +47,7 @@ namespace EasterRaces.Models.Races.Entities
                 this.laps = value;
             }
         }
-        public IReadOnlyCollection<IDriver> Drivers { get; }
+        public IReadOnlyCollection<IDriver> Drivers => this.drivers.AsReadOnly();
         public void AddDriver(IDriver driver)
         {
             if (driver == null)
@@ -60,7 +62,7 @@ namespace EasterRaces.Models.Races.Entities
             {
                 throw new ArgumentNullException(string.Format(ExceptionMessages.DriverAlreadyAdded, driver.Name, this.Name));
             }
-            this.Drivers.Append(driver);
+             this.drivers.Add(driver);
         }
     }
 }
