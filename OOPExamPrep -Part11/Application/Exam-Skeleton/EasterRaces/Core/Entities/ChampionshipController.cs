@@ -28,16 +28,17 @@ namespace EasterRaces.Core.Entities
         }
         public string CreateDriver(string driverName)
         {
-            IDriver driver = new Driver(driverName);
-            var test = drivers.GetByName(driverName);
+            IDriver driver = drivers.GetByName(driverName);
 
-
-
-            if (driver.Name == drivers.GetByName(driverName).Name || drivers.GetByName(driverName) == null)
+            if (driver == null)
+            {
+                driver = new Driver(driverName);
+            }
+            else
             {
                 throw new ArgumentException(string.Format(ExceptionMessages.DriversExists, driverName));
             }
-             
+
             
             drivers.Add(driver);
 
