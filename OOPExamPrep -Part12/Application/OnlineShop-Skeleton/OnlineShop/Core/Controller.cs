@@ -50,7 +50,7 @@ namespace OnlineShop.Core
         public string AddPeripheral(int computerId, int id, string peripheralType, string manufacturer, string model, decimal price,
             double overallPerformance, string connectionType)
         {
-            IsComputerIdExist(computerId);
+            //IsComputerIdExist(computerId);
 
             IComputer computer = this.computers.FirstOrDefault(x => x.Id == computerId);
 
@@ -91,7 +91,7 @@ namespace OnlineShop.Core
 
         public string RemovePeripheral(string peripheralType, int computerId)
         {
-            IsComputerIdExist(computerId);
+            //IsComputerIdExist(computerId);
 
             IComputer computer = this.computers.FirstOrDefault(x => x.Id == computerId);
 
@@ -157,7 +157,7 @@ namespace OnlineShop.Core
 
         public string RemoveComponent(string componentType, int computerId)
         {
-            IsComputerIdExist(computerId);
+            //IsComputerIdExist(computerId);
 
             IComputer computer = this.computers.FirstOrDefault(x => x.Id == computerId);
 
@@ -169,7 +169,7 @@ namespace OnlineShop.Core
 
         public string BuyComputer(int id)
         {
-            IsComputerIdExist(id);
+            //IsComputerIdExist(id);
 
             IComputer computer = this.computers.FirstOrDefault(x => x.Id == id);
 
@@ -195,7 +195,7 @@ namespace OnlineShop.Core
 
         public string GetComputerData(int id)
         {
-            IsComputerIdExist(id);
+            //IsComputerIdExist(id);
 
             var computer = this.computers.FirstOrDefault(x => x.Id == id);
 
@@ -204,7 +204,7 @@ namespace OnlineShop.Core
 
         private void IsComputerIdExist(int id)
         {
-            if (this.computers.Any(x => x.Id == id))
+            if (this.computers.Exists(x => x.Id == id))
             {
                 throw new ArgumentException(string.Format(ExceptionMessages.ExistingComputerId, id));
             }
