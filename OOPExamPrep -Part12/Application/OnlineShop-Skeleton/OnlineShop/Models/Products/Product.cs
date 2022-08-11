@@ -12,9 +12,14 @@ namespace OnlineShop.Models.Products
         private string model;
         private decimal price;
         private double overallPerformance;
-        protected Product()
+       
+        protected Product(int id, string manufacturer, string model, decimal price, double overallPerformance)
         {
-                
+            this.Id = id;
+            this.Manufacturer = manufacturer;
+            this.Model = model;
+            this.Price = price;
+            this.OverallPerformance = overallPerformance;
         }
 
         public int Id
@@ -82,6 +87,19 @@ namespace OnlineShop.Models.Products
                 }
                 this.overallPerformance = value;
             }
+        }
+
+
+        public override string ToString()
+        {
+            return string.Format
+                (SuccessMessages.ProductToString,
+                    this.OverallPerformance,
+                    this.Price,
+                    this.GetType().Name,
+                    this.Manufacturer,
+                    this.Model,
+                    this.Id);
         }
     }
 }
