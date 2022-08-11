@@ -6,7 +6,7 @@ using OnlineShop.Models.Products.Peripherals;
 
 namespace OnlineShop.Models.Products.Computers
 {
-    public class Computer : Product,IComputer
+    public abstract class Computer : Product,IComputer
     {
         protected Computer(int id, string manufacturer, string model, decimal price, double overallPerformance) 
             : base(id, manufacturer, model, price, overallPerformance)
