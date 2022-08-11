@@ -77,7 +77,7 @@ namespace OnlineShop.Models.Products.Computers
         public override string ToString()
         {
             //May need use Foreach for every component and peripheral!!!
-            return base.ToString() + (string.Format(SuccessMessages.ComputerComponentsToString,this.Components)) + this.Peripherals.ToString();
+            return base.ToString() + (string.Format(SuccessMessages.ComputerComponentsToString,this.Components.Count)) + this.Peripherals.ToString();
         }
     }
 }

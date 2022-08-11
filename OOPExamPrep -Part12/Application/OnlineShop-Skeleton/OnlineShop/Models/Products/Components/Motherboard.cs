@@ -8,9 +8,9 @@ namespace OnlineShop.Models.Products.Components
     {
         private const double multiplier = 1.25;
         public Motherboard(int id, string manufacturer, string model, decimal price, double overallPerformance, int generation) 
-            : base(id, manufacturer, model, price, overallPerformance, generation)
+            : base(id, manufacturer, model, price,multiplier * overallPerformance, generation)
         {
-            overallPerformance *= multiplier;
+            
         }
     }
 }

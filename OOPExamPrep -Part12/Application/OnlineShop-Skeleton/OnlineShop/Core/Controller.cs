@@ -24,7 +24,7 @@ namespace OnlineShop.Core
         public string AddComputer(string computerType, int id, string manufacturer, string model, decimal price)
         {
 
-            IsComputerIdExist(id);
+            
 
             if (computerType != "DesktopComputer" && computerType != "Laptop")
             {
@@ -50,7 +50,7 @@ namespace OnlineShop.Core
         public string AddPeripheral(int computerId, int id, string peripheralType, string manufacturer, string model, decimal price,
             double overallPerformance, string connectionType)
         {
-            //IsComputerIdExist(computerId);
+            IsComputerIdExist(computerId);
 
             IComputer computer = this.computers.FirstOrDefault(x => x.Id == computerId);
 
@@ -109,15 +109,16 @@ namespace OnlineShop.Core
         public string AddComponent(int computerId, int id, string componentType, string manufacturer, string model, decimal price,
             double overallPerformance, int generation)
         {
-            //IsComputerIdExist(computerId);
+            IsComputerIdExist(computerId);
 
-            IComputer computer = this.computers.FirstOrDefault(computer => computer.Id == computerId);
+            
 
-            if (computer!.Components.Any(x=> x.Id == id))
+            if (this.components.Any(x=> x.Id == id))
             {
                 throw new ArgumentException(ExceptionMessages.ExistingComponentId);
             }
 
+            IComputer computer = this.computers.FirstOrDefault(computer => computer.Id == computerId);
             IComponent component = null;
 
             if (componentType == "CentralProcessingUnit")
@@ -148,8 +149,9 @@ namespace OnlineShop.Core
             {
                 throw new ArgumentException(ExceptionMessages.InvalidComponentType);
             }
+
             this.components.Add(component);
-            computer.AddComponent(component);
+            computer!.AddComponent(component);
 
             return string.Format(SuccessMessages.AddedComponent, componentType, id, computerId);
             
@@ -195,18 +197,18 @@ namespace OnlineShop.Core
 
         public string GetComputerData(int id)
         {
-            //IsComputerIdExist(id);
+            IsComputerIdExist(id);
 
             var computer = this.computers.FirstOrDefault(x => x.Id == id);
 
-            return computer.ToString();
+            return computer!.ToString();
         }
 
         private void IsComputerIdExist(int id)
         {
-            if (this.computers.Exists(x => x.Id == id))
+            if (!this.computers.Exists(x => x.Id == id))
             {
-                throw new ArgumentException(string.Format(ExceptionMessages.ExistingComputerId, id));
+                throw new ArgumentException(string.Format(ExceptionMessages.NotExistingComputerId, id));
             }
         }
 
