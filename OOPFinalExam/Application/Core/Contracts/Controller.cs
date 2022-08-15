@@ -40,7 +40,7 @@ namespace PlanetWars.Core.Contracts
                 throw new InvalidOperationException(string.Format(ExceptionMessages.UnexistingPlanet,planetName));
             }
 
-            IPlanet planet = this.planetRepository.Models.FirstOrDefault(x => x.Name == planetName);
+            IPlanet planet = this.planetRepository.Models.First(x => x.Name == planetName);
 
             if (unitTypeName != "AnonymousImpactUnit" && unitTypeName != "SpaceForces" && unitTypeName != "StormTroopers")
             {
@@ -67,6 +67,7 @@ namespace PlanetWars.Core.Contracts
             {
                 militaryUnit = new StormTroopers();
             }
+            planet.Spend(militaryUnit.Cost);
             planet.AddUnit(militaryUnit);
 
             return string.Format(OutputMessages.UnitAdded, unitTypeName, planetName);
@@ -75,12 +76,12 @@ namespace PlanetWars.Core.Contracts
 
         public string AddWeapon(string planetName, string weaponTypeName, int destructionLevel)
         {
-            if (this.planetRepository.Models.Any(x => x.Name == planetName))
+            if (!this.planetRepository.Models.Any(x => x.Name == planetName))
             {
-                return string.Format(OutputMessages.ExistingPlanet, planetName);
+                throw new InvalidOperationException(string.Format(ExceptionMessages.UnexistingPlanet, planetName));
             }
 
-            IPlanet planet = this.planetRepository.Models.FirstOrDefault(x => x.Name == planetName);
+            IPlanet planet = this.planetRepository.Models.First(x => x.Name == planetName);
 
             if (planet.Weapons.Any(x=> x.GetType().Name == weaponTypeName))
             {
@@ -103,13 +104,14 @@ namespace PlanetWars.Core.Contracts
             {
                 weapon = new NuclearWeapon(destructionLevel);
             }
-            else if (weaponTypeName == "SpaceMissiles")
+            else 
             {
                 weapon = new SpaceMissiles(destructionLevel);
             }
 
+            planet.Spend(weapon.Price);
             planet.AddWeapon(weapon);
-            planet.Spend(weapon.Price); 
+           
 
             return string.Format(OutputMessages.WeaponAdded, planetName, weaponTypeName);
 
@@ -117,7 +119,7 @@ namespace PlanetWars.Core.Contracts
 
         public string SpecializeForces(string planetName)
         {
-            if (this.planetRepository.Models.Any(x => x.Name == planetName))
+            if (!this.planetRepository.Models.Any(x => x.Name == planetName))
             {
                 return string.Format(OutputMessages.ExistingPlanet, planetName);
             }
@@ -141,19 +143,19 @@ namespace PlanetWars.Core.Contracts
 
             string result = String.Empty;
 
-            if (firstPlanet.MilitaryPower == secondPlanet.MilitaryPower)
+            if (firstPlanet.MilitaryPower.Equals(secondPlanet.MilitaryPower))
             {
                 if (firstPlanet.Weapons.Any(x => x.GetType().Name == "NuclearWeapon")
                     && secondPlanet.Weapons.Any(x => x.GetType().Name == "NuclearWeapon")
                     || firstPlanet.Weapons.All(x => x.GetType().Name != "NuclearWeapon")
-                    && secondPlanet.Weapons.All(x => x.GetType().Name == "NuclearWeapon"))
+                    && secondPlanet.Weapons.All(x => x.GetType().Name != "NuclearWeapon"))
                 {
                     firstPlanet.Spend(firstPlanet.Budget / 2);
                     secondPlanet.Spend(secondPlanet.Budget / 2);
 
                     return OutputMessages.NoWinner;
                 }
-                else if (firstPlanet.Weapons.Any(x => x.GetType().Name == "NuclearWeapon"))
+                if (firstPlanet.Weapons.Any(x => x.GetType().Name == "NuclearWeapon"))
                 {
                     firstPlanet.Spend(firstPlanet.Budget / 2);
                     var loosingPlaneBudget = secondPlanet.Budget / 2;
@@ -175,6 +177,28 @@ namespace PlanetWars.Core.Contracts
                     this.planetRepository.RemoveItem(firstPlanet.Name);
                     result = $"{secondPlanet.Name} destructed {firstPlanet.Name}!";
                 }
+            }
+            else if (firstPlanet.MilitaryPower > secondPlanet.MilitaryPower)
+            {
+                firstPlanet.Spend(firstPlanet.Budget / 2);
+                var loosingPlaneBudget = secondPlanet.Budget / 2;
+                firstPlanet.Profit(loosingPlaneBudget);
+                var allCost = secondPlanet.Army.Select(x => x.Cost).Sum() +
+                              secondPlanet.Weapons.Select(x => x.Price).Sum();
+                firstPlanet.Profit(allCost);
+                this.planetRepository.RemoveItem(secondPlanet.Name);
+                result = $"{firstPlanet.Name} destructed {secondPlanet.Name}!";
+            }
+            else
+            {
+                secondPlanet.Spend(secondPlanet.Budget / 2);
+                var loosingPlaneBudget = firstPlanet.Budget / 2;
+                secondPlanet.Profit(loosingPlaneBudget);
+                var allCost = firstPlanet.Army.Select(x => x.Cost).Sum() +
+                              firstPlanet.Weapons.Select(x => x.Price).Sum();
+                secondPlanet.Profit(allCost);
+                this.planetRepository.RemoveItem(firstPlanet.Name);
+                result = $"{secondPlanet.Name} destructed {firstPlanet.Name}!";
             }
 
             return result;

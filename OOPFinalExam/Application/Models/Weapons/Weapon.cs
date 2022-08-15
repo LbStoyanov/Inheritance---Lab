@@ -11,7 +11,7 @@ namespace PlanetWars.Models.Weapons
         private int destructionLevel;
         protected Weapon(int destructionLevel, double price)
         {
-            this.destructionLevel = destructionLevel;
+            this.DestructionLevel = destructionLevel;
             this.Price = price;
         }
         public double Price { get; }
@@ -25,7 +25,7 @@ namespace PlanetWars.Models.Weapons
                 {
                     throw new ArgumentException(ExceptionMessages.TooLowDestructionLevel);
                 }
-                else if (value> 10)
+                if (value> 10)
                 {
                     throw new ArgumentException(ExceptionMessages.TooHighDestructionLevel);
                 }

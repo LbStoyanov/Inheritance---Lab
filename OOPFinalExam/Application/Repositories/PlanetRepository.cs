@@ -29,6 +29,11 @@ namespace PlanetWars.Repositories
         {
             IPlanet planet = this.planets.FirstOrDefault(x => x.Name == name);
 
+            //if (planet == null)
+            //{
+            //    return false;
+            //}
+
             return this.planets.Remove(planet);
         }
     }

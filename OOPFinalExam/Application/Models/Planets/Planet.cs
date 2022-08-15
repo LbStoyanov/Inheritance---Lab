@@ -105,7 +105,7 @@ namespace PlanetWars.Models.Planets
             }
             else
             {
-                result.AppendLine($"--Forces: {string.Join(", ",this.army)}");
+                result.AppendLine($"--Forces: {string.Join(", ",this.army.Select(x => x.GetType().Name))}");
             }
 
             if (this.weapons.Count == 0)
@@ -114,7 +114,7 @@ namespace PlanetWars.Models.Planets
             }
             else
             {
-                result.AppendLine($"--Forces: {string.Join(", ", this.weapons)}");
+                result.AppendLine($"--Forces: {string.Join(", ", this.weapons.Select(x => x.GetType().Name))}");
             }
             result.AppendLine($"--Military Power: {this.MilitaryPower}");
 
@@ -131,7 +131,7 @@ namespace PlanetWars.Models.Planets
             {
                 totalAmount += totalAmount * 0.30;
             }
-            else if (this.weapons.Any(x => x.GetType().Name == "NuclearWeapon"))
+            if (this.weapons.Any(x => x.GetType().Name == "NuclearWeapon"))
             {
                 totalAmount += totalAmount * 0.45;
             }

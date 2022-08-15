@@ -17,7 +17,7 @@ namespace PlanetWars.Models.MilitaryUnits
         public int EnduranceLevel { get; private set; }
         public void IncreaseEndurance()
         {
-            if (this.EnduranceLevel > 20)
+            if (this.EnduranceLevel >= 20)
             {
                 this.EnduranceLevel = 20;
                 throw new ArgumentException(ExceptionMessages.EnduranceLevelExceeded);
