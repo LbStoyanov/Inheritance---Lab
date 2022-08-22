@@ -161,5 +161,19 @@ namespace BookigApp.Tests
             
         }
 
+        [Test]
+        public void BookRoomWorkingWithZeroTurnOver()
+        {
+            Room room = new Room(10, 10.50);
+            Hotel hotel = new Hotel("Pri Chako", 4);
+            hotel.AddRoom(room);
+            hotel.BookRoom(1, 1, 1, 5.00);
+            
+
+            Assert.AreEqual(0, hotel.Turnover);
+
+
+        }
+
     }
 }
