@@ -70,7 +70,7 @@ namespace BookingApp.Models.Hotels
 
         private double CalculateTurnOver()
         {
-            double turnOver = 0;
+            double turnOver = 0.00;
 
             foreach (var booking in bookingRepository.All())
             {

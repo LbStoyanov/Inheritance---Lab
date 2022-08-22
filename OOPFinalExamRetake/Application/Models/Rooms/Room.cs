@@ -12,7 +12,7 @@ namespace BookingApp.Models.Rooms
         protected Room(int bedCapacity)
         {
             this.BedCapacity = bedCapacity;
-            this.PricePerNight = 0;
+            this.PricePerNight = 0.00;
         }
         public int BedCapacity { get; }
 

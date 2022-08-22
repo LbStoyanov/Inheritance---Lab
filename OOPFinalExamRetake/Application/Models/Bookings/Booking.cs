@@ -69,7 +69,7 @@ namespace BookingApp.Models.Bookings
             result.AppendLine($"Room type: {this.Room.GetType().Name}");
             result.AppendLine($"Adults: {this.AdultsCount} Children: {this.ChildrenCount}");
             double totalPaid = Math.Round(this.ResidenceDuration * this.Room.PricePerNight, 2);
-            result.AppendLine($"Total amount paid: {totalPaid}$");
+            result.AppendLine($"Total amount paid: {totalPaid:f2}$");
 
             return result.ToString().TrimEnd();
         }

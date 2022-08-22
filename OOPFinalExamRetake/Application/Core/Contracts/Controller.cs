@@ -136,8 +136,8 @@ namespace BookingApp.Core.Contracts
 
             var orderedRooms = availableRooms.OrderBy(x => x.BedCapacity);
 
-            var selectedRoom = orderedRooms.Min();
-        
+            IRoom selectedRoom = orderedRooms.FirstOrDefault(x=> x.BedCapacity >= adults + children);
+            
 
             if (selectedRoom == null)
             {
@@ -146,7 +146,7 @@ namespace BookingApp.Core.Contracts
 
             IHotel hotel = this.hotelRepository.All().FirstOrDefault(x => x.Category == category);
 
-            int bookingNumber = hotel.Bookings.All().Count + 1;
+            int bookingNumber = hotel!.Bookings.All().Count + 1;
 
             IBooking booking = new Booking(selectedRoom, duration, adults, children, bookingNumber);
 
