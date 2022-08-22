@@ -171,7 +171,7 @@ namespace BookingApp.Core.Contracts
             StringBuilder result = new StringBuilder();
             result.AppendLine($"Hotel name: {hotelName}");
             result.AppendLine($"--{hotel!.Category} star hotel");
-            result.AppendLine($"--Turnover: {hotel.Turnover} $");
+            result.AppendLine($"--Turnover: {hotel.Turnover:f2} $");
             result.AppendLine($"--Bookings:");
             result.AppendLine(Environment.NewLine);
         
@@ -184,7 +184,8 @@ namespace BookingApp.Core.Contracts
                 foreach (var booking in hotel.Bookings.All())
                 {
                     result.AppendLine(booking.BookingSummary());
-                    
+                    result.AppendLine(Environment.NewLine);
+
                 }
             }
 

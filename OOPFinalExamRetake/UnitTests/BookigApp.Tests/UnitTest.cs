@@ -171,7 +171,32 @@ namespace BookigApp.Tests
             
 
             Assert.AreEqual(0, hotel.Turnover);
+            
+        }
 
+        [Test]
+        public void BookRoomWorkingWithPositiveTurnOver()
+        {
+            Room room = new Room(10, 10.00);
+            Hotel hotel = new Hotel("Pri Chako", 4);
+            hotel.AddRoom(room);
+            hotel.BookRoom(1, 1, 1, 25.00);
+
+
+            Assert.AreEqual(10.00, hotel.Turnover);
+
+        }
+
+        [Test]
+        public void BookRoomWorkingWithNoBadsTurnOver()
+        {
+            Room room = new Room(1, 10.00);
+            Hotel hotel = new Hotel("Pri Chako", 4);
+            hotel.AddRoom(room);
+            hotel.BookRoom(1, 1, 1, 25.00);
+
+
+            Assert.AreEqual(0, hotel.Bookings.Count);
 
         }
 
