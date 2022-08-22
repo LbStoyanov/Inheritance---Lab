@@ -13,11 +13,14 @@ namespace BookingApp.Models.Hotels
     {
         private string fullName;
         private int category;
+        private IRepository<IRoom> roomRepository;
+        private IRepository<IBooking> bookingRepository;
         public Hotel(string fullName, int category)
         {
             this.FullName = fullName;
             this.Category = category;
-            
+            this.roomRepository = new RoomRepository();
+            this.bookingRepository = new BookingRepository();
         }
 
         public string FullName
@@ -45,8 +48,37 @@ namespace BookingApp.Models.Hotels
                 this.category = value;
             }
         }
-        public double Turnover { get; }
-        public IRepository<IRoom> Rooms { get; set; }
-        public IRepository<IBooking> Bookings { get; set; }
+        public double Turnover => CalculateTurnOver();
+
+        public IRepository<IRoom> Rooms
+        {
+            get => this.roomRepository;
+            set
+            {
+                this.roomRepository = value;
+            }
+        }
+
+        public IRepository<IBooking> Bookings
+        {
+            get => this.bookingRepository;
+            set
+            {
+                this.bookingRepository = value;
+            }
+        }
+
+        private double CalculateTurnOver()
+        {
+            double turnOver = 0;
+
+            foreach (var booking in bookingRepository.All())
+            {
+                var residenceDuration = booking.ResidenceDuration;
+                var price = booking.Room.PricePerNight;
+                turnOver += residenceDuration * price;
+            }
+            return Math.Round(turnOver,2);
+        }
     }
 }

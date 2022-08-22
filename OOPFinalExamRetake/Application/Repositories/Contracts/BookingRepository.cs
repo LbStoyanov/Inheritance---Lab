@@ -8,7 +8,7 @@ namespace BookingApp.Repositories.Contracts
 {
     public class BookingRepository : IRepository<IBooking>
     {
-        private List<IBooking> bookings;
+        private readonly List<IBooking> bookings;
 
         public BookingRepository()
         {
