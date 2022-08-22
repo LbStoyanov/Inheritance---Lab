@@ -21,7 +21,7 @@ namespace BookingApp.Repositories.Contracts
 
         public IHotel Select(string criteria)
         {
-            return this.hotels.FirstOrDefault(x => x.GetType().Name == criteria); ;
+            return this.hotels.FirstOrDefault(x => x.GetType().Name == criteria);
         }
 
         public IReadOnlyCollection<IHotel> All()

@@ -3,29 +3,28 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using BookingApp.Models.Bookings.Contracts;
-using BookingApp.Models.Rooms.Contracts;
 
 namespace BookingApp.Repositories.Contracts
 {
-    public class RoomRepository :IRepository<IRoom>
+    public class BookingRepository : IRepository<IBooking>
     {
-        private List<IRoom> bookings;
+        private List<IBooking> bookings;
 
-        public RoomRepository()
+        public BookingRepository()
         {
-            this.bookings = new List<IRoom>();
+            this.bookings = new List<IBooking>();
         }
-        public void AddNew(IRoom model)
+        public void AddNew(IBooking model)
         {
             this.bookings.Add(model);
         }
 
-        public IRoom Select(string criteria)
+        public IBooking Select(string criteria)
         {
             return this.bookings.FirstOrDefault(x => x.GetType().Name == criteria);
         }
 
-        public IReadOnlyCollection<IRoom> All()
+        public IReadOnlyCollection<IBooking> All()
         {
             return this.bookings.AsReadOnly();
         }
